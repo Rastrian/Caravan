@@ -19,7 +19,7 @@ public class EnderecoDAO implements DAO<Endereco, Integer> {
 	private FileOutputStream fos;
 	private ObjectOutputStream outputFile;
 
-	public EnderecoDAO(String filename) throws IOException {
+	public EnderecoDAO() throws IOException {
 		if (!file.exists()) {
 			fos = new FileOutputStream(file, false);
 			outputFile = new ObjectOutputStream(fos);

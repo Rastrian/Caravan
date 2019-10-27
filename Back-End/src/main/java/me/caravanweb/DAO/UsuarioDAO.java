@@ -19,7 +19,7 @@ private String filename = "usuarios.bin";
 	private FileOutputStream fos;
 	private ObjectOutputStream outputFile;
 
-	public UsuarioDAO(String filename) throws IOException {
+	public UsuarioDAO() throws IOException {
 		if (!file.exists()) {
 			fos = new FileOutputStream(file, false);
 			outputFile = new ObjectOutputStream(fos);

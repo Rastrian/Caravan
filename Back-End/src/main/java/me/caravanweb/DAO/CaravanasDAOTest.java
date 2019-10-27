@@ -27,7 +27,7 @@ class CaravanasDAOTest {
 	
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {	
-		caravanas = new CaravanasDAO("CaravanasTeste");
+		caravanas = new CaravanasDAO();
 	}
 	@AfterAll
 	static void tearDownAfterClass() throws Exception {

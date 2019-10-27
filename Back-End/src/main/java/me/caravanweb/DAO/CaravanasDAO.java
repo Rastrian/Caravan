@@ -19,7 +19,7 @@ public class CaravanasDAO implements DAO<Caravanas, Integer> {
 	private FileOutputStream fos;
 	private ObjectOutputStream outputFile;
 
-	public CaravanasDAO(String filename) throws IOException {
+	public CaravanasDAO() throws IOException {
 		if (!file.exists()) {
 			fos = new FileOutputStream(file, false);
 			outputFile = new ObjectOutputStream(fos);
