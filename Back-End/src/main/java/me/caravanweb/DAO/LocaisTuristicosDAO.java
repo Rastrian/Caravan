@@ -14,18 +14,19 @@ import me.caravanweb.profiles.LocaisTuristicos;
 public class LocaisTuristicosDAO implements DAO<LocaisTuristicos,Integer>{
 	
 	private String filename = "locais.bin";
+	
 	private File file = new File(filename);
+	private static List<LocaisTuristicos> locais;
 	private FileOutputStream fos;
 	private ObjectOutputStream outputFile;
-	private ArrayList<LocaisTuristicos> locais = new ArrayList<LocaisTuristicos>();
 	
 	public LocaisTuristicosDAO() throws IOException {
 		if (!file.exists()) {
 			fos = new FileOutputStream(file, false);
 			outputFile = new ObjectOutputStream(fos);
-		}else {
-			readFromFile();
 		}
+		locais = new ArrayList<LocaisTuristicos>();
+		readFromFile();
 	}
 
 	@Override
@@ -76,14 +77,14 @@ public class LocaisTuristicosDAO implements DAO<LocaisTuristicos,Integer>{
 	
 	private void saveToFile() {
 		try {
-			close();
-			fos = new FileOutputStream(file, false); 
-			outputFile = new ObjectOutputStream(fos);
+			FileOutputStream fos2 = new FileOutputStream(file, false); 
+			ObjectOutputStream outputFile2 = new ObjectOutputStream(fos2);
 
 			for (LocaisTuristicos local : locais) {
-				outputFile.writeObject(local);
+				outputFile2.writeObject(local);
 			}
-			outputFile.flush();
+			outputFile2.flush();
+			readFromFile();
 		} catch (Exception e) {
 			System.out.println("ERRO ao gravar produto no disco!");
 			e.printStackTrace();
@@ -96,6 +97,7 @@ public class LocaisTuristicosDAO implements DAO<LocaisTuristicos,Integer>{
 	}
 	
 	private List<LocaisTuristicos> readFromFile() {
+		locais = new ArrayList<LocaisTuristicos>();
 		LocaisTuristicos local = null;
 		try (FileInputStream fis = new FileInputStream(file); ObjectInputStream inputFile = new ObjectInputStream(fis)) {
 			while (fis.available() > 0) {
