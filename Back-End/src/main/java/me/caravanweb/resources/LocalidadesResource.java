@@ -45,4 +45,16 @@ public class LocalidadesResource {
 		return ResponseEntity.created(uri).body(local);
     }
     
+    @PostMapping(value = "/delete/{id}")
+    @ResponseStatus(HttpStatus.CREATED)
+    public ResponseEntity<String> delete(@PathVariable Integer id){
+    	LocaisTuristicos local = service.findById(id);
+    	String body = "";
+		boolean status = service.delete(local);
+		if (status) {
+			body = "Deletado.";
+		}
+		return ResponseEntity.ok().body(body);    
+	}
+    
 }

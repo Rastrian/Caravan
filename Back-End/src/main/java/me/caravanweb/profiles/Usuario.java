@@ -37,6 +37,7 @@ public class Usuario implements Serializable {
 		setSenha(senha);
 		setTurista(turista);
 		this.id = id;
+		this.admin = false;
 	}
 	
 	public Endereco getEndereco() {

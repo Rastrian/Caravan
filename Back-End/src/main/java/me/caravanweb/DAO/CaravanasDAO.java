@@ -11,36 +11,32 @@ import java.util.List;
 
 import me.caravanweb.profiles.Caravanas;
 
-public class CaravanasDAO implements DAO<Caravanas,Integer>{
-	private File file;
+public class CaravanasDAO implements DAO<Caravanas, Integer> {
+	private String filename = "caravanas.bin";
+
+	private File file = new File(filename);
+	private static List<Caravanas> caravanas;
 	private FileOutputStream fos;
 	private ObjectOutputStream outputFile;
-	
+
 	public CaravanasDAO(String filename) throws IOException {
-		file = new File(filename);
-		if (file.exists())
-			file.delete();
-		fos = new FileOutputStream(file, false); 
-		outputFile = new ObjectOutputStream(fos);
+		if (!file.exists()) {
+			fos = new FileOutputStream(file, false);
+			outputFile = new ObjectOutputStream(fos);
+		} else {
+			readFromFile();
+		}
+		caravanas = new ArrayList<Caravanas>();
+		readFromFile();
 	}
-	 
+
 	@Override
 	public Caravanas get(Integer id) {
-		Caravanas caravana = null;
- 
-		try {
-			FileInputStream fis = new FileInputStream(file);
-			ObjectInputStream inputFile = new ObjectInputStream(fis);
-			while (fis.available() > 0) {
-				caravana = (Caravanas) inputFile.readObject();
-
-				if (id.equals(caravana.getId())) {
-					return caravana;
-				}
+		readFromFile();
+		for (Caravanas caravana : caravanas) {
+			if (caravana.getId() == id) {
+				return caravana;
 			}
-		} catch (Exception e) {
-			System.out.println("ERRO ao ler a caravana '" + id + "' do disco!");
-			e.printStackTrace();
 		}
 		return null;
 	}
@@ -48,48 +44,48 @@ public class CaravanasDAO implements DAO<Caravanas,Integer>{
 	@Override
 	public boolean add(Caravanas caravana) {
 		try {
-			outputFile.writeObject(caravana);
+			if (!caravanas.contains(caravana))
+				caravanas.add(caravana);
+			saveToFile();
 			return true;
 		} catch (Exception e) {
-			System.out.println("ERRO ao gravar a caravana '" + caravana.getDescricao() + "' no disco!");
+			System.out.println("ERRO ao gravar o produto '" + caravana.getId() + "' no disco!");
 			e.printStackTrace();
 			return false;
 		}
-		
+
 	}
 
 	@Override
 	public void update(Caravanas caravana) {
-		List<Caravanas> caravanas = getAll();
 		int index = caravanas.indexOf(caravana);
 		if (index != -1) {
 			caravanas.set(index, caravana);
 		}
-		saveToFile(caravanas);
-		
+		saveToFile();
+
 	}
 
 	@Override
 	public void remove(Caravanas caravana) {
-		List<Caravanas> caravanas = getAll();
 		int index = caravanas.indexOf(caravana);
 		if (index != -1) {
 			caravanas.remove(index);
 		}
-		saveToFile(caravanas);
-		
-	}
-	
-	private void saveToFile(List<Caravanas> caravanas) {
-		try {
-			close();
-			fos = new FileOutputStream(file, false); 
-			outputFile = new ObjectOutputStream(fos);
+		saveToFile();
 
-			for (Caravanas caravana : caravanas) {
-				outputFile.writeObject(caravana);
+	}
+
+	private void saveToFile() {
+		try {
+			FileOutputStream fos2 = new FileOutputStream(file, false);
+			ObjectOutputStream outputFile2 = new ObjectOutputStream(fos2);
+
+			for (Caravanas car : caravanas) {
+				outputFile2.writeObject(car);
 			}
-			outputFile.flush();
+			outputFile2.flush();
+			readFromFile();
 		} catch (Exception e) {
 			System.out.println("ERRO ao gravar caravana no disco!");
 			e.printStackTrace();
@@ -98,11 +94,14 @@ public class CaravanasDAO implements DAO<Caravanas,Integer>{
 
 	@Override
 	public List<Caravanas> getAll() {
-		List<Caravanas> caravanas = new ArrayList<Caravanas>();
+		return caravanas;
+	}
+
+	private List<Caravanas> readFromFile() {
+		caravanas = new ArrayList<Caravanas>();
 		Caravanas caravana = null;
-		try {
-			FileInputStream fis = new FileInputStream(file);
-			ObjectInputStream inputFile = new ObjectInputStream(fis);
+		try (FileInputStream fis = new FileInputStream(file);
+				ObjectInputStream inputFile = new ObjectInputStream(fis)) {
 			while (fis.available() > 0) {
 				caravana = (Caravanas) inputFile.readObject();
 				caravanas.add(caravana);
@@ -113,7 +112,7 @@ public class CaravanasDAO implements DAO<Caravanas,Integer>{
 		}
 		return caravanas;
 	}
-	
+
 	private void close() throws IOException {
 		outputFile.close();
 		fos.close();

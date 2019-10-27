@@ -37,8 +37,13 @@ public class LocalidadesService {
 		return repository.count();
 	}
 	
-	public void delete(LocaisTuristicos locaisTuristicos) {
+	public boolean delete(LocaisTuristicos locaisTuristicos) {
 		repository.remove(locaisTuristicos);
+		if (repository.get(locaisTuristicos.getId()) == null) {
+			return true;
+		}else {
+			return false;
+		}
 	}
 	
 	public boolean add(LocaisTuristicos local) {
