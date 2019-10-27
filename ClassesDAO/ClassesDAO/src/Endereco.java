@@ -1,13 +1,13 @@
 public class Endereco {
 	private String endereco;
 	private long telefone;
-	private long cep;
+	private Long cep;
 	private String cidade;
 
 	public Endereco() {
 		
 		telefone = 0;
-		cep = 0;
+		cep = null;
 		cidade = "naoLocalizada";
 	}
 
@@ -54,7 +54,12 @@ public class Endereco {
 		if (newCEP >= 10000000 && newCEP <= 100000000)
 			cep = newCEP;
 		else
-			cep = 0;
+			cep = null;
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		return this.cep.equals(((Endereco) obj).getCEP());
 	}
 }
 

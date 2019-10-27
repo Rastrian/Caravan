@@ -100,7 +100,7 @@ public class LocaisTuristicosDAO implements DAO<LocaisTuristicos,Integer>{
 				locais.add(local);
 			}
 		} catch (Exception e) {
-			System.out.println("ERRO ao gravar produto no disco!");
+			System.out.println("ERRO ao gravar local no disco!");
 			e.printStackTrace();
 		}
 		return locais;

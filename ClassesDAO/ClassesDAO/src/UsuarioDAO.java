@@ -7,109 +7,110 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CaravanasDAO implements DAO<Caravanas,Integer>{
+public class UsuarioDAO implements DAO<Usuario,Integer> {
 	private File file;
 	private FileOutputStream fos;
 	private ObjectOutputStream outputFile;
 	
-	public CaravanasDAO(String filename) throws IOException {
+	public UsuarioDAO(String filename) throws IOException{
 		file = new File(filename);
 		if (file.exists())
 			file.delete();
 		fos = new FileOutputStream(file, false); 
 		outputFile = new ObjectOutputStream(fos);
 	}
-	 
+	
+	
 	@Override
-	public Caravanas get(Integer id) {
-		Caravanas caravana = null;
- 
+	public Usuario get(Integer id) {
+		Usuario usuario= null;
+		
 		try (FileInputStream fis = new FileInputStream(file); ObjectInputStream inputFile = new ObjectInputStream(fis)) {
 			while (fis.available() > 0) {
-				caravana = (Caravanas) inputFile.readObject();
+				usuario = (Usuario) inputFile.readObject();
 
-				if (id.equals(caravana.getId())) {
-					return caravana;
+				if (id.equals(usuario.getId())) {
+					return usuario;
 				}
 			}
 		} catch (Exception e) {
-			System.out.println("ERRO ao ler a caravana '" + id + "' do disco!");
+			System.out.println("ERRO ao ler o usuario '" + id + "' do disco!");
 			e.printStackTrace();
 		}
 		return null;
 	}
 
 	@Override
-	public void add(Caravanas caravana) {
+	public void add(Usuario usuario) {
 		try {
-			outputFile.writeObject(caravana);
+			outputFile.writeObject(usuario);
 		} catch (Exception e) {
-			System.out.println("ERRO ao gravar a caravana '" + caravana.getDescricao() + "' no disco!");
+			System.out.println("ERRO ao gravar o usuario '" + usuario.getNome() + "' no disco!");
 			e.printStackTrace();
 		}
 		
 	}
 
 	@Override
-	public void update(Caravanas caravana) {
-		List<Caravanas> caravanas = getAll();
-		int index = caravanas.indexOf(caravana);
+	public void update(Usuario usuario) {
+		List<Usuario> usuarios = getAll();
+		int index = usuarios.indexOf(usuario);
 		if (index != -1) {
-			caravanas.set(index, caravana);
+			usuarios.set(index, usuario);
 		}
-		saveToFile(caravanas);
+		saveToFile(usuarios);
 		
 	}
 
 	@Override
-	public void remove(Caravanas caravana) {
-		List<Caravanas> caravanas = getAll();
-		int index = caravanas.indexOf(caravana);
+	public void remove(Usuario usuario) {
+		List<Usuario> usuarios = getAll();
+		int index = usuarios.indexOf(usuario);
 		if (index != -1) {
-			caravanas.remove(index);
+			usuarios.remove(index);
 		}
-		saveToFile(caravanas);
+		saveToFile(usuarios);
 		
 	}
 	
-	private void saveToFile(List<Caravanas> caravanas) {
+	private void saveToFile(List<Usuario> usuarios) {
 		try {
 			close();
 			fos = new FileOutputStream(file, false); 
 			outputFile = new ObjectOutputStream(fos);
 
-			for (Caravanas caravana : caravanas) {
-				outputFile.writeObject(caravana);
+			for (Usuario usuario : usuarios) {
+				outputFile.writeObject(usuario);
 			}
 			outputFile.flush();
 		} catch (Exception e) {
-			System.out.println("ERRO ao gravar caravana no disco!");
+			System.out.println("ERRO ao gravar usuario no disco!");
 			e.printStackTrace();
 		}
 	}
 
 	@Override
-	public List<Caravanas> getAll() {
-		List<Caravanas> caravanas = new ArrayList<Caravanas>();
-		Caravanas caravana = null;
+	public List<Usuario> getAll() {
+		List<Usuario> usuarios = new ArrayList<Usuario>();
+		Usuario usuario = null;
 		try (FileInputStream fis = new FileInputStream(file); ObjectInputStream inputFile = new ObjectInputStream(fis)) {
 
 			while (fis.available() > 0) {
-				caravana = (Caravanas) inputFile.readObject();
-				caravanas.add(caravana);
+				usuario = (Usuario) inputFile.readObject();
+				usuarios.add(usuario);
 			}
 		} catch (Exception e) {
-			System.out.println("ERRO ao gravar caravana no disco!");
+			System.out.println("ERRO ao gravar usuario no disco!");
 			e.printStackTrace();
 		}
-		return caravanas;
+		return usuarios;
 	}
 	
 	private void close() throws IOException {
 		outputFile.close();
 		fos.close();
 	}
-
+	
 	@Override
 	protected void finalize() throws Throwable {
 		this.close();

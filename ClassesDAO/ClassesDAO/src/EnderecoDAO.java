@@ -7,112 +7,109 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CaravanasDAO implements DAO<Caravanas,Integer>{
+public class EnderecoDAO implements DAO<Endereco,Long> {
 	private File file;
 	private FileOutputStream fos;
 	private ObjectOutputStream outputFile;
-	
-	public CaravanasDAO(String filename) throws IOException {
+	public EnderecoDAO(String filename) throws IOException {
 		file = new File(filename);
 		if (file.exists())
 			file.delete();
 		fos = new FileOutputStream(file, false); 
 		outputFile = new ObjectOutputStream(fos);
 	}
-	 
 	@Override
-	public Caravanas get(Integer id) {
-		Caravanas caravana = null;
- 
+	public Endereco get(Long cep) {
+		Endereco endereco = null;
+		 
 		try (FileInputStream fis = new FileInputStream(file); ObjectInputStream inputFile = new ObjectInputStream(fis)) {
 			while (fis.available() > 0) {
-				caravana = (Caravanas) inputFile.readObject();
+				endereco = (Endereco) inputFile.readObject();
 
-				if (id.equals(caravana.getId())) {
-					return caravana;
+				if (cep.equals(endereco.getCEP())) {
+					return endereco;
 				}
 			}
 		} catch (Exception e) {
-			System.out.println("ERRO ao ler a caravana '" + id + "' do disco!");
+			System.out.println("ERRO ao ler o endereco '" + cep + "' do disco!");
 			e.printStackTrace();
 		}
 		return null;
 	}
 
 	@Override
-	public void add(Caravanas caravana) {
+	public void add(Endereco endereco) {
 		try {
-			outputFile.writeObject(caravana);
+			outputFile.writeObject(endereco);
 		} catch (Exception e) {
-			System.out.println("ERRO ao gravar a caravana '" + caravana.getDescricao() + "' no disco!");
+			System.out.println("ERRO ao gravar o endereco '" + endereco.getCEP() + "' no disco!");
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public void update(Endereco endereco) {
+		List<Endereco> enderecos = getAll();
+		int index = enderecos.indexOf(endereco);
+		if (index != -1) {
+			enderecos.set(index, endereco);
+		}
+		saveToFile(enderecos);
 		
 	}
 
 	@Override
-	public void update(Caravanas caravana) {
-		List<Caravanas> caravanas = getAll();
-		int index = caravanas.indexOf(caravana);
+	public void remove(Endereco endereco) {
+		List<Endereco> enderecos = getAll();
+		int index = enderecos.indexOf(endereco);
 		if (index != -1) {
-			caravanas.set(index, caravana);
+			enderecos.remove(index);
 		}
-		saveToFile(caravanas);
-		
-	}
-
-	@Override
-	public void remove(Caravanas caravana) {
-		List<Caravanas> caravanas = getAll();
-		int index = caravanas.indexOf(caravana);
-		if (index != -1) {
-			caravanas.remove(index);
-		}
-		saveToFile(caravanas);
+		saveToFile(enderecos);
 		
 	}
 	
-	private void saveToFile(List<Caravanas> caravanas) {
+	private void saveToFile(List<Endereco> enderecos) {
 		try {
 			close();
 			fos = new FileOutputStream(file, false); 
 			outputFile = new ObjectOutputStream(fos);
 
-			for (Caravanas caravana : caravanas) {
-				outputFile.writeObject(caravana);
+			for (Endereco endereco : enderecos) {
+				outputFile.writeObject(endereco);
 			}
 			outputFile.flush();
 		} catch (Exception e) {
-			System.out.println("ERRO ao gravar caravana no disco!");
+			System.out.println("ERRO ao gravar endereco no disco!");
 			e.printStackTrace();
 		}
 	}
 
 	@Override
-	public List<Caravanas> getAll() {
-		List<Caravanas> caravanas = new ArrayList<Caravanas>();
-		Caravanas caravana = null;
+	public List<Endereco> getAll() {
+		List<Endereco> enderecos = new ArrayList<Endereco>();
+		Endereco endereco = null;
 		try (FileInputStream fis = new FileInputStream(file); ObjectInputStream inputFile = new ObjectInputStream(fis)) {
 
 			while (fis.available() > 0) {
-				caravana = (Caravanas) inputFile.readObject();
-				caravanas.add(caravana);
+				endereco = (Endereco) inputFile.readObject();
+				enderecos.add(endereco);
 			}
 		} catch (Exception e) {
-			System.out.println("ERRO ao gravar caravana no disco!");
+			System.out.println("ERRO ao gravar endereco no disco!");
 			e.printStackTrace();
 		}
-		return caravanas;
+		return enderecos;
 	}
 	
 	private void close() throws IOException {
 		outputFile.close();
 		fos.close();
 	}
-
+	
 	@Override
 	protected void finalize() throws Throwable {
 		this.close();
 	}
-
+	
 }

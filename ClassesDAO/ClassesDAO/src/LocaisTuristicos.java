@@ -41,7 +41,7 @@ public class LocaisTuristicos implements Serializable {
 	
 	@Override
 	public boolean equals(Object obj) {
-		return this.id.equals(((Caravanas) obj).getId());
+		return this.id.equals(((LocaisTuristicos) obj).getId());
 	}
 	
 	
