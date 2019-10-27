@@ -10,8 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CaravanasDAO implements DAO<Caravanas, Integer> {
-private String filename = "caravanas.bin";
-	
+	private String filename = "caravanas.bin";
+
 	private File file = new File(filename);
 	private static List<Caravanas> caravanas;
 	private FileOutputStream fos;
@@ -41,12 +41,9 @@ private String filename = "caravanas.bin";
 
 	@Override
 	public boolean add(Caravanas caravana) {
-		for (Caravanas car : caravanas) {
-			if (car.getId() == caravana.getId())
-				return false;
-		}
 		try {
-			caravanas.add(caravana);
+			if (!caravanas.contains(caravana))
+				caravanas.add(caravana);
 			saveToFile();
 			return true;
 		} catch (Exception e) {
@@ -79,7 +76,7 @@ private String filename = "caravanas.bin";
 
 	private void saveToFile() {
 		try {
-			FileOutputStream fos2 = new FileOutputStream(file, false); 
+			FileOutputStream fos2 = new FileOutputStream(file, false);
 			ObjectOutputStream outputFile2 = new ObjectOutputStream(fos2);
 
 			for (Caravanas car : caravanas) {
@@ -101,7 +98,8 @@ private String filename = "caravanas.bin";
 	private List<Caravanas> readFromFile() {
 		caravanas = new ArrayList<Caravanas>();
 		Caravanas caravana = null;
-		try (FileInputStream fis = new FileInputStream(file); ObjectInputStream inputFile = new ObjectInputStream(fis)) {
+		try (FileInputStream fis = new FileInputStream(file);
+				ObjectInputStream inputFile = new ObjectInputStream(fis)) {
 			while (fis.available() > 0) {
 				caravana = (Caravanas) inputFile.readObject();
 				caravanas.add(caravana);

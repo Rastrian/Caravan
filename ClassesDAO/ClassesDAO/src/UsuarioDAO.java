@@ -8,82 +8,70 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UsuarioDAO implements DAO<Usuario, Integer> {
-	private File file;
+private String filename = "usuarios.bin";
+	
+	private File file = new File(filename);
+	private static List<Usuario> usuarios;
 	private FileOutputStream fos;
 	private ObjectOutputStream outputFile;
 
 	public UsuarioDAO(String filename) throws IOException {
-		file = new File(filename);
-		if (file.exists())
-			file.delete();
-		fos = new FileOutputStream(file, false);
-		outputFile = new ObjectOutputStream(fos);
+		if (!file.exists()) {
+			fos = new FileOutputStream(file, false);
+			outputFile = new ObjectOutputStream(fos);
+		} else {
+			usuarios = new ArrayList<Usuario>();
+			readFromFile();
+		}
 	}
 
 	@Override
 	public Usuario get(Integer id) {
-		Usuario usuario = null;
-
-		try (FileInputStream fis = new FileInputStream(file);
-				ObjectInputStream inputFile = new ObjectInputStream(fis)) {
-			while (fis.available() > 0) {
-				usuario = (Usuario) inputFile.readObject();
-
-				if (id.equals(usuario.getId())) {
-					return usuario;
-				}
+		readFromFile();
+		for (Usuario usu : usuarios) {
+			if (usu.getId() == id) {
+				return usu;
 			}
-		} catch (Exception e) {
-			System.out.println("ERRO ao ler o usuario '" + id + "' do disco!");
-			e.printStackTrace();
 		}
 		return null;
 	}
 
 	@Override
-	public void add(Usuario usuario) {
-		List<Usuario> usuarios = this.getAll();
-		boolean check = false;
-		for (Usuario usu : usuarios) {
-			if (usu.getId() == usuario.getId() || usu.getEmail()==usuario.getEmail())
-				check = false;
+	public boolean add(Usuario usuario) {
+		try {
+			if(!usuarios.contains(usuario))
+				usuarios.add(usuario);
+			usuarios.add(usuario);
+			saveToFile();
+			return true;
+		} catch (Exception e) {
+			System.out.println("ERRO ao gravar o usuario '" + usuario.getId() + "' no disco!");
+			e.printStackTrace();
+			return false;
 		}
-		if (check) {
-			try {
-				outputFile.writeObject(usuario);
-			} catch (Exception e) {
-				System.out.println("ERRO ao gravar o usuario '" + usuario.getNome() + "' no disco!");
-				e.printStackTrace();
-			}
-		} else
-			System.out.println("Usuario ja cadastrado");
 	}
 
 	@Override
 	public void update(Usuario usuario) {
-		List<Usuario> usuarios = getAll();
 		int index = usuarios.indexOf(usuario);
 		if (index != -1) {
 			usuarios.set(index, usuario);
 		}
-		saveToFile(usuarios);
-
+		saveToFile();
 	}
 
 	@Override
 	public void remove(Usuario usuario) {
-		List<Usuario> usuarios = getAll();
 		int index = usuarios.indexOf(usuario);
 		if (index != -1) {
 			usuarios.remove(index);
 		}
-		saveToFile(usuarios);
+		saveToFile();
 
 	}
 
-	private void saveToFile(List<Usuario> usuarios) {
+	private void saveToFile() {
 		try {
-			close();
 			fos = new FileOutputStream(file, false);
 			outputFile = new ObjectOutputStream(fos);
 
@@ -91,6 +79,7 @@ public class UsuarioDAO implements DAO<Usuario, Integer> {
 				outputFile.writeObject(usuario);
 			}
 			outputFile.flush();
+			readFromFile();
 		} catch (Exception e) {
 			System.out.println("ERRO ao gravar usuario no disco!");
 			e.printStackTrace();
@@ -99,11 +88,14 @@ public class UsuarioDAO implements DAO<Usuario, Integer> {
 
 	@Override
 	public List<Usuario> getAll() {
-		List<Usuario> usuarios = new ArrayList<Usuario>();
+		return usuarios;
+	}
+
+	private List<Usuario> readFromFile() {
+		usuarios = new ArrayList<Usuario>();
 		Usuario usuario = null;
 		try (FileInputStream fis = new FileInputStream(file);
 				ObjectInputStream inputFile = new ObjectInputStream(fis)) {
-
 			while (fis.available() > 0) {
 				usuario = (Usuario) inputFile.readObject();
 				usuarios.add(usuario);
@@ -113,6 +105,10 @@ public class UsuarioDAO implements DAO<Usuario, Integer> {
 			e.printStackTrace();
 		}
 		return usuarios;
+	}
+
+	public int count() {
+		return readFromFile().size();
 	}
 
 	private void close() throws IOException {
