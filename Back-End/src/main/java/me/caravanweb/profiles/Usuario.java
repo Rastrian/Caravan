@@ -1,27 +1,42 @@
 package me.caravanweb.profiles;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+@Entity
 public class Usuario implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
-	private static int numeroUsuarios;
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String nome;
 	private Endereco endereco;
 	private String email;
 	private String senha;
 	private boolean Turista;
-	private int TuristaID;
+	private ArrayList<Caravanas> caravanas;
+	private boolean admin;
 	
-	public Usuario(String nome,Endereco endereco,String email,String senha,boolean turista) {
+	@JsonIgnore
+	public Usuario() {
+	}
+	
+	public Usuario(int id,String nome,Endereco endereco,String email,String senha,boolean turista) {
 		setNome(nome);
 		setEndereco(endereco);
 		setEmail(email);
 		setSenha(senha);
 		setTurista(turista);
-		numeroUsuarios++;
-		id = numeroUsuarios;
+		this.id = id;
 	}
 	
 	public Endereco getEndereco() {
@@ -34,9 +49,6 @@ public class Usuario implements Serializable {
 
 	public int getId() {
 		return id;
-	}
-	public int getNumeroUsuarios(){
-		return numeroUsuarios;
 	}
 	public String getNome() {
 		return nome;
@@ -62,11 +74,26 @@ public class Usuario implements Serializable {
 	public void setTurista(boolean turista) {
 		Turista = turista;
 	}
-	public int getTuristaID() {
-		return TuristaID;
+	
+	public boolean addCaravana(Caravanas cara) {
+		caravanas.add(cara);
+		return hasCaravana(cara);
 	}
-	public void setTuristaID(int turistaID) {
-		TuristaID = turistaID;
+	public boolean hasCaravana(Caravanas cara) {
+		if (caravanas.contains(cara))
+			return true;
+		return false;
+	}
+	public boolean removeCaravana(Caravanas cara) {
+		caravanas.remove(cara);
+		return (!hasCaravana(cara));
+	}
+	
+	public void setAdmin(boolean admin) {
+		this.admin = admin;
+	}
+	public boolean isAdmin() {
+		return this.admin;
 	}
 	
 	@Override

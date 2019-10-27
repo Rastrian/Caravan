@@ -1,16 +1,43 @@
 package me.caravanweb.profiles;
 
-public class Endereco {
+import java.io.Serializable;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+@Entity
+public class Endereco implements Serializable {
+	private static final long serialVersionUID = 1L;
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id;
 	private String endereco;
 	private long telefone;
 	private Long cep;
 	private String cidade;
 
-	public Endereco() {
-		
+	@JsonIgnore
+	public Endereco() {	
 		telefone = 0;
 		cep = null;
 		cidade = "naoLocalizada";
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public Long getCep() {
+		return cep;
+	}
+
+	public void setCep(Long cep) {
+		this.cep = cep;
 	}
 
 	public Endereco(String endereco, long telefone, long cep, String cidade) {
@@ -61,7 +88,6 @@ public class Endereco {
 	
 	@Override
 	public boolean equals(Object obj) {
-		return this.cep.equals(((Endereco) obj).getCEP());
+		return this.id.equals(((Endereco) obj).getId());
 	}
 }
-
