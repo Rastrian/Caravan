@@ -7,25 +7,25 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UsuarioDAO implements DAO<Usuario,Integer> {
+public class UsuarioDAO implements DAO<Usuario, Integer> {
 	private File file;
 	private FileOutputStream fos;
 	private ObjectOutputStream outputFile;
-	
-	public UsuarioDAO(String filename) throws IOException{
+
+	public UsuarioDAO(String filename) throws IOException {
 		file = new File(filename);
 		if (file.exists())
 			file.delete();
-		fos = new FileOutputStream(file, false); 
+		fos = new FileOutputStream(file, false);
 		outputFile = new ObjectOutputStream(fos);
 	}
-	
-	
+
 	@Override
 	public Usuario get(Integer id) {
-		Usuario usuario= null;
-		
-		try (FileInputStream fis = new FileInputStream(file); ObjectInputStream inputFile = new ObjectInputStream(fis)) {
+		Usuario usuario = null;
+
+		try (FileInputStream fis = new FileInputStream(file);
+				ObjectInputStream inputFile = new ObjectInputStream(fis)) {
 			while (fis.available() > 0) {
 				usuario = (Usuario) inputFile.readObject();
 
@@ -42,13 +42,21 @@ public class UsuarioDAO implements DAO<Usuario,Integer> {
 
 	@Override
 	public void add(Usuario usuario) {
-		try {
-			outputFile.writeObject(usuario);
-		} catch (Exception e) {
-			System.out.println("ERRO ao gravar o usuario '" + usuario.getNome() + "' no disco!");
-			e.printStackTrace();
+		List<Usuario> usuarios = this.getAll();
+		boolean check = false;
+		for (Usuario usu : usuarios) {
+			if (usu.getId() == usuario.getId() || usu.getEmail()==usuario.getEmail())
+				check = false;
 		}
-		
+		if (check) {
+			try {
+				outputFile.writeObject(usuario);
+			} catch (Exception e) {
+				System.out.println("ERRO ao gravar o usuario '" + usuario.getNome() + "' no disco!");
+				e.printStackTrace();
+			}
+		} else
+			System.out.println("Usuario ja cadastrado");
 	}
 
 	@Override
@@ -59,7 +67,7 @@ public class UsuarioDAO implements DAO<Usuario,Integer> {
 			usuarios.set(index, usuario);
 		}
 		saveToFile(usuarios);
-		
+
 	}
 
 	@Override
@@ -70,13 +78,13 @@ public class UsuarioDAO implements DAO<Usuario,Integer> {
 			usuarios.remove(index);
 		}
 		saveToFile(usuarios);
-		
+
 	}
-	
+
 	private void saveToFile(List<Usuario> usuarios) {
 		try {
 			close();
-			fos = new FileOutputStream(file, false); 
+			fos = new FileOutputStream(file, false);
 			outputFile = new ObjectOutputStream(fos);
 
 			for (Usuario usuario : usuarios) {
@@ -93,7 +101,8 @@ public class UsuarioDAO implements DAO<Usuario,Integer> {
 	public List<Usuario> getAll() {
 		List<Usuario> usuarios = new ArrayList<Usuario>();
 		Usuario usuario = null;
-		try (FileInputStream fis = new FileInputStream(file); ObjectInputStream inputFile = new ObjectInputStream(fis)) {
+		try (FileInputStream fis = new FileInputStream(file);
+				ObjectInputStream inputFile = new ObjectInputStream(fis)) {
 
 			while (fis.available() > 0) {
 				usuario = (Usuario) inputFile.readObject();
@@ -105,12 +114,12 @@ public class UsuarioDAO implements DAO<Usuario,Integer> {
 		}
 		return usuarios;
 	}
-	
+
 	private void close() throws IOException {
 		outputFile.close();
 		fos.close();
 	}
-	
+
 	@Override
 	protected void finalize() throws Throwable {
 		this.close();

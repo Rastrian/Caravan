@@ -7,24 +7,25 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CaravanasDAO implements DAO<Caravanas,Integer>{
+public class CaravanasDAO implements DAO<Caravanas, Integer> {
 	private File file;
 	private FileOutputStream fos;
 	private ObjectOutputStream outputFile;
-	
+
 	public CaravanasDAO(String filename) throws IOException {
 		file = new File(filename);
 		if (file.exists())
 			file.delete();
-		fos = new FileOutputStream(file, false); 
+		fos = new FileOutputStream(file, false);
 		outputFile = new ObjectOutputStream(fos);
 	}
-	 
+
 	@Override
 	public Caravanas get(Integer id) {
 		Caravanas caravana = null;
- 
-		try (FileInputStream fis = new FileInputStream(file); ObjectInputStream inputFile = new ObjectInputStream(fis)) {
+
+		try (FileInputStream fis = new FileInputStream(file);
+				ObjectInputStream inputFile = new ObjectInputStream(fis)) {
 			while (fis.available() > 0) {
 				caravana = (Caravanas) inputFile.readObject();
 
@@ -41,13 +42,22 @@ public class CaravanasDAO implements DAO<Caravanas,Integer>{
 
 	@Override
 	public void add(Caravanas caravana) {
-		try {
-			outputFile.writeObject(caravana);
-		} catch (Exception e) {
-			System.out.println("ERRO ao gravar a caravana '" + caravana.getDescricao() + "' no disco!");
-			e.printStackTrace();
+		List<Caravanas> caravanas = this.getAll();
+		boolean check = true;
+		for (Caravanas car : caravanas) {
+			if (car.getId() == caravana.getId())
+				check = false;
 		}
-		
+		if (check) {
+			try {
+				outputFile.writeObject(caravana);
+			} catch (Exception e) {
+				System.out.println("ERRO ao gravar a caravana '" + caravana.getDescricao() + "' no disco!");
+				e.printStackTrace();
+			}
+		} else
+			System.out.println("Caravana com mesmo id ja existente");
+
 	}
 
 	@Override
@@ -58,7 +68,7 @@ public class CaravanasDAO implements DAO<Caravanas,Integer>{
 			caravanas.set(index, caravana);
 		}
 		saveToFile(caravanas);
-		
+
 	}
 
 	@Override
@@ -69,13 +79,13 @@ public class CaravanasDAO implements DAO<Caravanas,Integer>{
 			caravanas.remove(index);
 		}
 		saveToFile(caravanas);
-		
+
 	}
-	
+
 	private void saveToFile(List<Caravanas> caravanas) {
 		try {
 			close();
-			fos = new FileOutputStream(file, false); 
+			fos = new FileOutputStream(file, false);
 			outputFile = new ObjectOutputStream(fos);
 
 			for (Caravanas caravana : caravanas) {
@@ -92,7 +102,8 @@ public class CaravanasDAO implements DAO<Caravanas,Integer>{
 	public List<Caravanas> getAll() {
 		List<Caravanas> caravanas = new ArrayList<Caravanas>();
 		Caravanas caravana = null;
-		try (FileInputStream fis = new FileInputStream(file); ObjectInputStream inputFile = new ObjectInputStream(fis)) {
+		try (FileInputStream fis = new FileInputStream(file);
+				ObjectInputStream inputFile = new ObjectInputStream(fis)) {
 
 			while (fis.available() > 0) {
 				caravana = (Caravanas) inputFile.readObject();
@@ -104,7 +115,7 @@ public class CaravanasDAO implements DAO<Caravanas,Integer>{
 		}
 		return caravanas;
 	}
-	
+
 	private void close() throws IOException {
 		outputFile.close();
 		fos.close();

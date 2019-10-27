@@ -2,16 +2,13 @@ import java.io.Serializable;
 
 public class LocaisTuristicos implements Serializable {
 	private static final long serialVersionUID = 1L;
-	private static int numeroLocais = 0;
 	private Integer id;
 	private String nome;
 	private String descricao;
 	private boolean status;
+	
 	public int getId() {
 		return id;
-	}
-	public int getNumeroLocais() {
-		return numeroLocais;
 	}
 	public String getNome() {
 		return nome;
@@ -31,12 +28,11 @@ public class LocaisTuristicos implements Serializable {
 	public void setStatus(boolean status) {
 		this.status = status;
 	}
-	public LocaisTuristicos(String nome, String descricao) {
+	public LocaisTuristicos(int id,String nome, String descricao) {
 		setNome(nome);
 		setDescricao(descricao);
 		this.status = true;
-		numeroLocais++;
-		id = numeroLocais;
+		this.id = id;
 	}
 	
 	@Override

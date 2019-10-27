@@ -3,7 +3,6 @@ import java.io.Serializable;
 public class Usuario implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
-	private static int numeroUsuarios;
 	private Integer id;
 	private String nome;
 	private Endereco endereco;
@@ -12,14 +11,13 @@ public class Usuario implements Serializable {
 	private boolean Turista;
 	private int TuristaID;
 	
-	public Usuario(String nome,Endereco endereco,String email,String senha,boolean turista) {
+	public Usuario(int id,String nome,Endereco endereco,String email,String senha,boolean turista) {
 		setNome(nome);
 		setEndereco(endereco);
 		setEmail(email);
 		setSenha(senha);
 		setTurista(turista);
-		numeroUsuarios++;
-		id = numeroUsuarios;
+		this.id = id;
 	}
 	
 	public Endereco getEndereco() {
@@ -32,9 +30,6 @@ public class Usuario implements Serializable {
 
 	public int getId() {
 		return id;
-	}
-	public int getNumeroUsuarios(){
-		return numeroUsuarios;
 	}
 	public String getNome() {
 		return nome;

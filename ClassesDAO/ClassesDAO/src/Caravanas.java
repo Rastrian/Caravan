@@ -3,7 +3,6 @@ import java.time.LocalDate;
 
 public class Caravanas implements Serializable {
 	private static final long serialVersionUID = 1L;
-	private static int numeroCaravanas = 0;
 	private Integer id;
 	private String nome;
 	private String descricao;
@@ -13,10 +12,6 @@ public class Caravanas implements Serializable {
 	public int getId() {
 		return id;
 	}
-	public int getNumeroCaravanas() {
-		return numeroCaravanas;
-	}
-	
 	public String getNome() {
 		return nome;
 	}
@@ -42,13 +37,12 @@ public class Caravanas implements Serializable {
 		this.data = data;
 	}
 	
-	public Caravanas( String nome, String descricao, LocaisTuristicos local,int dia,int mes,int ano) {
+	public Caravanas(int id, String nome, String descricao, LocaisTuristicos local,int dia,int mes,int ano) {
 		setNome(nome);
 		setDescricao(descricao);
 		setLocal(local);
 		data = LocalDate.of(ano, mes, dia);
-		numeroCaravanas ++;
-		id = numeroCaravanas;
+		this.id = id;
 	}
 	
 	@Override
