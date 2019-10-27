@@ -43,7 +43,8 @@ public class LocaisTuristicosDAO implements DAO<LocaisTuristicos,Integer>{
 	@Override
 	public boolean add(LocaisTuristicos local) {
 		try {
-			locais.add(local);
+			if(!locais.contains(local))
+				locais.add(local);
 			saveToFile();
 			return true;
 		} catch (Exception e) {
