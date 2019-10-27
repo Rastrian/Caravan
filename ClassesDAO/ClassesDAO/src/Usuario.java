@@ -1,22 +1,15 @@
-package me.caravanweb.profiles;
+
 
 import java.io.Serializable;
 import java.util.ArrayList;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
-@Entity
 public class Usuario implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	
 	private Integer id;
 	private String nome;
 	private Endereco endereco;
@@ -26,7 +19,7 @@ public class Usuario implements Serializable {
 	private ArrayList<Caravanas> caravanas;
 	private boolean admin;
 	
-	@JsonIgnore
+
 	public Usuario() {
 	}
 	
@@ -37,6 +30,7 @@ public class Usuario implements Serializable {
 		setSenha(senha);
 		setTurista(turista);
 		this.id = id;
+		this.admin = false;
 	}
 	
 	public Endereco getEndereco() {

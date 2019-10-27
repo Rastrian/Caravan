@@ -1,4 +1,7 @@
+
+
 import java.io.File;
+
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -6,6 +9,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class EnderecoDAO implements DAO<Endereco, Integer> {
 	private String filename = "enderecos.bin";
@@ -15,7 +19,7 @@ public class EnderecoDAO implements DAO<Endereco, Integer> {
 	private FileOutputStream fos;
 	private ObjectOutputStream outputFile;
 
-	public EnderecoDAO(String filename) throws IOException {
+	public EnderecoDAO() throws IOException {
 		if (!file.exists()) {
 			fos = new FileOutputStream(file, false);
 			outputFile = new ObjectOutputStream(fos);

@@ -1,6 +1,7 @@
-import java.io.File;
+
 
 import java.io.File;
+
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -8,6 +9,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class CaravanasDAO implements DAO<Caravanas, Integer> {
 	private String filename = "caravanas.bin";
@@ -17,7 +19,7 @@ public class CaravanasDAO implements DAO<Caravanas, Integer> {
 	private FileOutputStream fos;
 	private ObjectOutputStream outputFile;
 
-	public CaravanasDAO(String filename) throws IOException {
+	public CaravanasDAO() throws IOException {
 		if (!file.exists()) {
 			fos = new FileOutputStream(file, false);
 			outputFile = new ObjectOutputStream(fos);

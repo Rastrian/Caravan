@@ -1,4 +1,7 @@
+
+
 import java.io.File;
+
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -6,6 +9,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class UsuarioDAO implements DAO<Usuario, Integer> {
 private String filename = "usuarios.bin";
@@ -15,7 +19,7 @@ private String filename = "usuarios.bin";
 	private FileOutputStream fos;
 	private ObjectOutputStream outputFile;
 
-	public UsuarioDAO(String filename) throws IOException {
+	public UsuarioDAO() throws IOException {
 		if (!file.exists()) {
 			fos = new FileOutputStream(file, false);
 			outputFile = new ObjectOutputStream(fos);
