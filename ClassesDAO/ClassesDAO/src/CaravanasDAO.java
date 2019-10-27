@@ -1,4 +1,6 @@
 import java.io.File;
+
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -8,90 +10,83 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CaravanasDAO implements DAO<Caravanas, Integer> {
-	private File file;
+private String filename = "caravanas.bin";
+	
+	private File file = new File(filename);
+	private static List<Caravanas> caravanas;
 	private FileOutputStream fos;
 	private ObjectOutputStream outputFile;
 
 	public CaravanasDAO(String filename) throws IOException {
-		file = new File(filename);
-		if (file.exists())
-			file.delete();
-		fos = new FileOutputStream(file, false);
-		outputFile = new ObjectOutputStream(fos);
+		if (!file.exists()) {
+			fos = new FileOutputStream(file, false);
+			outputFile = new ObjectOutputStream(fos);
+		} else {
+			readFromFile();
+		}
+		caravanas = new ArrayList<Caravanas>();
+		readFromFile();
 	}
 
 	@Override
 	public Caravanas get(Integer id) {
-		Caravanas caravana = null;
-
-		try (FileInputStream fis = new FileInputStream(file);
-				ObjectInputStream inputFile = new ObjectInputStream(fis)) {
-			while (fis.available() > 0) {
-				caravana = (Caravanas) inputFile.readObject();
-
-				if (id.equals(caravana.getId())) {
-					return caravana;
-				}
+		readFromFile();
+		for (Caravanas caravana : caravanas) {
+			if (caravana.getId() == id) {
+				return caravana;
 			}
-		} catch (Exception e) {
-			System.out.println("ERRO ao ler a caravana '" + id + "' do disco!");
-			e.printStackTrace();
 		}
 		return null;
 	}
 
 	@Override
-	public void add(Caravanas caravana) {
-		List<Caravanas> caravanas = this.getAll();
-		boolean check = true;
+	public boolean add(Caravanas caravana) {
 		for (Caravanas car : caravanas) {
 			if (car.getId() == caravana.getId())
-				check = false;
+				return false;
 		}
-		if (check) {
-			try {
-				outputFile.writeObject(caravana);
-			} catch (Exception e) {
-				System.out.println("ERRO ao gravar a caravana '" + caravana.getDescricao() + "' no disco!");
-				e.printStackTrace();
-			}
-		} else
-			System.out.println("Caravana com mesmo id ja existente");
+		try {
+			caravanas.add(caravana);
+			saveToFile();
+			return true;
+		} catch (Exception e) {
+			System.out.println("ERRO ao gravar o produto '" + caravana.getId() + "' no disco!");
+			e.printStackTrace();
+			return false;
+		}
 
 	}
 
 	@Override
 	public void update(Caravanas caravana) {
-		List<Caravanas> caravanas = getAll();
 		int index = caravanas.indexOf(caravana);
 		if (index != -1) {
 			caravanas.set(index, caravana);
 		}
-		saveToFile(caravanas);
+		saveToFile();
 
 	}
 
 	@Override
 	public void remove(Caravanas caravana) {
-		List<Caravanas> caravanas = getAll();
 		int index = caravanas.indexOf(caravana);
 		if (index != -1) {
 			caravanas.remove(index);
 		}
-		saveToFile(caravanas);
+		saveToFile();
 
 	}
 
-	private void saveToFile(List<Caravanas> caravanas) {
+	private void saveToFile() {
 		try {
-			close();
-			fos = new FileOutputStream(file, false);
-			outputFile = new ObjectOutputStream(fos);
+			FileOutputStream fos2 = new FileOutputStream(file, false); 
+			ObjectOutputStream outputFile2 = new ObjectOutputStream(fos2);
 
-			for (Caravanas caravana : caravanas) {
-				outputFile.writeObject(caravana);
+			for (Caravanas car : caravanas) {
+				outputFile2.writeObject(car);
 			}
-			outputFile.flush();
+			outputFile2.flush();
+			readFromFile();
 		} catch (Exception e) {
 			System.out.println("ERRO ao gravar caravana no disco!");
 			e.printStackTrace();
@@ -100,11 +95,13 @@ public class CaravanasDAO implements DAO<Caravanas, Integer> {
 
 	@Override
 	public List<Caravanas> getAll() {
-		List<Caravanas> caravanas = new ArrayList<Caravanas>();
-		Caravanas caravana = null;
-		try (FileInputStream fis = new FileInputStream(file);
-				ObjectInputStream inputFile = new ObjectInputStream(fis)) {
+		return caravanas;
+	}
 
+	private List<Caravanas> readFromFile() {
+		caravanas = new ArrayList<Caravanas>();
+		Caravanas caravana = null;
+		try (FileInputStream fis = new FileInputStream(file); ObjectInputStream inputFile = new ObjectInputStream(fis)) {
 			while (fis.available() > 0) {
 				caravana = (Caravanas) inputFile.readObject();
 				caravanas.add(caravana);
