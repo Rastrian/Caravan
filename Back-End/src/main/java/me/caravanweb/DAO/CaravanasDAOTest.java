@@ -47,10 +47,8 @@ class CaravanasDAOTest {
 	@Test
 	void testRemoveCaravana() {
 		LocaisTuristicos localidade = new LocaisTuristicos("Belo Horizonte (MG)", "Bela Cidade");
-		Endereco end = new Endereco();
-		end.setCep(Long.parseLong("99999999"));
-		Usuario u = new Usuario(1,"Cleber", end, "teste@email.com", "123123", true);
-		Usuario u2 = new Usuario(1,"Angela", end, "angela@email.com", "123123", true);
+		Usuario u = new Usuario("Cleber","teste@email.com", "123123");
+		Usuario u2 = new Usuario("Angela","angela@email.com", "123123");
 		Caravanas a = new Caravanas(1,"Passeio do Cleber","Pescar em alto mar",localidade,20,12,2025, u);
 		caravanas.add(a);
 		caravanas.remove(a);

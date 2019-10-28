@@ -9,8 +9,11 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.stereotype.Repository;
+
 import me.caravanweb.profiles.Caravanas;
 
+@Repository
 public class CaravanasDAO implements DAO<Caravanas, Integer> {
 	private String filename = "caravanas.bin";
 
@@ -100,8 +103,9 @@ public class CaravanasDAO implements DAO<Caravanas, Integer> {
 	private List<Caravanas> readFromFile() {
 		caravanas = new ArrayList<Caravanas>();
 		Caravanas caravana = null;
-		try (FileInputStream fis = new FileInputStream(file);
-				ObjectInputStream inputFile = new ObjectInputStream(fis)) {
+		try {
+			FileInputStream fis = new FileInputStream(file);
+			ObjectInputStream inputFile = new ObjectInputStream(fis);
 			while (fis.available() > 0) {
 				caravana = (Caravanas) inputFile.readObject();
 				caravanas.add(caravana);

@@ -30,6 +30,7 @@ public class Caravanas implements Serializable {
 	}
 	
 	public Caravanas(int id, String nome, String descricao, LocaisTuristicos local,int dia,int mes,int ano, Usuario owner) {
+		super();
 		setNome(nome);
 		setDescricao(descricao);
 		setLocal(local);

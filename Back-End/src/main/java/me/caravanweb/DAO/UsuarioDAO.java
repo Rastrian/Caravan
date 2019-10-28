@@ -9,8 +9,13 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.MappedSuperclass;
+
+import org.springframework.stereotype.Repository;
+
 import me.caravanweb.profiles.Usuario;
 
+@Repository
 public class UsuarioDAO implements DAO<Usuario, Integer> {
 private String filename = "usuarios.bin";
 	
@@ -42,9 +47,12 @@ private String filename = "usuarios.bin";
 
 	@Override
 	public boolean add(Usuario usuario) {
-		try {
-			if(!usuarios.contains(usuario))
+		try { 
+			if(!usuarios.contains(usuario)) {
 				usuarios.add(usuario);
+			}else{
+				return false;
+			}
 			saveToFile();
 			return true;
 		} catch (Exception e) {
@@ -97,8 +105,9 @@ private String filename = "usuarios.bin";
 	private List<Usuario> readFromFile() {
 		usuarios = new ArrayList<Usuario>();
 		Usuario usuario = null;
-		try (FileInputStream fis = new FileInputStream(file);
-				ObjectInputStream inputFile = new ObjectInputStream(fis)) {
+		try {
+			FileInputStream fis = new FileInputStream(file);
+			ObjectInputStream inputFile = new ObjectInputStream(fis);
 			while (fis.available() > 0) {
 				usuario = (Usuario) inputFile.readObject();
 				usuarios.add(usuario);

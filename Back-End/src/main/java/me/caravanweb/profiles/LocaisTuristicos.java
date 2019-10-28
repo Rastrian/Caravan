@@ -20,9 +20,14 @@ public class LocaisTuristicos implements Serializable {
 	private String descricao;
 	private boolean status;
 	
-	@JsonIgnore
 	public LocaisTuristicos() {
-		
+	}
+	
+	@JsonIgnore
+	public LocaisTuristicos(String nome, String descricao) {
+		setNome(nome);
+		setDescricao(descricao);
+		this.status = true;
 	}
 	
 	public int getId() {
@@ -45,12 +50,6 @@ public class LocaisTuristicos implements Serializable {
 	}
 	public void setStatus(boolean status) {
 		this.status = status;
-	}
-	public LocaisTuristicos(String nome, String descricao) {
-		super();
-		setNome(nome);
-		setDescricao(descricao);
-		this.status = true;
 	}
 	
 	@Override

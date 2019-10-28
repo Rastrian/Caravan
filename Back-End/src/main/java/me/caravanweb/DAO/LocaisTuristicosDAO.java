@@ -9,8 +9,13 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.MappedSuperclass;
+
+import org.springframework.stereotype.Repository;
+
 import me.caravanweb.profiles.LocaisTuristicos;
 
+@Repository
 public class LocaisTuristicosDAO implements DAO<LocaisTuristicos,Integer>{
 	
 	private String filename = "locais.bin";
@@ -100,7 +105,9 @@ public class LocaisTuristicosDAO implements DAO<LocaisTuristicos,Integer>{
 	private List<LocaisTuristicos> readFromFile() {
 		locais = new ArrayList<LocaisTuristicos>();
 		LocaisTuristicos local = null;
-		try (FileInputStream fis = new FileInputStream(file); ObjectInputStream inputFile = new ObjectInputStream(fis)) {
+		try {
+			FileInputStream fis = new FileInputStream(file);
+			ObjectInputStream inputFile = new ObjectInputStream(fis);
 			while (fis.available() > 0) {
 				local = (LocaisTuristicos) inputFile.readObject();
 				locais.add(local);

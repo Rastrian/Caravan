@@ -13,6 +13,7 @@ import me.caravanweb.profiles.Caravanas;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.MappedSuperclass;
 
 class LocaisTuristicosDAOTest {
 	static List<Caravanas> caravanas;

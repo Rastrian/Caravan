@@ -1,15 +1,20 @@
 package me.caravanweb.services;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import me.caravanweb.DAO.LocaisTuristicosDAO;
 import me.caravanweb.profiles.LocaisTuristicos;
+import me.caravanweb.profiles.Usuario;
 
 @Service
 public class LocalidadesService {
 	
+	@Autowired
 	private LocaisTuristicosDAO repository;
 	
 	public LocalidadesService() {
@@ -26,6 +31,13 @@ public class LocalidadesService {
 
 	public LocaisTuristicos findById(Integer id) {
 		return repository.get(id);
+	}
+	
+	public ArrayList<String> listNames() {
+		ArrayList<String> names = new ArrayList();
+		List<LocaisTuristicos> list = findAll();
+		list.forEach(l -> names.add(l.getNome()));
+		return names;
 	}
 	
 	public int count() {

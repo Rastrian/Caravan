@@ -22,9 +22,11 @@ public class Endereco implements Serializable {
 	private String cidade;
 
 	@JsonIgnore
-	public Endereco() {	
+	public Endereco() {
+		super();
 		telefone = 0;
-		cep = null;
+		cep = (long) 0;
+		endereco = "";
 		cidade = "naoLocalizada";
 	}
 
