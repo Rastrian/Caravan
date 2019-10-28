@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.1.7.RELEASE</version>
+		<version>1.5.2.RELEASE</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>me.caravan</groupId>
@@ -14,29 +14,20 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>CaravanBasics</name>
 	<description>Caravan</description>
-
-	<properties>
-		<start-class>me.caravanweb.Application</start-class>
-		<java.version>11</java.version>
-	</properties>
-
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
-		
 		<dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
@@ -47,24 +38,15 @@
 			<artifactId>spring-boot-devtools</artifactId>
 		</dependency>
 	</dependencies>
-
 	<build>
 		<plugins>
 			<plugin>
 			   <groupId>org.apache.maven.plugins</groupId>
 			   <artifactId>maven-compiler-plugin</artifactId>
-			   <configuration>
-			      <source>11</source>
-			      <target>11</target>
-			   </configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-		        <configuration>
-			        <executable>true</executable>
-		            <mainClass>me.caravanweb.Application</mainClass>
-		        </configuration>
 			</plugin>
 		</plugins>
 	</build>
