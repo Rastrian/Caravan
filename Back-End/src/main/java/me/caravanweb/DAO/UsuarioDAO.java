@@ -45,7 +45,6 @@ private String filename = "usuarios.bin";
 		try {
 			if(!usuarios.contains(usuario))
 				usuarios.add(usuario);
-			usuarios.add(usuario);
 			saveToFile();
 			return true;
 		} catch (Exception e) {

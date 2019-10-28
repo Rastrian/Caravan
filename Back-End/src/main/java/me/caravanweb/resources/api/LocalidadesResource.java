@@ -1,4 +1,4 @@
-package me.caravanweb.resources;
+package me.caravanweb.resources.api;
 
 import me.caravanweb.profiles.LocaisTuristicos;
 import me.caravanweb.services.LocalidadesService;
