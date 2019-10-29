@@ -26,7 +26,7 @@ public class LocalidadesResource {
 	private LocalidadesService service;
 	
 	@GetMapping
-	public ResponseEntity<List<String>> findAll() {
+	public ResponseEntity<List<String>> findAll() { 
 		return ResponseEntity.ok().body(service.listNames());
 	}
 	

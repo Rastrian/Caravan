@@ -3,8 +3,8 @@ package me.caravanweb.profiles.others;
 import me.caravanweb.profiles.Usuario;
 
 public class Login extends Usuario {
-	private Usuario email;
-	private Usuario senha;
+	private String email;
+	private String senha;
 	
 	public Login() {
 	}

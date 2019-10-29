@@ -1,5 +1,8 @@
 package me.caravanweb.resources.api;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,6 +30,11 @@ public class UsuarioResource {
 		return ResponseEntity.ok().body(String.valueOf(obj));
 	}
 	
+	@GetMapping(value = "/emails")
+	public ResponseEntity<List<String>> emails() {
+		return ResponseEntity.ok().body(service.listEmails());
+	}
+	
     @PostMapping(value = "/register")
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<String> register(@RequestBody Usuario u){
@@ -34,11 +42,11 @@ public class UsuarioResource {
 		return ResponseEntity.ok().body(body);
 	}
     
-    @PostMapping("/login")
-    String login(
-      @RequestParam("email") final String username,
-      @RequestParam("senha") final String password) {
-    	return service.auth(username,password);
-    }
+    @PostMapping(value = "/login")
+    @ResponseStatus(HttpStatus.CREATED)
+    public ResponseEntity<String> login(@RequestBody Login l){
+    	String body = service.auth(l.getEmail(), l.getSenha());
+		return ResponseEntity.ok().body(body);
+	}
 
 }

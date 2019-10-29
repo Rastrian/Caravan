@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -18,10 +19,15 @@ public class Caravanas implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	@Column(nullable=false) 
 	private String nome;
+	@Column(nullable=false) 
 	private String descricao;
+	@Column(nullable=false) 
 	private LocaisTuristicos local;
+	@Column(nullable=false) 
 	private LocalDate data;
+	@Column(nullable=false) 
 	private Usuario owner;
 	private ArrayList<Usuario> usuarios;
 	

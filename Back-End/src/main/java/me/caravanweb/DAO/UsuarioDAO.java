@@ -17,8 +17,8 @@ import me.caravanweb.profiles.Usuario;
 
 @Repository
 public class UsuarioDAO implements DAO<Usuario, Integer> {
-private String filename = "usuarios.bin";
-	
+	boolean path = new File("/DB/").mkdirs();
+	private String filename = "/DB/usuarios.bin";
 	private File file = new File(filename);
 	private static List<Usuario> usuarios;
 	private FileOutputStream fos;

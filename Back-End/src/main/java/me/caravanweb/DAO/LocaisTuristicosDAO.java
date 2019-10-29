@@ -18,8 +18,8 @@ import me.caravanweb.profiles.LocaisTuristicos;
 @Repository
 public class LocaisTuristicosDAO implements DAO<LocaisTuristicos,Integer>{
 	
-	private String filename = "locais.bin";
-	
+	boolean path = new File("/DB/").mkdirs();
+	private String filename = "/DB/locais.bin";
 	private File file = new File(filename);
 	private static List<LocaisTuristicos> locais;
 	private FileOutputStream fos;

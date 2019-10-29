@@ -1,6 +1,7 @@
 package me.caravanweb.services;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.constraints.NotNull;
@@ -22,19 +23,22 @@ public class UsuarioService {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	} 
+	
+	public List<String> listEmails() {
+		ArrayList<String> emails = new ArrayList<String>();
+		List<Usuario> usuarios = repository.getAll();
+		usuarios.forEach(l -> emails.add(l.getEmail()));
+		return emails;
 	}
 	
 	public boolean emailExists(String email) {
-		if (repository.count() > 0) {
-			List<Usuario> usuarios = repository.getAll();
-			for (Usuario u : usuarios) {
-				if (u.getEmail() == email) {
-					return true;
-				}
-			}
+		List<String> emails = listEmails();
+		if (emails.contains(email)) {
+			return true;
+		}else {
 			return false;
 		}
-		return false;
 	}
 	
 	public String add(Usuario u) {
@@ -53,15 +57,31 @@ public class UsuarioService {
 		return msg;
 	}
 	
+	public boolean checkPassword(String uEmail, String uSenha, String email, String senha) {
+		boolean msg = false;
+		if (uEmail.equals(email)) {
+			if (uSenha.equals(senha)) {
+				msg = true;
+			}
+		}
+		return msg;
+	}
+	
 	public String auth(String email, String senha) {
 		String msg = "error";
-		List<Usuario> usuarios = repository.getAll();
-		for (Usuario u : usuarios) {
-			if (u.getEmail() == email) {
-				if (u.getSenha() == senha) {
-					msg = "success";
+		if (emailExists(email)) {
+			boolean check = false;
+			List<Usuario> usuarios = repository.getAll();
+			for (Usuario u : usuarios) {
+				if (check == false) {
+					check = checkPassword(u.getEmail(), u.getSenha(), email, senha);
 				}
 			}
+			if (check==true) {
+				msg="success";
+			}
+		}else {
+			msg = "MailError";
 		}
 		return msg;
 	}

@@ -15,8 +15,8 @@ import me.caravanweb.profiles.Caravanas;
 
 @Repository
 public class CaravanasDAO implements DAO<Caravanas, Integer> {
-	private String filename = "caravanas.bin";
-
+	boolean path = new File("/DB/").mkdirs();
+	private String filename = "/DB/caravanas.bin";
 	private File file = new File(filename);
 	private static List<Caravanas> caravanas;
 	private FileOutputStream fos;
