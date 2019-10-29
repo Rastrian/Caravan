@@ -78,6 +78,16 @@ public class UsuarioService {
 		return msg;
 	}
 	
+	public Usuario userByEmail(String email) {
+		List<Usuario> usuarios = repository.getAll();
+		for (Usuario u : usuarios) {
+			if (u.getEmail().equals(email)) {
+				return u;
+			}
+		}
+		return null;
+	}
+	
 	public String auth(String email, String senha) {
 		String msg = "error";
 		if (emailExists(email)) {
@@ -89,7 +99,8 @@ public class UsuarioService {
 				}
 			}
 			if (check==true) {
-				msg="success";
+				Usuario get = userByEmail(email);
+				msg=String.valueOf(get.getId());
 			}else {
 				msg="invalidpassword";
 			}

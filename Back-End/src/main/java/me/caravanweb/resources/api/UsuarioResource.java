@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import me.caravanweb.profiles.LocaisTuristicos;
 import me.caravanweb.profiles.Usuario;
 import me.caravanweb.profiles.others.Login;
 import me.caravanweb.services.UsuarioService;
@@ -30,6 +32,12 @@ public class UsuarioResource {
 	public ResponseEntity<String> count() {
 		int obj = service.count();
 		return ResponseEntity.ok().body(String.valueOf(obj));
+	}
+	
+	@GetMapping(value = "/user/{id}")
+	public ResponseEntity<Usuario> findById(@PathVariable Integer id) {
+		Usuario obj = service.findById(id);
+		return ResponseEntity.ok().body(obj);
 	}
 	
 	@GetMapping(value = "/emails")
