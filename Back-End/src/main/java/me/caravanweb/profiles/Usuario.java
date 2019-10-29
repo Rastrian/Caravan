@@ -18,7 +18,7 @@ public class Usuario implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private Integer id;
 	@Column(nullable=false) 
 	private String nome;
 	@Column(unique=true, nullable=false) 
@@ -42,10 +42,10 @@ public class Usuario implements Serializable {
 		this.admin = false;
 	}
 
-	public void setId(Long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
-	public long getId() {
+	public int getId() {
 		return id;
 	}
 	public String getNome() {

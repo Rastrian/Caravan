@@ -46,7 +46,13 @@ public class UsuarioService {
 		if (emailExists(u.getEmail())) {
 			msg = "MailError";
 		}else {
-			u.setId((long) (count() + 1));
+			int proxid = count() + 1;
+			Usuario checkcount = repository.get(proxid);
+			while (checkcount != null) {
+				proxid++;
+				checkcount = repository.get(proxid);
+			}
+			u.setId(proxid);
 			boolean cadastro = repository.add(u);
 			if (cadastro == true) {
 				msg = "success";
@@ -62,7 +68,7 @@ public class UsuarioService {
 		if (uEmail.equals(email)) {
 			if (uSenha.equals(senha)) {
 				msg = true;
-			}
+			}	
 		}
 		return msg;
 	}

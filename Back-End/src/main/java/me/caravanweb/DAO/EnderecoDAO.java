@@ -14,9 +14,8 @@ import org.springframework.stereotype.Repository;
 import me.caravanweb.profiles.Endereco;
 
 @Repository
-public class EnderecoDAO implements DAO<Endereco, Integer> {
-	boolean path = new File("/DB/").mkdirs();
-	private String filename = "/DB/enderecos.bin";
+public class EnderecoDAO implements DAO<Endereco, Long> {
+	private String filename = "enderecos.bin";
 	private File file = new File(filename);
 	private static List<Endereco> enderecos;
 	private FileOutputStream fos;
@@ -32,7 +31,7 @@ public class EnderecoDAO implements DAO<Endereco, Integer> {
 	}
 
 	@Override
-	public Endereco get(Integer id) {
+	public Endereco get(Long id) {
 		readFromFile();
 		for (Endereco end : enderecos) {
 			if (end.getId() == id) {

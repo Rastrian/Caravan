@@ -14,14 +14,13 @@ import org.springframework.stereotype.Repository;
 import me.caravanweb.profiles.Caravanas;
 
 @Repository
-public class CaravanasDAO implements DAO<Caravanas, Integer> {
-	boolean path = new File("/DB/").mkdirs();
-	private String filename = "/DB/caravanas.bin";
+public class CaravanasDAO implements DAO<Caravanas, Long> {
+	private String filename = "caravanas.bin";
 	private File file = new File(filename);
 	private static List<Caravanas> caravanas;
 	private FileOutputStream fos;
 	private ObjectOutputStream outputFile;
-
+ 
 	public CaravanasDAO() throws IOException {
 		if (!file.exists()) {
 			fos = new FileOutputStream(file, false);
@@ -34,7 +33,7 @@ public class CaravanasDAO implements DAO<Caravanas, Integer> {
 	}
 
 	@Override
-	public Caravanas get(Integer id) {
+	public Caravanas get(Long id) {
 		readFromFile();
 		for (Caravanas caravana : caravanas) {
 			if (caravana.getId() == id) {

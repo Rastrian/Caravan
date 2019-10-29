@@ -26,13 +26,24 @@ public class LocalidadesResource {
 	private LocalidadesService service;
 	
 	@GetMapping
-	public ResponseEntity<List<String>> findAll() { 
-		return ResponseEntity.ok().body(service.listNames());
+	public ResponseEntity<List<LocaisTuristicos>> findAll() { 
+		return ResponseEntity.ok().body(service.findAll());
 	}
 	
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<LocaisTuristicos> findById(@PathVariable Integer id) {
 		LocaisTuristicos obj = service.findById(id);
+		return ResponseEntity.ok().body(obj);
+	}
+	
+	@GetMapping(value = "/names")
+	public ResponseEntity<ArrayList<String>> findAllNames() {
+		return ResponseEntity.ok().body(service.listNames());
+	}
+	
+	@GetMapping(value = "/imgurl/{id}")
+	public ResponseEntity<String> findImgUrl(@PathVariable Integer id) {
+		String obj = service.findImgUrl(id);
 		return ResponseEntity.ok().body(obj);
 	}
 	

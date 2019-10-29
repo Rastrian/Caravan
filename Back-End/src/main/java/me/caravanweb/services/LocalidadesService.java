@@ -14,7 +14,7 @@ import me.caravanweb.profiles.Usuario;
 @Service
 public class LocalidadesService {
 	
-	@Autowired
+	@Autowired 
 	private LocaisTuristicosDAO repository;
 	
 	public LocalidadesService() {
@@ -29,7 +29,7 @@ public class LocalidadesService {
 		return repository.getAll();
 	}
 
-	public LocaisTuristicos findById(Integer id) {
+	public LocaisTuristicos findById(int id) {
 		return repository.get(id);
 	}
 	
@@ -46,14 +46,26 @@ public class LocalidadesService {
 	
 	public boolean delete(LocaisTuristicos locaisTuristicos) {
 		repository.remove(locaisTuristicos);
-		if (repository.get(locaisTuristicos.getId()) == null) {
+		if (repository.get((int) locaisTuristicos.getId()) == null) {
 			return true;
 		}else {
 			return false;
 		}
 	}
 	
-	public boolean add(LocaisTuristicos local) {
-		return repository.add(local);
+	public String findImgUrl(int id) {
+		LocaisTuristicos local = findById(id);
+		return local.getImgUrl();
+	}
+	
+	public boolean add(LocaisTuristicos l) {
+		int proxid = count() + 1;
+		LocaisTuristicos checkcount = repository.get(proxid);
+		while (checkcount != null) {
+			proxid++;
+			checkcount = repository.get(proxid);
+		}
+		l.setId(proxid);
+		return repository.add(l);
 	}
 }

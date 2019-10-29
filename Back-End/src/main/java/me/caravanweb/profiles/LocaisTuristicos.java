@@ -22,17 +22,29 @@ public class LocaisTuristicos implements Serializable {
 	@Column(nullable=false) 
 	private String descricao;
 	private boolean status;
+	private String imgUrl = "./assets/img/default-local.png";
 	
 	public LocaisTuristicos() {
 	}
 	
 	@JsonIgnore
 	public LocaisTuristicos(String nome, String descricao) {
+		super();
 		setNome(nome);
 		setDescricao(descricao);
 		this.status = true;
+		this.imgUrl = "./assets/img/default-local.png";
 	}
 	
+	public void seturlImg(String url) {
+		this.imgUrl = url;
+	}
+	public String getImgUrl() {
+		return imgUrl;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
 	public int getId() {
 		return id;
 	}

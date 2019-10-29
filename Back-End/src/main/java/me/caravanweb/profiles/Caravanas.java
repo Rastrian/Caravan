@@ -18,7 +18,7 @@ public class Caravanas implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	private Long id;
 	@Column(nullable=false) 
 	private String nome;
 	@Column(nullable=false) 
@@ -35,7 +35,7 @@ public class Caravanas implements Serializable {
 	public Caravanas() {
 	}
 	
-	public Caravanas(int id, String nome, String descricao, LocaisTuristicos local,int dia,int mes,int ano, Usuario owner) {
+	public Caravanas(String nome, String descricao, LocaisTuristicos local,int dia,int mes,int ano, Usuario owner) {
 		super();
 		setNome(nome);
 		setDescricao(descricao);
@@ -45,7 +45,7 @@ public class Caravanas implements Serializable {
 		this.id = id;
 	}
 	
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
 	public String getNome() {
