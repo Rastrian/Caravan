@@ -1,4 +1,4 @@
-package me.caravanweb.resources;
+package me.caravanweb.resources.api;
 
 public class CaravanasResource {
 

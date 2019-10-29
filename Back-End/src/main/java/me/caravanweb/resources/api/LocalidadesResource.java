@@ -1,9 +1,10 @@
-package me.caravanweb.resources;
+package me.caravanweb.resources.api;
 
 import me.caravanweb.profiles.LocaisTuristicos;
 import me.caravanweb.services.LocalidadesService;
 
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,9 +26,8 @@ public class LocalidadesResource {
 	private LocalidadesService service;
 	
 	@GetMapping
-	public ResponseEntity<List<LocaisTuristicos>> findAll() {
-		List<LocaisTuristicos> list = service.findAll();
-		return ResponseEntity.ok().body(list);
+	public ResponseEntity<List<String>> findAll() { 
+		return ResponseEntity.ok().body(service.listNames());
 	}
 	
 	@GetMapping(value = "/{id}")

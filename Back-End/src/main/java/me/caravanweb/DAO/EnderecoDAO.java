@@ -9,11 +9,14 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.stereotype.Repository;
+
 import me.caravanweb.profiles.Endereco;
 
+@Repository
 public class EnderecoDAO implements DAO<Endereco, Integer> {
-	private String filename = "enderecos.bin";
-
+	boolean path = new File("/DB/").mkdirs();
+	private String filename = "/DB/enderecos.bin";
 	private File file = new File(filename);
 	private static List<Endereco> enderecos;
 	private FileOutputStream fos;
@@ -92,7 +95,9 @@ public class EnderecoDAO implements DAO<Endereco, Integer> {
 	private List<Endereco> readFromFile() {
 		enderecos = new ArrayList<Endereco>();
 		Endereco endereco = null;
-		try (FileInputStream fis = new FileInputStream(file); ObjectInputStream inputFile = new ObjectInputStream(fis)) {
+		try {
+			FileInputStream fis = new FileInputStream(file);
+			ObjectInputStream inputFile = new ObjectInputStream(fis);
 			while (fis.available() > 0) {
 				endereco = (Endereco) inputFile.readObject();
 				enderecos.add(endereco);

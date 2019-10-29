@@ -2,6 +2,7 @@ package me.caravanweb.profiles;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,13 +17,20 @@ public class LocaisTuristicos implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	@Column(nullable=false) 
 	private String nome;
+	@Column(nullable=false) 
 	private String descricao;
 	private boolean status;
 	
-	@JsonIgnore
 	public LocaisTuristicos() {
-		
+	}
+	
+	@JsonIgnore
+	public LocaisTuristicos(String nome, String descricao) {
+		setNome(nome);
+		setDescricao(descricao);
+		this.status = true;
 	}
 	
 	public int getId() {
@@ -45,12 +53,6 @@ public class LocaisTuristicos implements Serializable {
 	}
 	public void setStatus(boolean status) {
 		this.status = status;
-	}
-	public LocaisTuristicos(String nome, String descricao) {
-		super();
-		setNome(nome);
-		setDescricao(descricao);
-		this.status = true;
 	}
 	
 	@Override
