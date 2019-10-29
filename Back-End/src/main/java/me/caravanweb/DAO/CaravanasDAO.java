@@ -14,7 +14,7 @@ import org.springframework.stereotype.Repository;
 import me.caravanweb.profiles.Caravanas;
 
 @Repository
-public class CaravanasDAO implements DAO<Caravanas, Long> {
+public class CaravanasDAO implements DAO<Caravanas, Integer> {
 	private String filename = "caravanas.bin";
 	private File file = new File(filename);
 	private static List<Caravanas> caravanas;
@@ -33,7 +33,7 @@ public class CaravanasDAO implements DAO<Caravanas, Long> {
 	}
 
 	@Override
-	public Caravanas get(Long id) {
+	public Caravanas get(Integer id) {
 		readFromFile();
 		for (Caravanas caravana : caravanas) {
 			if (caravana.getId() == id) {

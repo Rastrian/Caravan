@@ -18,7 +18,7 @@ public class Caravanas implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private Integer id;
 	@Column(nullable=false) 
 	private String nome;
 	@Column(nullable=false) 
@@ -45,7 +45,7 @@ public class Caravanas implements Serializable {
 		this.id = id;
 	}
 	
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 	public String getNome() {

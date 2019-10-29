@@ -25,6 +25,7 @@ public class Usuario implements Serializable {
 	private String email;
 	@Column(nullable=false) 
 	private String senha;
+	private Endereco end;
 	private boolean Turista;
 	private ArrayList<Caravanas> caravanas;
 	private boolean admin;

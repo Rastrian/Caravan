@@ -23,7 +23,7 @@ public class EnderecoService {
 		repository.add(e);
 	}
 	
-	public Endereco get(Long id) {
+	public Endereco get(int id) {
 		return repository.get(id);
 	}
 	

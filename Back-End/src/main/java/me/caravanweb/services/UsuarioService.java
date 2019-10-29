@@ -9,6 +9,7 @@ import javax.validation.constraints.NotNull;
 import org.springframework.stereotype.Service;
 
 import me.caravanweb.DAO.UsuarioDAO;
+import me.caravanweb.profiles.LocaisTuristicos;
 import me.caravanweb.profiles.Usuario;
 import me.caravanweb.profiles.others.Login;
 
@@ -30,6 +31,10 @@ public class UsuarioService {
 		List<Usuario> usuarios = repository.getAll();
 		usuarios.forEach(l -> emails.add(l.getEmail()));
 		return emails;
+	}
+	
+	public Usuario findById(int id) {
+		return repository.get(id);
 	}
 	
 	public boolean emailExists(String email) {
