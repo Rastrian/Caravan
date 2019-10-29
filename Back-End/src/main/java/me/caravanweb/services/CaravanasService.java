@@ -16,10 +16,5 @@ public class CaravanasService {
 			e.printStackTrace();
 		}
 	}
-
-	public Object findAll() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 	
 }
