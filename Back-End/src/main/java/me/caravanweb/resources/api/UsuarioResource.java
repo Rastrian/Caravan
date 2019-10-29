@@ -39,14 +39,14 @@ public class UsuarioResource {
 	
     @PostMapping(value = "/register")
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<String> register(@RequestBody Usuario u){
+    public ResponseEntity<String> register(Usuario u){
     	String body = service.add(u);
 		return ResponseEntity.ok().body(body);
 	}
     
     @PostMapping(value = "/login")
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<String> login(@RequestBody Login l){
+    public ResponseEntity<String> login(Login l){
     	String body = service.auth(l.getEmail(), l.getSenha());
 		return ResponseEntity.ok().body(body);
 	}
