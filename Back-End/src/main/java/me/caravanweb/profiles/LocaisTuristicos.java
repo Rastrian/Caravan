@@ -21,7 +21,6 @@ public class LocaisTuristicos implements Serializable {
 	private String nome;
 	@Column(nullable=false) 
 	private String descricao;
-	private boolean status;
 	private String imgUrl = "./assets/img/default-local.png";
 	
 	public LocaisTuristicos() {
@@ -32,7 +31,6 @@ public class LocaisTuristicos implements Serializable {
 		super();
 		setNome(nome);
 		setDescricao(descricao);
-		this.status = true;
 		this.imgUrl = "./assets/img/default-local.png";
 	}
 	
@@ -59,12 +57,6 @@ public class LocaisTuristicos implements Serializable {
 	}
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
-	}
-	public boolean isStatus() {
-		return status;
-	}
-	public void setStatus(boolean status) {
-		this.status = status;
 	}
 	
 	@Override
