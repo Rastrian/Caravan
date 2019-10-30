@@ -53,6 +53,11 @@ public class LocalidadesService {
 		}
 	}
 	
+	public String findImgUrl(int id) {
+		LocaisTuristicos local = findById(id);
+		return local.getImgUrl();
+	}
+	
 	public boolean add(LocaisTuristicos l) {
 		int proxid = count() + 1;
 		LocaisTuristicos checkcount = repository.get(proxid);

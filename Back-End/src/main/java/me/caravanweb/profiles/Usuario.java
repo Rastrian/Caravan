@@ -94,10 +94,7 @@ public class Usuario implements Serializable {
 	public boolean isAdmin() {
 		return this.admin;
 	}
-	public ArrayList<Caravanas> getCaravanas(){
-		return caravanas;
-	}
-
+	
 	@Override
 	public boolean equals(Object obj) {
 		return this.id.equals(((Usuario) obj).getId());
