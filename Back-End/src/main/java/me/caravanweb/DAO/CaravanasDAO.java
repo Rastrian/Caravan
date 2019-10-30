@@ -25,8 +25,6 @@ public class CaravanasDAO implements DAO<Caravanas, Integer> {
 		if (!file.exists()) {
 			fos = new FileOutputStream(file, false);
 			outputFile = new ObjectOutputStream(fos);
-		} else {
-			readFromFile();
 		}
 		caravanas = new ArrayList<Caravanas>();
 		readFromFile();

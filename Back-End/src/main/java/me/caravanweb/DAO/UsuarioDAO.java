@@ -27,10 +27,9 @@ public class UsuarioDAO implements DAO<Usuario, Integer> {
 		if (!file.exists()) {
 			fos = new FileOutputStream(file, false);
 			outputFile = new ObjectOutputStream(fos);
-		} else {
-			usuarios = new ArrayList<Usuario>();
-			readFromFile();
 		}
+		usuarios = new ArrayList<Usuario>();
+		readFromFile();
 	}
 
 	@Override
