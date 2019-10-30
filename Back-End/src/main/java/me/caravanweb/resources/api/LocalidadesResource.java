@@ -43,12 +43,6 @@ public class LocalidadesResource {
 		return ResponseEntity.ok().body(service.listNames());
 	}
 	
-	@GetMapping(value = "/imgurl/{id}")
-	public ResponseEntity<String> findImgUrl(@PathVariable Integer id) {
-		String obj = service.findImgUrl(id);
-		return ResponseEntity.ok().body(obj);
-	}
-	
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<LocaisTuristicos> create(@RequestBody LocaisTuristicos local){
@@ -65,7 +59,7 @@ public class LocalidadesResource {
     	String body = "";
 		boolean status = service.delete(local);
 		if (status) {
-			body = "Deletado.";
+			body = "deletado";
 		}
 		return ResponseEntity.ok().body(body);    
 	}

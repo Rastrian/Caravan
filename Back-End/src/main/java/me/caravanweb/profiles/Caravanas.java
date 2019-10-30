@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -23,11 +24,9 @@ public class Caravanas implements Serializable {
 	private String nome;
 	@Column(nullable=false) 
 	private String descricao;
-	@Column(nullable=false) 
 	private LocaisTuristicos local;
-	@Column(nullable=false) 
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
 	private LocalDate data;
-	@Column(nullable=false) 
 	private Usuario owner;
 	private ArrayList<Usuario> usuarios;
 	
@@ -35,16 +34,18 @@ public class Caravanas implements Serializable {
 	public Caravanas() {
 	}
 	
-	public Caravanas(String nome, String descricao, LocaisTuristicos local,int dia,int mes,int ano, Usuario owner) {
+	public Caravanas(String nome, String descricao, LocaisTuristicos local, LocalDate data, Usuario owner) {
 		super();
 		setNome(nome);
 		setDescricao(descricao);
 		setLocal(local);
 		setOwner(owner);
-		data = LocalDate.of(ano, mes, dia);
-		this.id = id;
+		setData(data);
 	}
 	
+	public void setId(int id) {
+		this.id = id;
+	}
 	public Integer getId() {
 		return id;
 	}

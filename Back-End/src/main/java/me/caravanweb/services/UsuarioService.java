@@ -9,6 +9,7 @@ import javax.validation.constraints.NotNull;
 import org.springframework.stereotype.Service;
 
 import me.caravanweb.DAO.UsuarioDAO;
+import me.caravanweb.profiles.Caravanas;
 import me.caravanweb.profiles.LocaisTuristicos;
 import me.caravanweb.profiles.Usuario;
 import me.caravanweb.profiles.others.Login;
@@ -35,6 +36,19 @@ public class UsuarioService {
 	
 	public Usuario findById(int id) {
 		return repository.get(id);
+	}
+	
+	public void update(Usuario u) {
+		repository.update(u);
+	}
+	
+	public boolean hasCaravana(Usuario l, Caravanas c) {
+		for (Caravanas caravana : l.getCaravanas()) {
+			if (caravana.getId() == c.getId()) {
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	public boolean emailExists(String email) {

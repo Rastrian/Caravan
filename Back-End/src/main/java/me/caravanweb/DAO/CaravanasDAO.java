@@ -31,6 +31,10 @@ public class CaravanasDAO implements DAO<Caravanas, Integer> {
 		caravanas = new ArrayList<Caravanas>();
 		readFromFile();
 	}
+	
+	public int count() {
+		return readFromFile().size();
+	}
 
 	@Override
 	public Caravanas get(Integer id) {
