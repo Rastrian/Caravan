@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ptBR">
+
 <head>
   <meta charset="utf-8" />
   <link rel="apple-touch-icon" sizes="76x76" href="./assets/img/apple-icon.png">
@@ -8,7 +9,8 @@
   <title>
     Caravan
   </title>
-  <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
+  <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no'
+    name='viewport' />
   <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
   <link href="./assets/css/bootstrap.min.css" rel="stylesheet" />
@@ -16,12 +18,39 @@
   <link href="./assets/demo/demo.css" rel="stylesheet" />
   <link href="./assets/css/custom.css" rel="stylesheet" />
 </head>
+<!--   Core JS Files   -->
+<script src="./assets/js/core/jquery.min.js"></script>
+<script src="./assets/js/core/popper.min.js"></script>
+<script src="./assets/js/core/bootstrap.min.js"></script>
+<script src="./assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+<!--  Google Maps Plugin    -->
+<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
+<!-- Chart JS -->
+<script src="./assets/js/plugins/chartjs.min.js"></script>
+<!--  Notifications Plugin    -->
+<script src="./assets/js/plugins/bootstrap-notify.js"></script>
+<!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
+<script src="./assets/js/paper-dashboard.min.js?v=2.0.0" type="text/javascript"></script>
+<!-- Paper Dashboard DEMO methods, don't include it in your project! -->
+<script src="./assets/demo/demo.js"></script>
+<script src="./assets/js/core/axios.js"></script>
+<script src="./assets/js/cookieman.js"></script>
+<script type="text/javascript">
+  if (readCookie("caravan.login.userid") == '') {
+    window.location.href = "./index.html";
+    setTimeout(function () {
+      window.location.href = "./painel.html";
+    }, 3000);
+  } else {
+    writeCookie("caravan.page", "painel", 4);
+  }
+</script>
 
 <body class="">
   <div class="wrapper ">
     <div class="sidebar" data-color="white" data-active-color="danger">
       <div class="logo">
-        <a href="http://www.creative-tim.com" class="simple-text logo-normal">
+        <a href="#" class="simple-text logo-normal">
           <div class="logo-image-big">
             <img src="./assets/img/logo.png">
           </div>
@@ -48,7 +77,7 @@
             </a>
           </li>
           <li>
-            <a href="#">
+            <a href="./index.html">
               <i class="nc-icon nc-share-66"></i>
               <p>Deslogar</p>
             </a>
@@ -70,7 +99,8 @@
             </div>
             <a class="navbar-brand" href="#pablo">Seleção de Locais Turisticos</a>
           </div>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation"
+            aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-bar navbar-kebab"></span>
             <span class="navbar-toggler-bar navbar-kebab"></span>
             <span class="navbar-toggler-bar navbar-kebab"></span>
@@ -83,65 +113,54 @@
             <div class="card ">
               <div class="card-header ">
                 <h5 class="card-title">Selecione a localidade desejada:</h5>
-                <p class="card-category">Caso a localidade desejada não esteja disponivel, entre em contato com nossa equipe para saber quando estará disponivel.</p>
               </div>
               <div class="card-body ">
-              <center>
-              <form autocomplete="off" action="#">
-                <div class="autocomplete" style="width:300px;">
-                <input id="list-localidades" type="text" name="localidade" placeholder="Escolha a Localidade">
-                </div>
-                <input type="submit">
-              </form>
-              </center>
-              </div>
-              <div class="card-footer ">
-                <hr>
-                <div class="stats">
+                <div id="lista"></div>
+                <script type="text/javascript">
+                  var request = new XMLHttpRequest();
+                  request.open("GET", "http://34.95.17.159:8085/api/localidades", false);
+                  request.send(null);
+                  var localidadesdb = JSON.parse(request.responseText);
 
-                </div>
+                  var sHtml = '';
+                  db = localidadesdb;
+                  for (i = 0; i < db.length; i++) {
+                    sHtml += `
+                            <div class="prod"><center>
+                            <a href="./painel-lista-caravanas.html?local=${db[i].id}">
+                            <h4><font color="black">${db[i].nome}</font></h4>
+                            <p><font color="black" font-size=12px>${db[i].descricao}</font></p> 
+                            <img src="${db[i].imgUrl}" width="225" width="225" alt="${db[i].descricao}"></img></br>
+                            </a>
+                            </center></div>`;
+                  }
+                  document.getElementById('lista').innerHTML = sHtml;
+                </script>
               </div>
             </div>
           </div>
         </div>
-      <footer class="footer footer-black  footer-white ">
-        <div class="container-fluid">
-          <div class="row">
-            <nav class="footer-nav">
-              <ul>
-                <li>
-                  <a href="#" target="_blank">#</a>
-                </li>
-              </ul>
-            </nav>
+        <footer class="footer footer-black  footer-white ">
+          <div class="container-fluid">
+            <div class="row">
+              <nav class="footer-nav">
+                <ul>
+                  <li>
+                    <a href="#" target="_blank">#</a>
+                  </li>
+                </ul>
+              </nav>
+            </div>
           </div>
-        </div>
-      </footer>
+        </footer>
+      </div>
     </div>
-  </div>
-  <!--   Core JS Files   -->
-  <script src="./assets/js/core/jquery.min.js"></script>
-  <script src="./assets/js/core/popper.min.js"></script>
-  <script src="./assets/js/core/bootstrap.min.js"></script>
-  <script src="./assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
-  <!--  Google Maps Plugin    -->
-  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
-  <!-- Chart JS -->
-  <script src="./assets/js/plugins/chartjs.min.js"></script>
-  <!--  Notifications Plugin    -->
-  <script src="./assets/js/plugins/bootstrap-notify.js"></script>
-  <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
-  <script src="./assets/js/paper-dashboard.min.js?v=2.0.0" type="text/javascript"></script>
-  <!-- Paper Dashboard DEMO methods, don't include it in your project! -->
-  <script src="./assets/demo/demo.js"></script>
-  <script src="./assets/js/core/axios.js"></script>
-  <script src="./assets/js/main.js"></script>
-  <script>
-    $(document).ready(function() {
-      // Javascript method's body can be found in assets/assets-for-demo/js/demo.js
-      demo.initChartsPages();
-    });
-  </script>
+    <script>
+      $(document).ready(function () {
+        // Javascript method's body can be found in assets/assets-for-demo/js/demo.js
+        demo.initChartsPages();
+      });
+    </script>
 </body>
 
 </html>

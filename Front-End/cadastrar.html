@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ptBR">
+
 <head>
   <meta charset="utf-8" />
   <link rel="apple-touch-icon" sizes="76x76" href="./assets/img/apple-icon.png">
@@ -8,7 +9,8 @@
   <title>
     Autenticação
   </title>
-  <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
+  <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no'
+    name='viewport' />
   <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
   <link href="./assets/css/bootstrap.min.css" rel="stylesheet" />
@@ -16,12 +18,25 @@
   <link href="./assets/demo/demo.css" rel="stylesheet" />
   <link href="./assets/css/custom.css" rel="stylesheet" />
 </head>
+<script src="./assets/js/core/jquery.min.js"></script>
+<script src="./assets/js/core/popper.min.js"></script>
+<script src="./assets/js/core/bootstrap.min.js"></script>
+<script src="./assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+<!-- Chart JS -->
+<script src="./assets/js/plugins/chartjs.min.js"></script>
+<!--  Notifications Plugin    -->
+<script src="./assets/js/plugins/bootstrap-notify.js"></script>
+<!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
+<script src="./assets/js/paper-dashboard.min.js?v=2.0.0" type="text/javascript"></script>
+<!-- Paper Dashboard DEMO methods, don't include it in your project! -->
+<script src="./assets/demo/demo.js"></script>
+<script src="./assets/cookieman.js"></script>
 
 <body class="">
   <div class="wrapper ">
     <div class="sidebar" data-color="white" data-active-color="danger">
       <div class="logo">
-        <a href="http://www.creative-tim.com" class="simple-text logo-normal">
+        <a href="#" class="simple-text logo-normal">
           <div class="logo-image-big">
             <img src="./assets/img/logo.png">
           </div>
@@ -29,10 +44,16 @@
       </div>
       <div class="sidebar-wrapper">
         <ul class="nav">
-          <li class="active ">
+          <li>
             <a href="./index.html">
               <i class="nc-icon nc-bank"></i>
               <p>Inicio</p>
+            </a>
+          </li>
+          <li class="active ">
+            <a href="./cadastrar.html">
+              <i class="nc-icon nc-tap-01"></i>
+              <p>Cadastrar</p>
             </a>
           </li>
         </ul>
@@ -52,7 +73,8 @@
             </div>
             <a class="navbar-brand" href="#pablo">Cadastrar</a>
           </div>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation"
+            aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-bar navbar-kebab"></span>
             <span class="navbar-toggler-bar navbar-kebab"></span>
             <span class="navbar-toggler-bar navbar-kebab"></span>
@@ -64,18 +86,141 @@
           <div class="col-md-12">
             <div class="card ">
               <div class="card-body ">
-              <center>
-              <form autocomplete="off" action="#">
-                <div class="autocomplete" style="width:300px;">
-                <input id="nome" type="text" name="nome" placeholder="Seu Nome"></br></br>
-                <input id="email" type="email" name="email" placeholder="Seu E-mail"></br></br>
-                <input id="senha" type="password" name="senha" placeholder="Sua Senha">
-                </div></br>
-				<input type="submit" class="btn btn-success" value="Entrar">
-                <a href="cadastrar.html" class="btn btn-primary"><i class="fa fa-user-plus" style="width: auto;margin: 0 .75em 0 0;"></i> Cadastrar</a>
-              </form>
-              </center>
+                <center>
+                  <div id="msg"></div>
+                  <div id="success" style="display:none">
+                    <div class="alert alert-success alert-with-icon alert-dismissible fade show"
+                      data-notify="container">
+                      <button type="button" aria-hidden="true" class="close" data-dismiss="alert" aria-label="Close">
+                        <i class="nc-icon nc-simple-remove"></i>
+                      </button>
+                      <span data-notify="icon" class="nc-icon nc-alert-circle-i"></span>
+                      <span data-notify="message">Seu cadastro foi realizado !</br>Em segundos você será
+                        redirecionado(a) ao login.</span>
+                    </div>
+                  </div>
+                  <div id="error" style="display:none">
+                    <div class="alert alert-danger alert-with-icon alert-dismissible fade show" data-notify="container">
+                      <button type="button" aria-hidden="true" class="close" data-dismiss="alert" aria-label="Close">
+                        <i class="nc-icon nc-simple-remove"></i>
+                      </button>
+                      <span data-notify="icon" class="nc-icon nc-alert-circle-i"></span>
+                      <span data-notify="message">Erro interno.</span>
+                    </div>
+                  </div>
+                  <div id="sameemailError" style="display:none">
+                    <div class="alert alert-danger alert-with-icon alert-dismissible fade show" data-notify="container">
+                      <button type="button" aria-hidden="true" class="close" data-dismiss="alert" aria-label="Close">
+                        <i class="nc-icon nc-simple-remove"></i>
+                      </button>
+                      <span data-notify="icon" class="nc-icon nc-alert-circle-i"></span>
+                      <span data-notify="message">Este e-mail já está sendo utilizado por outro usuario.</span>
+                    </div>
+                  </div>
+                  <form autocomplete="off" method="POST" name="cadastro">
+                    <div class="autocomplete" style="width:300px;">
+                      <div id="nomeError" style="display:none">
+                        <div class="alert alert-warning alert-with-icon alert-dismissible fade show"
+                          data-notify="container">
+                          <button type="button" aria-hidden="true" class="close" data-dismiss="alert"
+                            aria-label="Close">
+                            <i class="nc-icon nc-simple-remove"></i>
+                          </button>
+                          <span data-notify="icon" class="nc-icon nc-alert-circle-i"></span>
+                          <span data-notify="message">Nome invalido.</span>
+                        </div>
+                      </div>
+                      <input id="nome" type="text" name="nome" placeholder="Seu Nome" required>
+                      </br></br>
+                      <div id="emailError" style="display:none">
+                        <div class="alert alert-warning alert-with-icon alert-dismissible fade show"
+                          data-notify="container">
+                          <button type="button" aria-hidden="true" class="close" data-dismiss="alert"
+                            aria-label="Close">
+                            <i class="nc-icon nc-simple-remove"></i>
+                          </button>
+                          <span data-notify="icon" class="nc-icon nc-alert-circle-i"></span>
+                          <span data-notify="message">E-mail invalido.</span>
+                        </div>
+                      </div>
+                      <input id="email" type="email" name="email" placeholder="Seu E-mail" required></br></br>
+                      <input id="senha" type="password" name="senha" placeholder="Sua Senha" required></br></br>
+                      <div id="repitasenhaError" style="display:none">
+                        <div class="alert alert-warning alert-with-icon alert-dismissible fade show"
+                          data-notify="container">
+                          <button type="button" aria-hidden="true" class="close" data-dismiss="alert"
+                            aria-label="Close">
+                            <i class="nc-icon nc-simple-remove"></i>
+                          </button>
+                          <span data-notify="icon" class="nc-icon nc-alert-circle-i"></span>
+                          <span data-notify="message">Confirmação de senha invalida</span>
+                        </div>
+                      </div>
+                      <input id="repitasenha" type="password" name="repitasenha" placeholder="Repita sua senha"
+                        required></br></br>
+                    </div></br>
+                    <input type="submit" class="btn btn-success" value="Cadastrar">
+                  </form>
+                </center>
               </div>
+              <script type="text/javascript">
+                $(document).ready(function () {
+                  $('form').submit(function (event) {
+                    Cadastro(event);
+                  })
+                });
+
+                function Cadastro(event) {
+                  event.preventDefault();
+                  var nome = document.getElementsByName('nome')[0].value;
+                  var email = document.getElementsByName('email')[0].value;
+                  var senha = document.getElementsByName('senha')[0].value;
+                  var repitasenha = document.getElementsByName('repitasenha')[0].value;
+                  var formData = {
+                    nome: nome,
+                    email: email,
+                    senha: senha
+                  };
+                  if (senha != repitasenha) {
+                    $("#repitasenhaError").show();
+                    $('#repitasenhaError').delay(5000).fadeOut('slow');
+                    return;
+                  }
+                  if (nome == null || nome == '' || (nome.length == 0)) {
+                    $("#nomeError").show();
+                    $('#nomeError').delay(5000).fadeOut('slow');
+                    return;
+                  }
+                  if (email == null || email == '' || (email.length == 0)) {
+                    $("#emailError").show();
+                    $('#emailError').delay(5000).fadeOut('slow');
+                    return;
+                  }
+
+                  $.ajax({
+                    url: 'http://34.95.17.159:8085/api/users/register',
+                    data: formData,
+                    success: function (data) {
+                      if (data == "MailError") {
+                        $('#sameemailError').fadeIn('slow');
+                        $('#sameemailError').delay(5000).fadeOut('slow');
+                      } else if (data == "error") {
+                        $('#error').fadeIn('slow');
+                        $('#error').delay(5000).fadeOut('slow');
+                      } else if (data == "success") {
+                        $('#success').fadeIn('slow');
+                        $('#success').delay(5000).fadeOut('slow');
+                        setTimeout(function () {
+                          window.location.href = "./index.html";
+                        }, 3000);
+                      }
+                      //$('#msg').html(data).fadeIn('slow');
+                      //$('#msg').delay(5000).fadeOut('slow');
+                    },
+                    type: "POST"
+                  });
+                };
+              </script>
               <div class="card-footer ">
                 <hr>
                 <div class="stats">
@@ -85,43 +230,26 @@
             </div>
           </div>
         </div>
-      <footer class="footer footer-black  footer-white ">
-        <div class="container-fluid">
-          <div class="row">
-            <nav class="footer-nav">
-              <ul>
-                <li>
-                  <a href="#" target="_blank">#</a>
-                </li>
-              </ul>
-            </nav>
+        <footer class="footer footer-black  footer-white ">
+          <div class="container-fluid">
+            <div class="row">
+              <nav class="footer-nav">
+                <ul>
+                  <li>
+                    <a href="#" target="_blank">#</a>
+                  </li>
+                </ul>
+              </nav>
+            </div>
           </div>
-        </div>
-      </footer>
+        </footer>
+      </div>
     </div>
-  </div>
-  <!--   Core JS Files   -->
-  <script src="./assets/js/core/jquery.min.js"></script>
-  <script src="./assets/js/core/popper.min.js"></script>
-  <script src="./assets/js/core/bootstrap.min.js"></script>
-  <script src="./assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
-  <!--  Google Maps Plugin    -->
-  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
-  <!-- Chart JS -->
-  <script src="./assets/js/plugins/chartjs.min.js"></script>
-  <!--  Notifications Plugin    -->
-  <script src="./assets/js/plugins/bootstrap-notify.js"></script>
-  <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
-  <script src="./assets/js/paper-dashboard.min.js?v=2.0.0" type="text/javascript"></script>
-  <!-- Paper Dashboard DEMO methods, don't include it in your project! -->
-  <script src="./assets/demo/demo.js"></script>
-  <script src="./assets/js/main.js"></script>
-  <script>
-    $(document).ready(function() {
-      // Javascript method's body can be found in assets/assets-for-demo/js/demo.js
-      demo.initChartsPages();
-    });
-  </script>
+    <script>
+      $(document).ready(function () {
+        demo.initChartsPages();
+      });
+    </script>
 </body>
 
 </html>
