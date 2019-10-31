@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import me.caravanweb.DAO.CaravanasDAO;
 import me.caravanweb.profiles.Caravanas;
+import me.caravanweb.profiles.Usuario;
 
 @Service
 public class CaravanasService {
@@ -37,7 +38,7 @@ public class CaravanasService {
 		c.setOwner(serviceu.findById(c.getOwnerId()));
 		c.setData(LocalDate.of(c.getAno(), c.getMes(), c.getDia()));
 		repository.update(c);
-		return c;
+		return repository.get(c.getId());
 	}
 	
 	public Caravanas findById(int id) {

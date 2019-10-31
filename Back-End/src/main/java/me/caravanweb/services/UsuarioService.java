@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import me.caravanweb.DAO.UsuarioDAO;
+import me.caravanweb.profiles.Caravanas;
 import me.caravanweb.profiles.Usuario;
 
 @Service
@@ -31,7 +32,16 @@ public class UsuarioService {
 		return emails;
 	}
 	
-	public Usuario findById(int id) {
+	public List<Usuario> findAll(){
+		return repository.getAll();
+	}
+	
+	public List<Caravanas> listCaravanas(Usuario u){
+        u = repository.get(u.getId());
+		return u.getCaravanas();
+	}
+	
+	public Usuario findById(Integer id) {
 		return repository.get(id);
 	}
 	
@@ -110,6 +120,11 @@ public class UsuarioService {
 	
 	public int count () {
 		return repository.getAll().size();
+	}
+
+	public Usuario update(Usuario u) {
+		repository.update(u);
+		return repository.get(u.getId());
 	}
 
 }

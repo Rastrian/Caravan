@@ -1,7 +1,6 @@
 package me.caravanweb.resources.api;
 
 import java.net.URI;
-import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +18,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import me.caravanweb.profiles.Caravanas;
 import me.caravanweb.services.CaravanasService;
-import me.caravanweb.services.LocalidadesService;
-import me.caravanweb.services.UsuarioService;
 
 @RestController
 @CrossOrigin
@@ -52,9 +49,9 @@ public class CaravanasResource {
     @PostMapping(value = "/delete/{id}")
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<String> delete(@PathVariable Integer id){
-    	Caravanas local = service.findById(id);
+    	Caravanas caravana = service.findById(id);
     	String body = "";
-		boolean status = service.delete(local);
+		boolean status = service.delete(caravana);
 		if (status) {
 			body = "Deletado.";
 		}

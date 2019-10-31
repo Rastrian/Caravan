@@ -38,7 +38,7 @@ public class Caravanas implements Serializable {
 
 	private Usuario owner = null;
 	private LocaisTuristicos local = null;
-	private ArrayList<Usuario> usuarios;
+	private ArrayList<Usuario> usuarios = null;
 	
 	public Caravanas() {
 	}

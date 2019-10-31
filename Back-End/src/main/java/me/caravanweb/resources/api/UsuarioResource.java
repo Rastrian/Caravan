@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import me.caravanweb.profiles.Caravanas;
 import me.caravanweb.profiles.Usuario;
+import me.caravanweb.services.CaravanasService;
 import me.caravanweb.services.UsuarioService;
 
 @RestController
@@ -23,6 +25,13 @@ import me.caravanweb.services.UsuarioService;
 public class UsuarioResource {
 	@Autowired
 	private UsuarioService service;
+	@Autowired
+	private CaravanasService servicec;
+	
+	@GetMapping
+	public ResponseEntity<List<Usuario>> findAll() {
+		return ResponseEntity.ok().body(service.findAll());
+	}
 	
 	@GetMapping(value = "/count")
 	public ResponseEntity<String> count() {
@@ -30,7 +39,7 @@ public class UsuarioResource {
 		return ResponseEntity.ok().body(String.valueOf(obj));
 	}
 	
-	@GetMapping(value = "/user/{id}")
+	@GetMapping(value = "/{id}")
 	public ResponseEntity<Usuario> findById(@PathVariable Integer id) {
 		Usuario obj = service.findById(id);
 		return ResponseEntity.ok().body(obj);
@@ -53,6 +62,35 @@ public class UsuarioResource {
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<String> login(@RequestBody Usuario u){
     	String body = service.auth(u.getEmail(), u.getSenha());
+		return ResponseEntity.ok().body(body);
+	}
+    
+    @PostMapping(value = "/{idUsuario}/caravana/add/{idCaravana}")
+    @ResponseStatus(HttpStatus.CREATED)
+    public ResponseEntity<String> addUser(@PathVariable Integer idCaravana, Integer idUsuario){
+    	String body = "erro";
+    	Caravanas c = servicec.findById(idCaravana);
+    	Usuario u = service.findById(idUsuario);
+    	u.addCaravana(c);
+    	c.addUser(u);
+    	service.update(u);
+    	servicec.update(c);
+    	if (c.getUsers().contains(c)) {
+    		body = "adicionado";
+    	}
+		return ResponseEntity.ok().body(body);
+	}
+    
+    @PostMapping(value = "/{idUsuario}/caravana/remove/{idCaravana}")
+    @ResponseStatus(HttpStatus.CREATED)
+    public ResponseEntity<String> removeUser(@PathVariable Integer idCaravana, Integer idUsuario){
+    	String body = "erro";
+    	Caravanas caravana = servicec.findById(idCaravana);
+    	Usuario user = service.findById(idUsuario);
+    	servicec.removeUser(caravana, user);
+    	if (service.listCaravanas(user).contains(caravana)) {
+    		body = "removido";
+    	}
 		return ResponseEntity.ok().body(body);
 	}
 

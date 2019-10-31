@@ -3,6 +3,7 @@ package me.caravanweb.profiles;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,12 +16,16 @@ public class Usuario implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
-	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Id
 	private Integer id;
+	@Column(nullable=false) 
 	private String nome;
+	@Column(nullable=false) 
 	private String email;
+	@Column(nullable=false) 
 	private String senha;
+	
 	private Endereco end;
 	private boolean Turista;
 	private ArrayList<Caravanas> caravanas;
@@ -38,11 +43,15 @@ public class Usuario implements Serializable {
 		this.Turista=true;
 		this.admin = false;
 	}
+	
+	public ArrayList<Caravanas> getCaravanas() {
+		return caravanas;
+	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 	public String getNome() {

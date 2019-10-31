@@ -14,24 +14,24 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class Endereco implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
-	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Id
 	private Integer id;
-	@Column(nullable=false) 
-	private String endereco;
-	@Column(nullable=false) 
-	private long telefone;
-	private Long cep;
-	@Column(nullable=false) 
-	private String cidade;
+	private String endereco = "undefined";
+	private Long telefone = null;
+	private Long cep = null;
+	private String cidade = "undefined";
 
-	@JsonIgnore
 	public Endereco() {
+	}
+	
+	@JsonIgnore
+	public Endereco(String endereco, Long telefone, Long cep, String cidade) {
 		super();
-		telefone = 0;
-		cep = (long) 0;
-		endereco = "";
-		cidade = "naoLocalizada";
+		this.endereco = endereco;
+		this.telefone = telefone;
+		this.cep = cep;
+		this.cidade = cidade;
 	}
 
 	public Integer getId() {
@@ -78,18 +78,20 @@ public class Endereco implements Serializable {
 		cidade = newCidade;
 	}
 	
-	public void setTelefone(long newTelefone) {
-		if (newTelefone >= 10000000 && newTelefone <= 100000000)
+	public void setTelefone(Long newTelefone) {
+		if (newTelefone >= 10000000 && newTelefone <= 100000000) {
 			telefone = newTelefone;
-		else
-			telefone = 0;
+		} else {
+			telefone = null;
+		}
 	}
 	
-	public void setCEP(long newCEP) {
-		if (newCEP >= 10000000 && newCEP <= 100000000)
+	public void setCEP(Long newCEP) {
+		if (newCEP >= 10000000 && newCEP <= 100000000) {
 			cep = newCEP;
-		else
+		} else {
 			cep = null;
+		}
 	}
 	
 	@Override
