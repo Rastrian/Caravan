@@ -28,10 +28,6 @@ import me.caravanweb.services.UsuarioService;
 public class CaravanasResource {
 	@Autowired
 	private CaravanasService service;
-	@Autowired
-	private LocalidadesService servicel;
-	@Autowired
-	private UsuarioService serviceu;
 	
 	@GetMapping
 	public ResponseEntity<List<Caravanas>> findAll() { 
@@ -47,9 +43,6 @@ public class CaravanasResource {
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public ResponseEntity<Caravanas> create(@RequestBody Caravanas c){
-		c.setLocal(servicel.findById(c.getLocalId()));
-		c.setOwner(serviceu.findById(c.getOwnerId()));
-		c.setData(LocalDate.of(c.getAno(), c.getMes(), c.getDia()));
 		service.add(c);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
 				.buildAndExpand(c.getId()).toUri();
