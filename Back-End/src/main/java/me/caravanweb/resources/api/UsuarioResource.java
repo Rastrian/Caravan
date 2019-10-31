@@ -85,10 +85,13 @@ public class UsuarioResource {
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<String> removeUser(@PathVariable Integer idCaravana, Integer idUsuario){
     	String body = "erro";
-    	Caravanas caravana = servicec.findById(idCaravana);
-    	Usuario user = service.findById(idUsuario);
-    	servicec.removeUser(caravana, user);
-    	if (service.listCaravanas(user).contains(caravana)) {
+    	Caravanas c = servicec.findById(idCaravana);
+    	Usuario u = service.findById(idUsuario);
+    	u.removeCaravana(c);
+    	c.removeUser(u);
+    	service.update(u);
+    	servicec.update(c);
+    	if (c.getUsers().contains(c)) {
     		body = "removido";
     	}
 		return ResponseEntity.ok().body(body);
