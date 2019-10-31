@@ -20,7 +20,7 @@ public class CaravanasDAO implements DAO<Caravanas, Integer> {
 	private static List<Caravanas> caravanas;
 	private FileOutputStream fos;
 	private ObjectOutputStream outputFile;
- 
+
 	public CaravanasDAO() throws IOException {
 		if (!file.exists()) {
 			fos = new FileOutputStream(file, false);
@@ -33,42 +33,43 @@ public class CaravanasDAO implements DAO<Caravanas, Integer> {
 	@Override
 	public Caravanas get(Integer id) {
 		readFromFile();
-		for (Caravanas caravana : caravanas) {
-			if (caravana.getId() == id) {
-				return caravana;
+		for (Caravanas usu : caravanas) {
+			if (usu.getId().equals(id)) {
+				return usu;
 			}
 		}
 		return null;
 	}
 
 	@Override
-	public boolean add(Caravanas caravana) {
-		try {
-			if (!caravanas.contains(caravana))
-				caravanas.add(caravana);
+	public boolean add(Caravanas Caravanas) {
+		try { 
+			if(!caravanas.contains(Caravanas)) {
+				caravanas.add(Caravanas);
+			}else{
+				return false;
+			}
 			saveToFile();
 			return true;
 		} catch (Exception e) {
-			System.out.println("ERRO ao gravar o produto '" + caravana.getId() + "' no disco!");
+			System.out.println("ERRO ao gravar o Caravanas '" + Caravanas.getId() + "' no disco!");
 			e.printStackTrace();
 			return false;
 		}
-
 	}
 
 	@Override
-	public void update(Caravanas caravana) {
-		int index = caravanas.indexOf(caravana);
+	public void update(Caravanas Caravanas) {
+		int index = caravanas.indexOf(Caravanas);
 		if (index != -1) {
-			caravanas.set(index, caravana);
+			caravanas.set(index, Caravanas);
 		}
 		saveToFile();
-
 	}
 
 	@Override
-	public void remove(Caravanas caravana) {
-		int index = caravanas.indexOf(caravana);
+	public void remove(Caravanas Caravanas) {
+		int index = caravanas.indexOf(Caravanas);
 		if (index != -1) {
 			caravanas.remove(index);
 		}
@@ -78,16 +79,16 @@ public class CaravanasDAO implements DAO<Caravanas, Integer> {
 
 	private void saveToFile() {
 		try {
-			FileOutputStream fos2 = new FileOutputStream(file, false);
-			ObjectOutputStream outputFile2 = new ObjectOutputStream(fos2);
+			fos = new FileOutputStream(file, false);
+			outputFile = new ObjectOutputStream(fos);
 
-			for (Caravanas car : caravanas) {
-				outputFile2.writeObject(car);
+			for (Caravanas Caravanas : caravanas) {
+				outputFile.writeObject(Caravanas);
 			}
-			outputFile2.flush();
+			outputFile.flush();
 			readFromFile();
 		} catch (Exception e) {
-			System.out.println("ERRO ao gravar caravana no disco!");
+			System.out.println("ERRO ao gravar Caravanas no disco!");
 			e.printStackTrace();
 		}
 	}
@@ -99,19 +100,22 @@ public class CaravanasDAO implements DAO<Caravanas, Integer> {
 
 	private List<Caravanas> readFromFile() {
 		caravanas = new ArrayList<Caravanas>();
-		Caravanas caravana = null;
-		try {
-			FileInputStream fis = new FileInputStream(file);
-			ObjectInputStream inputFile = new ObjectInputStream(fis);
+		Caravanas Caravanas = null;
+		try (FileInputStream fis = new FileInputStream(file);
+				ObjectInputStream inputFile = new ObjectInputStream(fis)) {
 			while (fis.available() > 0) {
-				caravana = (Caravanas) inputFile.readObject();
-				caravanas.add(caravana);
+				Caravanas = (Caravanas) inputFile.readObject();
+				caravanas.add(Caravanas);
 			}
 		} catch (Exception e) {
-			System.out.println("ERRO ao gravar caravana no disco!");
+			System.out.println("ERRO ao gravar Caravanas no disco!");
 			e.printStackTrace();
 		}
 		return caravanas;
+	}
+
+	public int count() {
+		return readFromFile().size();
 	}
 
 	private void close() throws IOException {

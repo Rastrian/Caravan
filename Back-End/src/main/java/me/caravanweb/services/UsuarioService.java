@@ -4,18 +4,16 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.validation.constraints.NotNull;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import me.caravanweb.DAO.UsuarioDAO;
-import me.caravanweb.profiles.LocaisTuristicos;
 import me.caravanweb.profiles.Usuario;
-import me.caravanweb.profiles.others.Login;
 
 @Service
 public class UsuarioService {
 	
+	@Autowired
 	private UsuarioDAO repository;
 	
 	public UsuarioService() {

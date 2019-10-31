@@ -3,7 +3,6 @@ package me.caravanweb.profiles;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -19,11 +18,8 @@ public class Usuario implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	@Column(nullable=false) 
 	private String nome;
-	@Column(unique=true, nullable=false) 
 	private String email;
-	@Column(nullable=false) 
 	private String senha;
 	private Endereco end;
 	private boolean Turista;
@@ -93,6 +89,10 @@ public class Usuario implements Serializable {
 	}
 	public boolean isAdmin() {
 		return this.admin;
+	}
+	
+	public Endereco getEndereco() {
+		return end;
 	}
 	
 	@Override

@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import me.caravanweb.DAO.LocaisTuristicosDAO;
 import me.caravanweb.profiles.LocaisTuristicos;
-import me.caravanweb.profiles.Usuario;
 
 @Service
 public class LocalidadesService {
@@ -34,7 +33,7 @@ public class LocalidadesService {
 	}
 	
 	public ArrayList<String> listNames() {
-		ArrayList<String> names = new ArrayList();
+		ArrayList<String> names = new ArrayList<String>();
 		List<LocaisTuristicos> list = findAll();
 		list.forEach(l -> names.add(l.getNome()));
 		return names;
@@ -46,7 +45,7 @@ public class LocalidadesService {
 	
 	public boolean delete(LocaisTuristicos locaisTuristicos) {
 		repository.remove(locaisTuristicos);
-		if (repository.get((int) locaisTuristicos.getId()) == null) {
+		if (repository.get(locaisTuristicos.getId()) == null) {
 			return true;
 		}else {
 			return false;
@@ -58,7 +57,7 @@ public class LocalidadesService {
 		return local.getImgUrl();
 	}
 	
-	public boolean add(LocaisTuristicos l) {
+	public void add(LocaisTuristicos l) {
 		int proxid = count() + 1;
 		LocaisTuristicos checkcount = repository.get(proxid);
 		while (checkcount != null) {
@@ -66,6 +65,6 @@ public class LocalidadesService {
 			checkcount = repository.get(proxid);
 		}
 		l.setId(proxid);
-		return repository.add(l);
+		repository.add(l);
 	}
 }

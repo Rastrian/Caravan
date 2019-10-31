@@ -9,20 +9,18 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.MappedSuperclass;
-
 import org.springframework.stereotype.Repository;
 
 import me.caravanweb.profiles.LocaisTuristicos;
 
 @Repository
-public class LocaisTuristicosDAO implements DAO<LocaisTuristicos,Integer>{
+public class LocaisTuristicosDAO implements DAO<LocaisTuristicos, Integer> {
 	private String filename = "locais.bin";
 	private File file = new File(filename);
 	private static List<LocaisTuristicos> locais;
 	private FileOutputStream fos;
 	private ObjectOutputStream outputFile;
-	
+
 	public LocaisTuristicosDAO() throws IOException {
 		if (!file.exists()) {
 			fos = new FileOutputStream(file, false);
@@ -35,62 +33,62 @@ public class LocaisTuristicosDAO implements DAO<LocaisTuristicos,Integer>{
 	@Override
 	public LocaisTuristicos get(Integer id) {
 		readFromFile();
-		for (LocaisTuristicos local : locais) {
-			if (local.getId() == id) {
-				return local;
+		for (LocaisTuristicos usu : locais) {
+			if (usu.getId() == id) {
+				return usu;
 			}
 		}
 		return null;
 	}
 
 	@Override
-	public boolean add(LocaisTuristicos local) {
-		try {
-			if(!locais.contains(local))
-				locais.add(local);
+	public boolean add(LocaisTuristicos LocaisTuristicos) {
+		try { 
+			if(!locais.contains(LocaisTuristicos)) {
+				locais.add(LocaisTuristicos);
+			}else{
+				return false;
+			}
 			saveToFile();
 			return true;
 		} catch (Exception e) {
-			System.out.println("ERRO ao gravar o produto '" + local.getId() + "' no disco!");
+			System.out.println("ERRO ao gravar o LocaisTuristicos '" + LocaisTuristicos.getId() + "' no disco!");
 			e.printStackTrace();
 			return false;
 		}
 	}
 
 	@Override
-	public void update(LocaisTuristicos local) {
-		int index = locais.indexOf(local);
+	public void update(LocaisTuristicos LocaisTuristicos) {
+		int index = locais.indexOf(LocaisTuristicos);
 		if (index != -1) {
-			locais.set(index, local);
+			locais.set(index, LocaisTuristicos);
 		}
 		saveToFile();
 	}
 
 	@Override
-	public void remove(LocaisTuristicos local) {
-		int index = locais.indexOf(local);
+	public void remove(LocaisTuristicos LocaisTuristicos) {
+		int index = locais.indexOf(LocaisTuristicos);
 		if (index != -1) {
 			locais.remove(index);
 		}
 		saveToFile();
+
 	}
-	
-	public int count() {
-		return readFromFile().size();
-	}
-	
+
 	private void saveToFile() {
 		try {
-			FileOutputStream fos2 = new FileOutputStream(file, false); 
-			ObjectOutputStream outputFile2 = new ObjectOutputStream(fos2);
+			fos = new FileOutputStream(file, false);
+			outputFile = new ObjectOutputStream(fos);
 
-			for (LocaisTuristicos local : locais) {
-				outputFile2.writeObject(local);
+			for (LocaisTuristicos LocaisTuristicos : locais) {
+				outputFile.writeObject(LocaisTuristicos);
 			}
-			outputFile2.flush();
+			outputFile.flush();
 			readFromFile();
 		} catch (Exception e) {
-			System.out.println("ERRO ao gravar produto no disco!");
+			System.out.println("ERRO ao gravar LocaisTuristicos no disco!");
 			e.printStackTrace();
 		}
 	}
@@ -99,30 +97,35 @@ public class LocaisTuristicosDAO implements DAO<LocaisTuristicos,Integer>{
 	public List<LocaisTuristicos> getAll() {
 		return locais;
 	}
-	
+
 	private List<LocaisTuristicos> readFromFile() {
 		locais = new ArrayList<LocaisTuristicos>();
-		LocaisTuristicos local = null;
-		try {
-			FileInputStream fis = new FileInputStream(file);
-			ObjectInputStream inputFile = new ObjectInputStream(fis);
+		LocaisTuristicos LocaisTuristicos = null;
+		try (FileInputStream fis = new FileInputStream(file);
+				ObjectInputStream inputFile = new ObjectInputStream(fis)) {
 			while (fis.available() > 0) {
-				local = (LocaisTuristicos) inputFile.readObject();
-				locais.add(local);
+				LocaisTuristicos = (LocaisTuristicos) inputFile.readObject();
+				locais.add(LocaisTuristicos);
 			}
 		} catch (Exception e) {
-			System.out.println("ERRO ao gravar produto no disco!");
+			System.out.println("ERRO ao gravar LocaisTuristicos no disco!");
 			e.printStackTrace();
 		}
 		return locais;
 	}
-	
+
+	public int count() {
+		return readFromFile().size();
+	}
+
 	private void close() throws IOException {
 		outputFile.close();
 		fos.close();
 	}
-	
+
+	@Override
 	protected void finalize() throws Throwable {
 		this.close();
 	}
+
 }

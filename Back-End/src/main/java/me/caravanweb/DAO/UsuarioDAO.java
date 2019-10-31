@@ -9,8 +9,6 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.MappedSuperclass;
-
 import org.springframework.stereotype.Repository;
 
 import me.caravanweb.profiles.Usuario;
@@ -103,9 +101,8 @@ public class UsuarioDAO implements DAO<Usuario, Integer> {
 	private List<Usuario> readFromFile() {
 		usuarios = new ArrayList<Usuario>();
 		Usuario usuario = null;
-		try {
-			FileInputStream fis = new FileInputStream(file);
-			ObjectInputStream inputFile = new ObjectInputStream(fis);
+		try (FileInputStream fis = new FileInputStream(file);
+				ObjectInputStream inputFile = new ObjectInputStream(fis)) {
 			while (fis.available() > 0) {
 				usuario = (Usuario) inputFile.readObject();
 				usuarios.add(usuario);

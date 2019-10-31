@@ -1,6 +1,5 @@
 package me.caravanweb.resources.api;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,13 +11,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import me.caravanweb.profiles.LocaisTuristicos;
 import me.caravanweb.profiles.Usuario;
-import me.caravanweb.profiles.others.Login;
 import me.caravanweb.services.UsuarioService;
 
 @RestController
@@ -47,15 +43,16 @@ public class UsuarioResource {
 	
     @PostMapping(value = "/register")
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<String> register(Usuario u){
+    public ResponseEntity<String> register(@RequestBody Usuario u){
+    	System.out.println(u.getEmail());
     	String body = service.add(u);
 		return ResponseEntity.ok().body(body);
 	}
     
     @PostMapping(value = "/login")
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<String> login(Login l){
-    	String body = service.auth(l.getEmail(), l.getSenha());
+    public ResponseEntity<String> login(@RequestBody Usuario u){
+    	String body = service.auth(u.getEmail(), u.getSenha());
 		return ResponseEntity.ok().body(body);
 	}
 

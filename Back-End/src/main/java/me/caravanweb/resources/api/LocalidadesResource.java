@@ -32,6 +32,15 @@ public class LocalidadesResource {
 		return ResponseEntity.ok().body(service.findAll());
 	}
 	
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public ResponseEntity<LocaisTuristicos> create(@RequestBody LocaisTuristicos local){
+		service.add(local);
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+				.buildAndExpand(local.getId()).toUri();
+		return ResponseEntity.created(uri).body(local);
+    }
+	
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<LocaisTuristicos> findById(@PathVariable Integer id) {
 		LocaisTuristicos obj = service.findById(id);
@@ -48,15 +57,6 @@ public class LocalidadesResource {
 		String obj = service.findImgUrl(id);
 		return ResponseEntity.ok().body(obj);
 	}
-	
-    @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<LocaisTuristicos> create(@RequestBody LocaisTuristicos local){
-		boolean status = service.add(local);
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-				.buildAndExpand(local.getId()).toUri();
-		return ResponseEntity.created(uri).body(local);
-    }
     
     @PostMapping(value = "/delete/{id}")
     @ResponseStatus(HttpStatus.CREATED)

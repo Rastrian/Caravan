@@ -16,35 +16,72 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class Caravanas implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
-	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Id
 	private Integer id;
 	@Column(nullable=false) 
 	private String nome;
 	@Column(nullable=false) 
 	private String descricao;
 	@Column(nullable=false) 
-	private LocaisTuristicos local;
+	private Integer ownerId;
 	@Column(nullable=false) 
 	private LocalDate data;
 	@Column(nullable=false) 
-	private Usuario owner;
+	private Integer localId;
+	@Column(nullable=false) 
+	private Integer dia;
+	@Column(nullable=false) 
+	private Integer mes;
+	@Column(nullable=false) 
+	private Integer ano;
+
+	private Usuario owner = null;
+	private LocaisTuristicos local = null;
 	private ArrayList<Usuario> usuarios;
 	
-	@JsonIgnore
 	public Caravanas() {
 	}
 	
-	public Caravanas(String nome, String descricao, LocaisTuristicos local,int dia,int mes,int ano, Usuario owner) {
+	@JsonIgnore
+	public Caravanas(String nome, String descricao, int localId, int ownerId,int dia,int mes,int ano) {
 		super();
 		setNome(nome);
 		setDescricao(descricao);
-		setLocal(local);
-		setOwner(owner);
+		setOwnerId(ownerId);
+		setLocalId(localId);
 		data = LocalDate.of(ano, mes, dia);
-		this.id = id;
+		this.ownerId = ownerId;
+		this.localId = localId;
+		this.ano = ano;
+		this.mes = mes;
+		this.dia = dia;
 	}
 	
+	public int getDia() {
+		return this.dia;
+	}
+	public int getMes() {
+		return this.mes;
+	}
+	public int getAno() {
+		return this.ano;
+	}
+	public int getLocalId() {
+		return this.localId;
+	}
+	public int getOwnerId() {
+		return this.ownerId;
+	}
+	public void setLocalId(int localId) {
+		this.localId = localId;
+	}
+	public void setOwnerId(int ownerId) {
+		this.ownerId = ownerId;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
 	public Integer getId() {
 		return id;
 	}

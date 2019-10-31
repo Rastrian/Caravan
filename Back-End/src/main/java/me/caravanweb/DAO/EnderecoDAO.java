@@ -77,13 +77,13 @@ public class EnderecoDAO implements DAO<Endereco, Integer> {
 
 	private void saveToFile() {
 		try {
-			FileOutputStream fos2 = new FileOutputStream(file, false); 
-			ObjectOutputStream outputFile2 = new ObjectOutputStream(fos2);
-
+			fos = new FileOutputStream(file, false);
+			outputFile = new ObjectOutputStream(fos);
+			
 			for (Endereco end : enderecos) {
-				outputFile2.writeObject(end);
+				outputFile.writeObject(end);
 			}
-			outputFile2.flush();
+			outputFile.flush();
 			readFromFile();
 		} catch (Exception e) {
 			System.out.println("ERRO ao gravar endereco no disco!");
@@ -94,9 +94,8 @@ public class EnderecoDAO implements DAO<Endereco, Integer> {
 	private List<Endereco> readFromFile() {
 		enderecos = new ArrayList<Endereco>();
 		Endereco endereco = null;
-		try {
-			FileInputStream fis = new FileInputStream(file);
-			ObjectInputStream inputFile = new ObjectInputStream(fis);
+		try (FileInputStream fis = new FileInputStream(file);
+				ObjectInputStream inputFile = new ObjectInputStream(fis)) {
 			while (fis.available() > 0) {
 				endereco = (Endereco) inputFile.readObject();
 				enderecos.add(endereco);
