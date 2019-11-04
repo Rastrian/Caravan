@@ -2,8 +2,6 @@ package me.caravanweb.profiles;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.ArrayList;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -26,8 +24,6 @@ public class Caravanas implements Serializable {
 	@Column(nullable=false) 
 	private Integer ownerId;
 	@Column(nullable=false) 
-	private LocalDate data;
-	@Column(nullable=false) 
 	private Integer localId;
 	@Column(nullable=false) 
 	private Integer dia;
@@ -38,7 +34,7 @@ public class Caravanas implements Serializable {
 
 	private Usuario owner = null;
 	private LocaisTuristicos local = null;
-	private ArrayList<Usuario> usuarios = null;
+	private LocalDate data;
 	
 	public Caravanas() {
 	}
@@ -115,25 +111,6 @@ public class Caravanas implements Serializable {
 	public Usuario getOwner() {
 		return this.owner;
 	}
-	public boolean addUser(Usuario u) {
-		usuarios.add(u);
-		return hadUser(u);
-	}
-	public boolean hadUser(Usuario u) {
-		if (usuarios.contains(u)) {
-			return true;
-		}else {
-			return false;
-		}
-	}
-	public boolean removeUser(Usuario u) {
-		usuarios.remove(u);
-		return (!hadUser(u));
-	}
-	public ArrayList<Usuario> getUsers() {
-		return usuarios;
-	}
-	
 	@Override
 	public boolean equals(Object obj) {
 		return this.id.equals(((Caravanas) obj).getId());

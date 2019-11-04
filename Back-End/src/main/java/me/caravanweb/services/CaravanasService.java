@@ -33,18 +33,13 @@ public class CaravanasService {
 		return repository.getAll();
 	}
 	
-	public Caravanas update(Caravanas c) {
-		c.setLocal(servicel.findById(c.getLocalId()));
-		c.setOwner(serviceu.findById(c.getOwnerId()));
-		c.setData(LocalDate.of(c.getAno(), c.getMes(), c.getDia()));
-		repository.update(c);
-		return repository.get(c.getId());
-	}
-	
 	public Caravanas findById(int id) {
 		Caravanas c = repository.get(id);
 		if (c != null) {
-			c = update(c);
+			c.setLocal(servicel.findById(c.getLocalId()));
+			c.setOwner(serviceu.findById(c.getOwnerId()));
+			c.setData(LocalDate.of(c.getAno(), c.getMes(), c.getDia()));
+			repository.update(c);
 			return c;
 		} else {
 			return null;
@@ -65,7 +60,9 @@ public class CaravanasService {
 	}
 
 	public void add(Caravanas c) {
-		c = update(c);
+		c.setLocal(servicel.findById(c.getLocalId()));
+		c.setOwner(serviceu.findById(c.getOwnerId()));
+		c.setData(LocalDate.of(c.getAno(), c.getMes(), c.getDia()));
 		int proxid = count() + 1;
 		Caravanas checkcount = repository.get(proxid);
 		while (checkcount != null) {

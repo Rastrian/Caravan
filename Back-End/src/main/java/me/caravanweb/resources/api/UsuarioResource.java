@@ -71,12 +71,10 @@ public class UsuarioResource {
     	String body = "erro";
     	Caravanas c = servicec.findById(idCaravana);
     	Usuario u = service.findById(idUsuario);
-    	u.addCaravana(c);
-    	c.addUser(u);
-    	service.update(u);
-    	servicec.update(c);
-    	if (c.getUsers().contains(c)) {
-    		body = "adicionado";
+    	if (u != null) {
+    		if (c != null) {
+    			
+    		}
     	}
 		return ResponseEntity.ok().body(body);
 	}

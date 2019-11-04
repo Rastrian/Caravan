@@ -34,7 +34,6 @@ public class UsuarioDAO implements DAO<Usuario, Integer> {
 	public Usuario get(Integer id) {
 		readFromFile();
 		for (Usuario usu : usuarios) {
-			System.out.println(usu);
 			if (usu.getId().equals(id)) {
 				System.out.println("achou");
 				return usu;

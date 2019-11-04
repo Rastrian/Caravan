@@ -1,8 +1,6 @@
 package me.caravanweb.profiles;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -21,14 +19,13 @@ public class Usuario implements Serializable {
 	private Integer id;
 	@Column(nullable=false) 
 	private String nome;
-	@Column(nullable=false) 
+	@Column(nullable=false,unique=true) 
 	private String email;
 	@Column(nullable=false) 
 	private String senha;
 	
 	private Endereco end;
 	private boolean Turista;
-	private ArrayList<Caravanas> caravanas;
 	private boolean admin;
 	
 	public Usuario() {
@@ -42,10 +39,6 @@ public class Usuario implements Serializable {
 		setSenha(senha);
 		this.Turista=true;
 		this.admin = false;
-	}
-	
-	public ArrayList<Caravanas> getCaravanas() {
-		return caravanas;
 	}
 
 	public void setId(Integer id) {
@@ -78,21 +71,6 @@ public class Usuario implements Serializable {
 	public void setTurista(boolean turista) {
 		Turista = turista;
 	}
-	
-	public boolean addCaravana(Caravanas cara) {
-		caravanas.add(cara);
-		return hasCaravana(cara);
-	}
-	public boolean hasCaravana(Caravanas cara) {
-		if (caravanas.contains(cara))
-			return true;
-		return false;
-	}
-	public boolean removeCaravana(Caravanas cara) {
-		caravanas.remove(cara);
-		return (!hasCaravana(cara));
-	}
-	
 	public void setAdmin(boolean admin) {
 		this.admin = admin;
 	}

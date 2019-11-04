@@ -36,11 +36,6 @@ public class UsuarioService {
 		return repository.getAll();
 	}
 	
-	public List<Caravanas> listCaravanas(Usuario u){
-        u = repository.get(u.getId());
-		return u.getCaravanas();
-	}
-	
 	public Usuario findById(Integer id) {
 		return repository.get(id);
 	}
