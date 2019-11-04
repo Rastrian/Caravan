@@ -2,6 +2,7 @@ package me.caravanweb.services;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,5 +72,19 @@ public class CaravanasService {
 		}
 		c.setId(proxid);
 		repository.add(c);
+	}
+
+	public ArrayList<Caravanas> findByLocalId(Integer id) {
+		ArrayList<Caravanas> lista = new ArrayList<Caravanas>();
+		for (Caravanas c : findAll()) {
+			if (c.getLocalId() == id) {
+				lista.add(c);
+			}else{
+				if (c.getLocal().getId() == id) {
+					lista.add(c);
+				}
+			}
+		}
+		return lista;
 	}
 }

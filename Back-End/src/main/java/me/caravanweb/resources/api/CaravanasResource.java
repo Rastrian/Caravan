@@ -1,6 +1,7 @@
 package me.caravanweb.resources.api;
 
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,12 @@ public class CaravanasResource {
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<Caravanas> findById(@PathVariable Integer id) {
 		Caravanas obj = service.findById(id);
+		return ResponseEntity.ok().body(obj);
+	}
+	
+	@GetMapping(value = "/local/{id}")
+	public ResponseEntity<ArrayList<Caravanas>> findByLocalId(@PathVariable Integer id) {
+		ArrayList<Caravanas> obj = service.findByLocalId(id);
 		return ResponseEntity.ok().body(obj);
 	}
 	
