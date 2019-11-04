@@ -78,21 +78,4 @@ public class UsuarioResource {
     	}
 		return ResponseEntity.ok().body(body);
 	}
-    
-    @PostMapping(value = "/{idUsuario}/caravana/remove/{idCaravana}")
-    @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<String> removeUser(@PathVariable Integer idCaravana, Integer idUsuario){
-    	String body = "erro";
-    	Caravanas c = servicec.findById(idCaravana);
-    	Usuario u = service.findById(idUsuario);
-    	u.removeCaravana(c);
-    	c.removeUser(u);
-    	service.update(u);
-    	servicec.update(c);
-    	if (c.getUsers().contains(c)) {
-    		body = "removido";
-    	}
-		return ResponseEntity.ok().body(body);
-	}
-
 }
