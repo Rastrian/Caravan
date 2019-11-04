@@ -51,6 +51,11 @@ public class UsuarioResource {
 		return ResponseEntity.ok().body(service.listEmails());
 	}
 	
+<<<<<<< HEAD
+=======
+	@RequestMapping(value = "/register", method = { RequestMethod.GET,
+            RequestMethod.POST }, produces = "application/json")
+>>>>>>> master
     @PostMapping(value = "/register")
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<String> register(Usuario u){
