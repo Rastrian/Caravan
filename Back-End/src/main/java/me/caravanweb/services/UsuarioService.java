@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import me.caravanweb.DAO.UsuarioDAO;
-import me.caravanweb.profiles.Caravanas;
 import me.caravanweb.profiles.Usuario;
 
 @Service
