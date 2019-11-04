@@ -9,9 +9,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -60,7 +58,7 @@ public class UsuarioResource {
     
     @PostMapping(value = "/login")
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<String> login(@RequestBody Usuario u){
+    public ResponseEntity<String> login(Usuario u){
     	String body = service.auth(u.getEmail(), u.getSenha());
 		return ResponseEntity.ok().body(body);
 	}
