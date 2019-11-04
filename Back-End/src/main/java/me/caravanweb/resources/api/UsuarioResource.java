@@ -60,7 +60,7 @@ public class UsuarioResource {
     
     @PostMapping(value = "/login")
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<String> login(@RequestBody Usuario u){
+    public ResponseEntity<String> login(Usuario u){
     	String body = service.auth(u.getEmail(), u.getSenha());
 		return ResponseEntity.ok().body(body);
 	}
