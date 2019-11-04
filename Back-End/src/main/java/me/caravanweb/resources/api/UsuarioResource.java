@@ -1,5 +1,6 @@
 package me.caravanweb.resources.api;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,16 +63,46 @@ public class UsuarioResource {
     	String body = service.auth(u.getEmail(), u.getSenha());
 		return ResponseEntity.ok().body(body);
 	}
+
+	@GetMapping(value = "/{idUsuario}/caravana/")
+	public ResponseEntity<ArrayList<Caravanas>> getAllCaravanasOfUser
+		(@PathVariable Integer userId) {
+		ArrayList<Caravanas> obj = service.getCaravanasOfUser(userId);
+		return ResponseEntity.ok().body(obj);
+	}
+	
+	@GetMapping(value = "/{idUsuario}/caravana/{idCaravana}")
+	public ResponseEntity<Caravanas> getCaravanaOfUser
+		(@PathVariable Integer userId, @PathVariable Integer caravanaId) {
+		Caravanas obj = service.getCaravanaOfUser(userId, caravanaId);
+		return ResponseEntity.ok().body(obj);
+	}
     
     @PostMapping(value = "/{idUsuario}/caravana/add/{idCaravana}")
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<String> addUser(@PathVariable Integer idCaravana, Integer idUsuario){
+    public ResponseEntity<String> addUser(@PathVariable Integer idCaravana, 
+    		@PathVariable Integer idUsuario){
     	String body = "erro";
     	Caravanas c = servicec.findById(idCaravana);
     	Usuario u = service.findById(idUsuario);
     	if (u != null) {
     		if (c != null) {
-    			
+    			body = service.addUser(idCaravana,idUsuario);
+    		}
+    	}
+		return ResponseEntity.ok().body(body);
+	}
+    
+    @PostMapping(value = "/{idUsuario}/caravana/remove/{idCaravana}")
+    @ResponseStatus(HttpStatus.CREATED)
+    public ResponseEntity<String> removeUser(@PathVariable Integer idCaravana, 
+    		@PathVariable Integer idUsuario){
+    	String body = "erro";
+    	Caravanas c = servicec.findById(idCaravana);
+    	Usuario u = service.findById(idUsuario);
+    	if (u != null) {
+    		if (c != null) {
+    			body = service.removeUser(idCaravana,idUsuario);
     		}
     	}
 		return ResponseEntity.ok().body(body);

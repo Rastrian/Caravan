@@ -5,16 +5,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.config.RepositoryConfiguration;
 import org.springframework.stereotype.Service;
 
+import me.caravanweb.DAO.CaravanasDAO;
+import me.caravanweb.DAO.LinkedUC_DAO;
 import me.caravanweb.DAO.UsuarioDAO;
+import me.caravanweb.profiles.Caravanas;
+import me.caravanweb.profiles.LinkedUC;
 import me.caravanweb.profiles.Usuario;
 
 @Service
 public class UsuarioService {
 	
-	@Autowired
-	private UsuarioDAO repository;
+	@Autowired private UsuarioDAO repository;
+	@Autowired private LinkedUC_DAO repositoryUC;
+	@Autowired private CaravanasDAO repositoryc;
 	
 	public UsuarioService() {
 		try {
@@ -119,6 +125,57 @@ public class UsuarioService {
 	public Usuario update(Usuario u) {
 		repository.update(u);
 		return repository.get(u.getId());
+	}
+
+	public String addUser(Integer c, Integer u) {
+		String body = "error";
+		LinkedUC newUC = new LinkedUC(c,u);
+		boolean status = hasUser(c,u);
+		if (!status) {
+			repositoryUC.add(newUC);
+			body = "success";
+		}
+		return body;
+	}
+	
+	public String removeUser(Integer c, Integer u) {
+		String body = "error";
+		LinkedUC newUC = new LinkedUC(c,u);
+		boolean status = hasUser(c,u);
+		if (status) {
+			repositoryUC.remove(newUC);
+			body = "success";
+		}
+		return body;
+	}
+	
+	public boolean hasUser(Integer c, Integer u) {
+		boolean status = false;
+		for (LinkedUC uc : repositoryUC.getAll()) {
+			if (uc.getUserId() == u && uc.getCaravanaId() == c) {
+				status = true;
+			}
+		}
+		return status;
+	}
+
+	public ArrayList<Caravanas> getCaravanasOfUser(Integer userId) {
+		ArrayList<Caravanas> caravanas = new ArrayList<Caravanas>();
+		for (LinkedUC uc : repositoryUC.getAll()) {
+			if (uc.getUserId() == userId) {
+				caravanas.add(repositoryc.get(uc.getCaravanaId()));
+			}
+		}
+		return caravanas;
+	}
+	
+	public Caravanas getCaravanaOfUser(Integer userId, Integer caravanId) {
+		for (LinkedUC uc : repositoryUC.getAll()) {
+			if (uc.getUserId() == userId && uc.getCaravanaId() == caravanId) {
+				return repositoryc.get(uc.getCaravanaId());
+			}
+		}
+		return null;
 	}
 
 }
