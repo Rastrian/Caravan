@@ -35,6 +35,7 @@ public class Caravanas implements Serializable {
 	private Usuario owner = null;
 	private LocaisTuristicos local = null;
 	private LocalDate data;
+	private String imgUrl = "./assets/img/default-caravana.png";
 	
 	public Caravanas() {
 	}
@@ -52,8 +53,15 @@ public class Caravanas implements Serializable {
 		this.ano = ano;
 		this.mes = mes;
 		this.dia = dia;
+		this.imgUrl = "./assets/img/default-caravana.png";
 	}
 	
+	public void seturlImg(String url) {
+		this.imgUrl = url;
+	}
+	public String getImgUrl() {
+		return imgUrl;
+	}
 	public int getDia() {
 		return this.dia;
 	}

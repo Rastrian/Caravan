@@ -27,6 +27,7 @@ public class Usuario implements Serializable {
 	private Endereco end;
 	private boolean Turista;
 	private boolean admin;
+	private String imgUrl = "./assets/img/default-user.png";
 	
 	public Usuario() {
 	}
@@ -39,8 +40,15 @@ public class Usuario implements Serializable {
 		setSenha(senha);
 		this.Turista=true;
 		this.admin = false;
+		this.imgUrl = "./assets/img/default-user.png";
 	}
-
+	
+	public void seturlImg(String url) {
+		this.imgUrl = url;
+	}
+	public String getImgUrl() {
+		return imgUrl;
+	}
 	public void setId(Integer id) {
 		this.id = id;
 	}
