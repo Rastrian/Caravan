@@ -1,24 +1,18 @@
 package me.caravanweb.profiles;
 
-import javax.persistence.Column;
+import java.io.Serializable;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.persistence.Column;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import me.caravanweb.services.CaravanasService;
-import me.caravanweb.services.UsuarioService;
-
-public class LinkedUC {
+public class LinkedUC implements Serializable {
+	private static final long serialVersionUID = 1L;
+	
 	@Column(nullable=false,unique=true) 
 	private Integer idCaravana;
 	@Column(nullable=false,unique=true) 
 	private Integer idUsuario;
-
-	@Autowired
-	private UsuarioService service;
-	@Autowired
-	private CaravanasService servicec;
 	
 	public LinkedUC() {
 	}
@@ -36,13 +30,5 @@ public class LinkedUC {
 	
 	public Integer getUserId() {
 		return idUsuario;
-	}
-	
-	public Caravanas getCaravana() {
-		return servicec.findById(idCaravana);
-	}
-	
-	public Usuario getUsuario() {
-		return service.findById(idUsuario);
 	}
 }

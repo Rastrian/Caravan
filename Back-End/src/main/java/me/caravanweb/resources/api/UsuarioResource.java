@@ -53,14 +53,13 @@ public class UsuarioResource {
     @PostMapping(value = "/register")
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<String> register(@RequestBody Usuario u){
-    	System.out.println(u.getEmail());
     	String body = service.add(u);
 		return ResponseEntity.ok().body(body);
 	}
     
     @PostMapping(value = "/login")
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<String> login(Usuario u){
+    public ResponseEntity<String> login(@RequestBody Usuario u){
     	String body = service.auth(u.getEmail(), u.getSenha());
 		return ResponseEntity.ok().body(body);
 	}
