@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import me.caravanweb.DAO.CaravanasDAO;
 import me.caravanweb.profiles.Caravanas;
-import me.caravanweb.profiles.Usuario;
 
 @Service
 public class CaravanasService {

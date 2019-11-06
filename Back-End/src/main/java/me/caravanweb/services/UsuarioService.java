@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.config.RepositoryConfiguration;
 import org.springframework.stereotype.Service;
 
 import me.caravanweb.DAO.CaravanasDAO;
@@ -30,6 +29,11 @@ public class UsuarioService {
 		}
 	} 
 	
+	public boolean isAdmin(Integer id) {
+		Usuario u = findById(id);
+		return u.isAdmin();
+	}
+	
 	public List<String> listEmails() {
 		ArrayList<String> emails = new ArrayList<String>();
 		List<Usuario> usuarios = repository.getAll();
@@ -47,18 +51,14 @@ public class UsuarioService {
 	
 	public boolean emailExists(String email) {
 		List<String> emails = listEmails();
-		if (emails.contains(email)) {
-			return true;
-		}else {
-			return false;
-		}
+		return emails.contains(email);
 	}
 	
 	public String add(Usuario u) {
-		String msg;
+		String msg = "InternalError";
 		if (emailExists(u.getEmail())) {
 			msg = "MailError";
-		}else {
+		}else{
 			int proxid = count() + 1;
 			Usuario checkcount = repository.get(proxid);
 			while (checkcount != null) {
@@ -69,21 +69,16 @@ public class UsuarioService {
 			boolean cadastro = repository.add(u);
 			if (cadastro == true) {
 				msg = "success";
-			}else {
-				msg = "InternalError";
 			}
 		}
 		return msg;
 	}
 	
 	public boolean checkPassword(String uEmail, String uSenha, String email, String senha) {
-		boolean msg = false;
 		if (uEmail.equals(email)) {
-			if (uSenha.equals(senha)) {
-				msg = true;
-			}	
+			return (uSenha.equals(senha));
 		}
-		return msg;
+		return false;
 	}
 	
 	public Usuario userByEmail(String email) {
@@ -102,7 +97,7 @@ public class UsuarioService {
 			boolean check = false;
 			List<Usuario> usuarios = repository.getAll();
 			for (Usuario u : usuarios) {
-				if (check == false) {
+				if (!check) {
 					check = checkPassword(u.getEmail(), u.getSenha(), email, senha);
 				}
 			}

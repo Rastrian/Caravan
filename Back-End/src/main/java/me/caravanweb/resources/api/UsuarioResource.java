@@ -33,6 +33,12 @@ public class UsuarioResource {
 		return ResponseEntity.ok().body(service.findAll());
 	}
 	
+	@GetMapping(value = "/{id}/admin")
+	public ResponseEntity<Boolean> checkAdmin(@PathVariable Integer id) {
+		boolean obj = service.isAdmin(id);
+		return ResponseEntity.ok().body(obj);
+	}
+	
 	@GetMapping(value = "/count")
 	public ResponseEntity<String> count() {
 		int obj = service.count();
