@@ -33,12 +33,15 @@ public class UsuarioResource {
 		return ResponseEntity.ok().body(service.findAll());
 	}
 	
+<<<<<<< HEAD
 	@GetMapping(value = "/{id}/turista")
 	public ResponseEntity<Boolean> checkTurista(@PathVariable Integer id) {
 		boolean obj = service.isTurista(id);
 		return ResponseEntity.ok().body(obj);
 	}
 	
+=======
+>>>>>>> master
 	@GetMapping(value = "/{id}/admin")
 	public ResponseEntity<Boolean> checkAdmin(@PathVariable Integer id) {
 		boolean obj = service.isAdmin(id);
