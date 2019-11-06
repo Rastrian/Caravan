@@ -25,8 +25,8 @@ public class Usuario implements Serializable {
 	private String senha;
 	
 	private Endereco end;
-	private boolean Turista;
-	private boolean admin;
+	private boolean Turista = true;
+	private boolean admin = false;
 	private String imgUrl = "./assets/img/default-user.png";
 	
 	public Usuario() {
