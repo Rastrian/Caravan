@@ -33,15 +33,12 @@ public class UsuarioResource {
 		return ResponseEntity.ok().body(service.findAll());
 	}
 	
-<<<<<<< HEAD
 	@GetMapping(value = "/{id}/turista")
 	public ResponseEntity<Boolean> checkTurista(@PathVariable Integer id) {
 		boolean obj = service.isTurista(id);
 		return ResponseEntity.ok().body(obj);
 	}
 	
-=======
->>>>>>> master
 	@GetMapping(value = "/{id}/admin")
 	public ResponseEntity<Boolean> checkAdmin(@PathVariable Integer id) {
 		boolean obj = service.isAdmin(id);
@@ -79,17 +76,17 @@ public class UsuarioResource {
 		return ResponseEntity.ok().body(body);
 	}
 
-	@GetMapping(value = "/{idUsuario}/caravana/")
+	@GetMapping(value = "/{idUsuario}/caravana")
 	public ResponseEntity<ArrayList<Caravanas>> getAllCaravanasOfUser
-		(@PathVariable Integer userId) {
-		ArrayList<Caravanas> obj = service.getCaravanasOfUser(userId);
+		(@PathVariable Integer idUsuario) {
+		ArrayList<Caravanas> obj = service.getCaravanasOfUser(idUsuario);
 		return ResponseEntity.ok().body(obj);
 	}
 	
 	@GetMapping(value = "/{idUsuario}/caravana/{idCaravana}")
 	public ResponseEntity<Caravanas> getCaravanaOfUser
-		(@PathVariable Integer userId, @PathVariable Integer caravanaId) {
-		Caravanas obj = service.getCaravanaOfUser(userId, caravanaId);
+		(@PathVariable Integer idUsuario, @PathVariable Integer idCaravana) {
+		Caravanas obj = service.getCaravanaOfUser(idUsuario, idCaravana);
 		return ResponseEntity.ok().body(obj);
 	}
     
