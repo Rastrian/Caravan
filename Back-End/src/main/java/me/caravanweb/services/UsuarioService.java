@@ -136,10 +136,13 @@ public class UsuarioService {
 	
 	public String removeUser(Integer c, Integer u) {
 		String body = "error";
-		LinkedUC newUC = new LinkedUC(c,u);
 		boolean status = hasUser(c,u);
 		if (status) {
-			repositoryUC.remove(newUC);
+			for (LinkedUC uc : repositoryUC.getAll()) {
+				if (uc.getUserId().equals(u) && uc.getCaravanaId().equals(c)) {
+					repositoryUC.remove(uc);
+				}
+			}
 			body = "success";
 		}
 		return body;
