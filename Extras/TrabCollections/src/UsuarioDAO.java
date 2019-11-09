@@ -98,7 +98,7 @@ public class UsuarioDAO implements DAO<Usuario, Integer> {
 		return usuarios;
 	}
 
-	private List<Usuario> readFromFile() {
+	public List<Usuario> readFromFile() {
 		usuarios = new ArrayList<Usuario>();
 		Usuario usuario = null;
 		try (FileInputStream fis = new FileInputStream(file);

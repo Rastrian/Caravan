@@ -98,7 +98,7 @@ public class CaravanasDAO implements DAO<Caravanas, Integer> {
 		return caravanas;
 	}
 
-	private List<Caravanas> readFromFile() {
+	public List<Caravanas> readFromFile() {
 		caravanas = new ArrayList<Caravanas>();
 		Caravanas Caravanas = null;
 		try (FileInputStream fis = new FileInputStream(file);

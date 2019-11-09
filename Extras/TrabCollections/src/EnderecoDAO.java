@@ -91,7 +91,7 @@ public class EnderecoDAO implements DAO<Endereco, Integer> {
 		}
 	}
 	
-	private List<Endereco> readFromFile() {
+	public List<Endereco> readFromFile() {
 		enderecos = new ArrayList<Endereco>();
 		Endereco endereco = null;
 		try (FileInputStream fis = new FileInputStream(file);

@@ -106,7 +106,7 @@ public class LinkedUC_DAO implements DAO<LinkedUC, Integer> {
 		return LinkedUCs;
 	}
 
-	private List<LinkedUC> readFromFile() {
+	public List<LinkedUC> readFromFile() {
 		LinkedUCs = new ArrayList<LinkedUC>();
 		LinkedUC LinkedUC = null;
 		try (FileInputStream fis = new FileInputStream(file);
@@ -127,7 +127,7 @@ public class LinkedUC_DAO implements DAO<LinkedUC, Integer> {
 	}
 
 	public int count() {
-		return readFromFile().size(); 
+		return readFromFile().size();  
 	}
 
 	private void close() throws IOException {

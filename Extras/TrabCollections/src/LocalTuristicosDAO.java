@@ -96,7 +96,7 @@ public class LocalTuristicosDAO implements DAO<LocaisTuristicos, Integer> {
 		return locais;
 	}
 
-	private List<LocaisTuristicos> readFromFile() {
+	public List<LocaisTuristicos> readFromFile() {
 		locais = new ArrayList<LocaisTuristicos>();
 		LocaisTuristicos LocaisTuristicos = null;
 		try (FileInputStream fis = new FileInputStream(file);
