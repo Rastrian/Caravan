@@ -138,12 +138,12 @@ public class UsuarioService {
 		String body = "error";
 		boolean status = hasUser(c,u);
 		if (status) {
+			body = "success";
 			for (LinkedUC uc : repositoryUC.getAll()) {
 				if (uc.getUserId().equals(u) && uc.getCaravanaId().equals(c)) {
 					repositoryUC.remove(uc);
 				}
 			}
-			body = "success";
 		}
 		return body;
 	}
