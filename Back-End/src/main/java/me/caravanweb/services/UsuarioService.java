@@ -148,7 +148,7 @@ public class UsuarioService {
 	public boolean hasUser(Integer c, Integer u) {
 		boolean status = false;
 		for (LinkedUC uc : repositoryUC.getAll()) {
-			if (uc.getUserId() == u && uc.getCaravanaId() == c) {
+			if (uc.getUserId().equals(u) && uc.getCaravanaId().equals(c)) {
 				status = true;
 			}
 		}
