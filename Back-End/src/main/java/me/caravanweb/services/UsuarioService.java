@@ -24,6 +24,7 @@ public class UsuarioService {
 	public UsuarioService() {
 		try {
 			repository = new UsuarioDAO();
+			repositoryUC = new LinkedUC_DAO();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -157,7 +158,7 @@ public class UsuarioService {
 	public ArrayList<Caravanas> getCaravanasOfUser(Integer userId) {
 		ArrayList<Caravanas> caravanas = new ArrayList<Caravanas>();
 		for (LinkedUC uc : repositoryUC.getAll()) {
-			if (uc.getUserId() == userId) {
+			if (uc.getUserId().equals(userId)) {
 				caravanas.add(repositoryc.get(uc.getCaravanaId()));
 			}
 		}
@@ -166,7 +167,7 @@ public class UsuarioService {
 	
 	public Caravanas getCaravanaOfUser(Integer userId, Integer caravanId) {
 		for (LinkedUC uc : repositoryUC.getAll()) {
-			if (uc.getUserId() == userId && uc.getCaravanaId() == caravanId) {
+			if (uc.getUserId().equals(userId) && uc.getCaravanaId().equals(caravanId)) {
 				return repositoryc.get(uc.getCaravanaId());
 			}
 		}
