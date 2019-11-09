@@ -163,86 +163,9 @@
                   </form>
                 </center>
               </div>
-              <script type="text/javascript">
-                $(document).ready(function () {
-                  $('form').submit(function (event) {
-                    Cadastro(event);
-                  })
-                });
-
-                function Cadastro(event) {
-                  event.preventDefault();
-                  var nome = document.getElementsByName('nome')[0].value;
-                  var email = document.getElementsByName('email')[0].value;
-                  var senha = document.getElementsByName('senha')[0].value;
-                  var repitasenha = document.getElementsByName('repitasenha')[0].value;
-                  var formData = {
-                    nome: nome,
-                    email: email,
-                    senha: senha
-                  };
-                  if (senha != repitasenha) {
-                    $("#repitasenhaError").show();
-                    $('#repitasenhaError').delay(5000).fadeOut('slow');
-                    return;
-                  }
-                  if (nome == null || nome == '' || (nome.length == 0)) {
-                    $("#nomeError").show();
-                    $('#nomeError').delay(5000).fadeOut('slow');
-                    return;
-                  }
-                  if (email == null || email == '' || (email.length == 0)) {
-                    $("#emailError").show();
-                    $('#emailError').delay(5000).fadeOut('slow');
-                    return;
-                  }
-
-                  $.ajax({
-                    url: 'http://34.95.17.159:8085/api/users/register',
-                    data: formData,
-                    success: function (data) {
-                      if (data == "MailError") {
-                        $('#sameemailError').fadeIn('slow');
-                        $('#sameemailError').delay(5000).fadeOut('slow');
-                      } else if (data == "error") {
-                        $('#error').fadeIn('slow');
-                        $('#error').delay(5000).fadeOut('slow');
-                      } else if (data == "success") {
-                        $('#success').fadeIn('slow');
-                        $('#success').delay(5000).fadeOut('slow');
-                        setTimeout(function () {
-                          window.location.href = "./index.html";
-                        }, 3000);
-                      }
-                      //$('#msg').html(data).fadeIn('slow');
-                      //$('#msg').delay(5000).fadeOut('slow');
-                    },
-                    type: "POST"
-                  });
-                };
-              </script>
-              <div class="card-footer ">
-                <hr>
-                <div class="stats">
-
-                </div>
-              </div>
             </div>
           </div>
         </div>
-        <footer class="footer footer-black  footer-white ">
-          <div class="container-fluid">
-            <div class="row">
-              <nav class="footer-nav">
-                <ul>
-                  <li>
-                    <a href="#" target="_blank">#</a>
-                  </li>
-                </ul>
-              </nav>
-            </div>
-          </div>
-        </footer>
       </div>
     </div>
     <script>
@@ -250,6 +173,6 @@
         demo.initChartsPages();
       });
     </script>
+    <script src="./assets/js/auth.js"></script>
 </body>
-
 </html>

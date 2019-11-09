@@ -32,9 +32,7 @@
 <!-- Paper Dashboard DEMO methods, don't include it in your project! -->
 <script src="./assets/demo/demo.js"></script>
 <script src="./assets/js/cookieman.js"></script>
-<script type="text/javascript">
-  deleteCookie("caravan.login.userid");
-</script>
+
 
 <body class="">
   <div class="wrapper ">
@@ -168,60 +166,6 @@
                         style="width: auto;margin: 0 .75em 0 0;"></i> Cadastrar</a>
                   </form>
                 </center>
-                <script type="text/javascript">
-                  $(document).ready(function () {
-                    $('form').submit(function (event) {
-                      Login(event);
-                    })
-                  });
-
-                  function Login(event) {
-                    event.preventDefault();
-                    var email = document.getElementsByName('email')[0].value;
-                    var senha = document.getElementsByName('senha')[0].value;
-                    var formData = {
-                      email: email,
-                      senha: senha
-                    };
-                    if (email == null || email == '' || (email.length == 0)) {
-                      $("#emailError").show();
-                      $('#emailError').delay(5000).fadeOut('slow');
-                      return;
-                    }
-                    if (senha == null || senha == '' || (senha.length == 0)) {
-                      $("#senhaError").show();
-                      $('#senhaError').delay(5000).fadeOut('slow');
-                      return;
-                    }
-                    $.ajax({
-                      url: 'http://34.95.17.159:8085/api/users/login',
-                      data: formData,
-                      success: function (data) {
-                        if (data == "MailError") {
-                          $('#sameemailError').fadeIn('slow');
-                          $('#sameemailError').delay(5000).fadeOut('slow');
-                        } else if (data == "error") {
-                          $('#error').fadeIn('slow');
-                          $('#error').delay(5000).fadeOut('slow');
-                        } else if (data == "invalidpassword") {
-                          $('#invalidpassword').fadeIn('slow');
-                          $('#invalidpassword').delay(5000).fadeOut('slow');
-                        } else {
-                          $('#success').fadeIn('slow');
-                          $('#success').delay(5000).fadeOut('slow');
-                          writeCookie("caravan.login.userid", data, 4);
-                          console.log("id = " + data);
-                          setTimeout(function () {
-                            window.location.href = "./painel.html";
-                          }, 3000);
-                        }
-                        //$('#msg').html(data).fadeIn('slow');
-                        //$('#msg').delay(5000).fadeOut('slow');
-                      },
-                      type: "POST"
-                    })
-                  };
-                </script>
               </div>
               <div class="card-footer ">
                 <hr>
@@ -253,6 +197,6 @@
         demo.initChartsPages();
       });
     </script>
+    <script src="./assets/js/auth.js"></script>
 </body>
-
 </html>

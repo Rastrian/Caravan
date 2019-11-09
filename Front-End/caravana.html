@@ -38,7 +38,7 @@
 <script src="./assets/js/page.js"></script>
 <script src="./assets/js/navbar.js"></script>
 <script src="./assets/js/caravanas.js"></script>
-<body onload="listCaravanasByLocal()">
+<body onload="loadCaravanaInfo()">
     <div class="wrapper ">
         <div class="sidebar" data-color="white" data-active-color="danger">
             <div class="logo">
@@ -89,7 +89,7 @@
                                 <span class="navbar-toggler-bar bar3"></span>
                             </button>
                         </div>
-                        <a class="navbar-brand" href="#pablo">Seleção de Locais Turisticos</a>
+                        <a class="navbar-brand" href="#pablo">Pagina de Caravana</a>
                     </div>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation"
                         aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
@@ -101,15 +101,40 @@
             </nav>
             <div class="content">
                 <div class="row">
-                    <div class="col-md-12">
-                        <div class="card ">
-                            <div class="card-header ">
-                                <h5 class="card-title">Selecione a caravana desejada:</h5>
+                    <div class="col-md-4">
+                        <div class="card card-user">
+                            <div class="image">
+                                <img src="./assets/img/cover.jpg" alt="...">
                             </div>
-                            <div class="card-body ">
-                                <div id="lista"></div>
+                            <div class="card-body">
+                                <div class="author">
+                                        <img class="avatar border-gray" src="./assets/img/default-user.png" alt="...">
+                                        <h5 class="title"><div id="owner-name"></div></h5>
+                                    <p class="description">
+                                        <div id="owner-email"></div>
+                                    </p>
+                                </div>
+                                <hr>
+                                <div class="update ml-auto mr-auto">
+                                    <center>
+                                        <div id="botaoCaravana"></div>
+                                    </center>
+                                </div>
                             </div>
                         </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card ">
+                            <div class="card-header ">
+                                <div id="nome"></div>
+                                <div id="data"></div>
+                            </div>
+                            <div class="card-body ">
+                                <div id="desc"></div>
+                            </div>
+                        </div>
+                        <div id="painel-usuario"></div>
+                        <div id="painel-guia"></div>
                     </div>
                 </div>
             </div>

@@ -38,7 +38,7 @@
 <script src="./assets/js/page.js"></script>
 <script src="./assets/js/navbar.js"></script>
 <script src="./assets/js/caravanas.js"></script>
-<body onload="listCaravanasByLocal()">
+<body onload="loadMinhasCaravanas();">
     <div class="wrapper ">
         <div class="sidebar" data-color="white" data-active-color="danger">
             <div class="logo">
@@ -50,13 +50,13 @@
             </div>
             <div class="sidebar-wrapper">
                 <ul class="nav">
-                    <li class="active ">
+                    <li>
                         <a href="./painel.html">
                             <i class="nc-icon nc-bank"></i>
                             <p>Inicio</p>
                         </a>
                     </li>
-                    <li>
+                    <li class="active ">
                         <a href="painel-minhas-caravanas.html">
                             <i class="nc-icon nc-spaceship"></i>
                             <p>Minhas Caravanas</p>
@@ -89,7 +89,7 @@
                                 <span class="navbar-toggler-bar bar3"></span>
                             </button>
                         </div>
-                        <a class="navbar-brand" href="#pablo">Seleção de Locais Turisticos</a>
+                        <a class="navbar-brand" href="#pablo">Minhas Caravanas</a>
                     </div>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation"
                         aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
@@ -104,7 +104,7 @@
                     <div class="col-md-12">
                         <div class="card ">
                             <div class="card-header ">
-                                <h5 class="card-title">Selecione a caravana desejada:</h5>
+                                <div id="amigonativo-tools"></div>
                             </div>
                             <div class="card-body ">
                                 <div id="lista"></div>

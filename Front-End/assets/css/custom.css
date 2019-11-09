@@ -1,8 +1,4 @@
-.prod {
-  float: left;
-  width: 25%;
-  padding: 5px;
-}
+#more {display: none;}
 
 .autocomplete {
   position: relative;
