@@ -55,6 +55,7 @@ public class UsuarioResource {
     	}else{
     		turista = u.setTurista(true);
     	}
+    	service.update(u);
 		return ResponseEntity.ok().body(turista);
 	}
 	
@@ -68,6 +69,7 @@ public class UsuarioResource {
     	}else{
     		admin = u.setAdmin(true);
     	}
+    	service.update(u);
 		return ResponseEntity.ok().body(admin);
 	}
 	
