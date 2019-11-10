@@ -176,6 +176,15 @@ public class UsuarioService {
 		}
 		return null;
 	}
+	
+	public String cleanCaravanaUsers(Integer idCaravana) {
+		for (LinkedUC uc : repositoryUC.getAll()) {
+			if (uc.getCaravanaId().equals(idCaravana)) {
+				repositoryUC.remove(uc);
+			}
+		}
+		return "success";
+	}
 
 	public boolean isTurista(Integer id) {
 		Usuario u = findById(id);

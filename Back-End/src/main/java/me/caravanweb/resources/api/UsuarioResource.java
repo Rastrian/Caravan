@@ -45,6 +45,32 @@ public class UsuarioResource {
 		return ResponseEntity.ok().body(obj);
 	}
 	
+    @PostMapping(value = "/{id}/turista")
+    @ResponseStatus(HttpStatus.CREATED)
+    public ResponseEntity<Boolean> setTurista(@PathVariable Integer id){
+    	Usuario u = service.findById(id);
+    	boolean turista = u.isTurista();
+    	if (turista) {
+    		turista = u.setTurista(false);
+    	}else{
+    		turista = u.setTurista(true);
+    	}
+		return ResponseEntity.ok().body(turista);
+	}
+	
+    @PostMapping(value = "/{id}/admin")
+    @ResponseStatus(HttpStatus.CREATED)
+    public ResponseEntity<Boolean> setAdmin(@PathVariable Integer id){
+    	Usuario u = service.findById(id);
+    	boolean admin = u.isAdmin();
+    	if (admin) {
+    		admin = u.setAdmin(false);
+    	}else{
+    		admin = u.setAdmin(true);
+    	}
+		return ResponseEntity.ok().body(admin);
+	}
+	
 	@GetMapping(value = "/count")
 	public ResponseEntity<String> count() {
 		int obj = service.count();
@@ -116,6 +142,17 @@ public class UsuarioResource {
     		if (c != null) {
     			body = service.removeUser(idCaravana,idUsuario);
     		}
+    	}
+		return ResponseEntity.ok().body(body);
+	}
+    
+    @PostMapping(value = "/caravana/clean/{idCaravana}")
+    @ResponseStatus(HttpStatus.CREATED)
+    public ResponseEntity<String> cleanCaravana(@PathVariable Integer idCaravana){
+    	String body = "erro";
+    	Caravanas c = servicec.findById(idCaravana);
+    	if (c != null) {
+    		body = service.cleanCaravanaUsers(idCaravana);
     	}
 		return ResponseEntity.ok().body(body);
 	}

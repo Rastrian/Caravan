@@ -76,11 +76,13 @@ public class Usuario implements Serializable {
 	public boolean isTurista() {
 		return Turista;
 	}
-	public void setTurista(boolean turista) {
+	public boolean setTurista(boolean turista) {
 		Turista = turista;
+		return this.Turista;
 	}
-	public void setAdmin(boolean admin) {
+	public boolean setAdmin(boolean admin) {
 		this.admin = admin;
+		return this.admin;
 	}
 	public boolean isAdmin() {
 		return this.admin;
