@@ -46,11 +46,9 @@ public class CaravanasResource {
 	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public ResponseEntity<Caravanas> create(@RequestBody Caravanas c){
-		service.add(c);
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-				.buildAndExpand(c.getId()).toUri();
-		return ResponseEntity.created(uri).body(c);
+	public ResponseEntity<String> create(@RequestBody Caravanas c){
+		String body =  service.add(c);
+		return ResponseEntity.ok().body(body);
 	}
 
     @PostMapping(value = "/delete/{id}")
