@@ -60,8 +60,8 @@ public class CaravanasService {
 	}
 
 	public void add(Caravanas c) {
-//		c.setLocal(servicel.findById(c.getLocalId()));
-//		c.setOwner(serviceu.findById(c.getOwnerId()));
+		c.setLocal(servicel.findById(c.getLocalId()));
+		c.setOwner(serviceu.findById(c.getOwnerId()));
 		c.setData(LocalDate.of(c.getAno(), c.getMes(), c.getDia()));
 		int proxid = count() + 1;
 		Caravanas checkcount = repository.get(proxid);
