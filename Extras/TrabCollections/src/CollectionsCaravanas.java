@@ -3,13 +3,12 @@ import java.util.stream.Collectors;
 
 public class CollectionsCaravanas {
 	private CaravanasDAO arqCaravanas;
-	
-	
+	private List<Caravanas> lista;
+		
 	public List<Caravanas> getLista() {
 		return lista;
 	}
 
-	private List<Caravanas> lista;
 	
 	public CollectionsCaravanas(){
 		
