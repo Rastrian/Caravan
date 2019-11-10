@@ -47,9 +47,7 @@ public class CaravanasResource {
 		return ResponseEntity.ok().body(obj);
 	}
 	
-	@RequestMapping(method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
-	@CrossOrigin
-	@PostMapping(value = "/register")
+	@PostMapping(value = "/register", consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseStatus(HttpStatus.CREATED)
 	public @ResponseBody ResponseEntity<String> create(@RequestBody Caravanas c){
 		String body =  service.add(c);
