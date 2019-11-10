@@ -46,7 +46,7 @@ public class CaravanasResource {
 	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public ResponseEntity<Caravanas> create(@RequestBody Caravanas c){
+	public ResponseEntity<Caravanas> create(Caravanas c){
 		service.add(c);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
 				.buildAndExpand(c.getId()).toUri();
