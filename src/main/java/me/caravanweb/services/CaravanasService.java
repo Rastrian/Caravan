@@ -59,7 +59,8 @@ public class CaravanasService {
 		}
 	}
 
-	public void add(Caravanas c) {
+	public String add(Caravanas c) {
+		String msg = "InternalError";
 		c.setLocal(servicel.findById(c.getLocalId()));
 		c.setOwner(serviceu.findById(c.getOwnerId()));
 		c.setData(LocalDate.of(c.getAno(), c.getMes(), c.getDia()));
@@ -70,7 +71,11 @@ public class CaravanasService {
 			checkcount = repository.get(proxid);
 		}
 		c.setId(proxid);
-		repository.add(c);
+		boolean status = repository.add(c);
+		if (status == true) {
+			msg = c.getId().toString();
+		}
+		return msg;
 	}
 
 	public ArrayList<Caravanas> findByLocalId(Integer id) {
