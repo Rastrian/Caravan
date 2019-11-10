@@ -4,23 +4,30 @@ request.send(null);
 var localidadesdb = JSON.parse(request.responseText);
 var sHtml = '';
 
-function listarLocaisTuristicos(){
+function listarLocaisTuristicos() {
     db = localidadesdb;
-    if (db.length > 0){
+    if (db.length > 0) {
         for (i = 0; i < db.length; i++) {
-        sHtml += `
+            sHtml += `
                 <div class="col-md-3"><center>
                 <a href="./painel-lista-caravanas.html?local=${db[i].id}">
                 <h4><font color="black">${db[i].nome}</font></h4>
-                </a>
-                <p><font color="black" font-size=12px>${db[i].descricao.slice(0,100)}<span id="dots">...</span><span id="more">${db[i].descricao.slice(100)}</span></font></p>
-                <button onclick="lerMais()" id="myBtn">Ler mais</button> 
+                </a>`;
+            if (db[i].descricao.length > 100) {
+                sHtml += `
+                    <p><font color="black" font-size=12px>${db[i].descricao.slice(0,100)}<span id="dots">...</span><span id="more">${db[i].descricao.slice(100)}</span></font></p>
+                    <button onclick="lerMais()" id="myBtn">Ler mais</button>`;
+            } else {
+                sHtml += `
+                    <p><font color="black" font-size=12px>${db[i].descricao}</font></p>`;
+            }
+            sHtml += `
                 <a href="./painel-lista-caravanas.html?local=${db[i].id}">
                 <img src="${db[i].imgUrl}" width="225" width="225" alt="${db[i].descricao}"></img></br>
                 </a>
                 </center></div>`;
         }
-    }else{
+    } else {
         sHtml = `<center><h5>Nenhum local turistico foi encontrado.</h5></center>`;
     }
     document.getElementById('lista').innerHTML = sHtml;
