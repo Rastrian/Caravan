@@ -62,19 +62,19 @@ public class Caravanas implements Serializable {
 	public String getImgUrl() {
 		return imgUrl;
 	}
-	public int getDia() {
+	public Integer getDia() {
 		return this.dia;
 	}
-	public int getMes() {
+	public Integer getMes() {
 		return this.mes;
 	}
-	public int getAno() {
+	public Integer getAno() {
 		return this.ano;
 	}
-	public int getLocalId() {
+	public Integer getLocalId() {
 		return this.localId;
 	}
-	public int getOwnerId() {
+	public Integer getOwnerId() {
 		return this.ownerId;
 	}
 	public void setLocalId(int localId) {
