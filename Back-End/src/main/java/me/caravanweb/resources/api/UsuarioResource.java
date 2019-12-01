@@ -72,6 +72,21 @@ public class UsuarioResource {
     	service.update(u);
 		return ResponseEntity.ok().body(admin);
 	}
+    
+    @PostMapping(value = "/{id}/update")
+    @ResponseStatus(HttpStatus.CREATED)
+    public ResponseEntity<String> updateUser(@PathVariable Integer id, Usuario user){
+    	String msg = "InternalError";
+    	Usuario u = service.findById(id);
+    	if (u != null && (user.getId() == id) && (u.getId() == user.getId())) {
+    		if (u.getEndereco() != null) {
+    			msg = "Success";
+    		}else {
+    			msg = "EnderecoError";
+    		}
+    	}
+		return ResponseEntity.ok().body(msg);
+	}
 	
 	@GetMapping(value = "/count")
 	public ResponseEntity<String> count() {

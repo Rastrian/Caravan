@@ -24,7 +24,7 @@ public class Usuario implements Serializable {
 	@Column(nullable=false) 
 	private String senha;
 	
-	private Endereco end;
+	private Endereco address;
 	private boolean Turista = true;
 	private boolean admin = false;
 	private String imgUrl = "./assets/img/default-user.png";
@@ -89,7 +89,10 @@ public class Usuario implements Serializable {
 	}
 	
 	public Endereco getEndereco() {
-		return end;
+		return address;
+	}
+	public void setEndereco(Endereco address) {
+		this.address = address;
 	}
 	
 	@Override

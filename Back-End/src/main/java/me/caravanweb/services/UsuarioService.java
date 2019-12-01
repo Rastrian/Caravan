@@ -11,6 +11,7 @@ import me.caravanweb.DAO.CaravanasDAO;
 import me.caravanweb.DAO.LinkedUC_DAO;
 import me.caravanweb.DAO.UsuarioDAO;
 import me.caravanweb.profiles.Caravanas;
+import me.caravanweb.profiles.Endereco;
 import me.caravanweb.profiles.LinkedUC;
 import me.caravanweb.profiles.Usuario;
 
@@ -189,6 +190,16 @@ public class UsuarioService {
 	public boolean isTurista(Integer id) {
 		Usuario u = findById(id);
 		return u.isTurista();
+	}
+	
+	public boolean setEndereco(Integer id, Endereco e) {
+		Usuario u = findById(id);
+		u.setEndereco(e);
+		u = update(u);
+		if (u.getEndereco() == e) {
+			return true;
+		}
+		return false;
 	}
 
 }
