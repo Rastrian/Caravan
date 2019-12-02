@@ -1,5 +1,5 @@
 var request = new XMLHttpRequest();
-request.open("GET", "http://34.95.17.159:8085/api/localidades/names", false);
+request.open("GET", "http://"+host_ip+":8085/api/localidades/names", false);
 request.send(null);
 var localidadesdb = JSON.parse(request.responseText);
 

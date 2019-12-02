@@ -1,202 +1,179 @@
 <!DOCTYPE html>
-<html lang="ptBR">
+<html lang="pt">
 
 <head>
-  <meta charset="utf-8" />
-  <link rel="apple-touch-icon" sizes="76x76" href="./assets/img/apple-icon.png">
-  <link rel="icon" type="image/png" href="./assets/img/favicon.png">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-  <title>
-    Autenticação
-  </title>
-  <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no'
-    name='viewport' />
-  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
-  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
-  <link href="./assets/css/bootstrap.min.css" rel="stylesheet" />
-  <link href="./assets/css/paper-dashboard.css?v=2.0.0" rel="stylesheet" />
-  <link href="./assets/demo/demo.css" rel="stylesheet" />
-  <link href="./assets/css/custom.css" rel="stylesheet" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Caravan</title>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet'
+        type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+        integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+    <link
+        href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,700|Monsterrat:400,700|Merriweather:400,300italic,700'
+        rel='stylesheet' type='text/css'>
+    <link href="./assets/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="icon" type="image/png" href="./assets/img/bird.png" />
 </head>
-<!--   Core JS Files   -->
-<script src="./assets/js/core/jquery.min.js"></script>
-<script src="./assets/js/core/popper.min.js"></script>
-<script src="./assets/js/core/bootstrap.min.js"></script>
-<script src="./assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
-<!-- Chart JS -->
-<script src="./assets/js/plugins/chartjs.min.js"></script>
-<!--  Notifications Plugin    -->
-<script src="./assets/js/plugins/bootstrap-notify.js"></script>
-<!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
-<script src="./assets/js/paper-dashboard.min.js?v=2.0.0" type="text/javascript"></script>
-<!-- Paper Dashboard DEMO methods, don't include it in your project! -->
-<script src="./assets/demo/demo.js"></script>
-<script src="./assets/js/cookieman.js"></script>
-
-
-<body class="">
-  <div class="wrapper ">
-    <div class="sidebar" data-color="white" data-active-color="danger">
-      <div class="logo">
-        <a href="#" class="simple-text logo-normal">
-          <div class="logo-image-big">
-            <img src="./assets/img/logo.png">
-          </div>
-        </a>
-      </div>
-      <div class="sidebar-wrapper">
-        <ul class="nav">
-          <li class="active ">
-            <a href="./index.html">
-              <i class="nc-icon nc-bank"></i>
-              <p>Inicio</p>
-            </a>
-          </li>
-          <li>
-            <a href="./cadastrar.html">
-              <i class="nc-icon nc-tap-01"></i>
-              <p>Cadastrar</p>
-            </a>
-          </li>
-        </ul>
-      </div>
-    </div>
-    <div class="main-panel">
-      <!-- Navbar -->
-      <nav class="navbar navbar-expand-lg navbar-absolute fixed-top navbar-transparent">
-        <div class="container-fluid">
-          <div class="navbar-wrapper">
-            <div class="navbar-toggle">
-              <button type="button" class="navbar-toggler">
-                <span class="navbar-toggler-bar bar1"></span>
-                <span class="navbar-toggler-bar bar2"></span>
-                <span class="navbar-toggler-bar bar3"></span>
-              </button>
-            </div>
-            <a class="navbar-brand" href="#pablo">Autenticação</a>
-          </div>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation"
-            aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-bar navbar-kebab"></span>
-            <span class="navbar-toggler-bar navbar-kebab"></span>
-            <span class="navbar-toggler-bar navbar-kebab"></span>
-          </button>
-        </div>
-      </nav>
-      <div class="content">
-        <div class="row">
-          <div class="col-md-12">
-            <div class="card ">
-              <div class="card-body ">
-                <center>
-                  <form autocomplete="off" method="POST" name="login">
-                    <div class="autocomplete" style="width:300px;">
-                      <div id="success" style="display:none">
-                        <div class="alert alert-success alert-with-icon alert-dismissible fade show"
-                          data-notify="container">
-                          <button type="button" aria-hidden="true" class="close" data-dismiss="alert"
-                            aria-label="Close">
-                            <i class="nc-icon nc-simple-remove"></i>
-                          </button>
-                          <span data-notify="icon" class="nc-icon nc-alert-circle-i"></span>
-                          <span data-notify="message">Seu login foi realizado.</br>Em segundos você será
-                            redirecionado(a) ao painel.</span>
-                        </div>
-                      </div>
-                      <div id="error" style="display:none">
-                        <div class="alert alert-danger alert-with-icon alert-dismissible fade show"
-                          data-notify="container">
-                          <button type="button" aria-hidden="true" class="close" data-dismiss="alert"
-                            aria-label="Close">
-                            <i class="nc-icon nc-simple-remove"></i>
-                          </button>
-                          <span data-notify="icon" class="nc-icon nc-alert-circle-i"></span>
-                          <span data-notify="message">Erro interno.</span>
-                        </div>
-                      </div>
-                      <div id="invalidpassword" style="display:none">
-                        <div class="alert alert-danger alert-with-icon alert-dismissible fade show"
-                          data-notify="container">
-                          <button type="button" aria-hidden="true" class="close" data-dismiss="alert"
-                            aria-label="Close">
-                            <i class="nc-icon nc-simple-remove"></i>
-                          </button>
-                          <span data-notify="icon" class="nc-icon nc-alert-circle-i"></span>
-                          <span data-notify="message">Senha invalida.</span>
-                        </div>
-                      </div>
-                      <div id="sameemailError" style="display:none">
-                        <div class="alert alert-danger alert-with-icon alert-dismissible fade show"
-                          data-notify="container">
-                          <button type="button" aria-hidden="true" class="close" data-dismiss="alert"
-                            aria-label="Close">
-                            <i class="nc-icon nc-simple-remove"></i>
-                          </button>
-                          <span data-notify="icon" class="nc-icon nc-alert-circle-i"></span>
-                          <span data-notify="message">E-mail não encontrado no sistema.</span>
-                        </div>
-                      </div>
-                      <div id="emailError" style="display:none">
-                        <div class="alert alert-warning alert-with-icon alert-dismissible fade show"
-                          data-notify="container">
-                          <button type="button" aria-hidden="true" class="close" data-dismiss="alert"
-                            aria-label="Close">
-                            <i class="nc-icon nc-simple-remove"></i>
-                          </button>
-                          <span data-notify="icon" class="nc-icon nc-alert-circle-i"></span>
-                          <span data-notify="message">E-mail invalido.</span>
-                        </div>
-                      </div>
-                      <input id="email" type="email" name="email" placeholder="Seu E-mail" required></br></br>
-                      <div id="senhaError" style="display:none">
-                        <div class="alert alert-warning alert-with-icon alert-dismissible fade show"
-                          data-notify="container">
-                          <button type="button" aria-hidden="true" class="close" data-dismiss="alert"
-                            aria-label="Close">
-                            <i class="nc-icon nc-simple-remove"></i>
-                          </button>
-                          <span data-notify="icon" class="nc-icon nc-alert-circle-i"></span>
-                          <span data-notify="message">Senha invalida.</span>
-                        </div>
-                      </div>
-                      <input id="senha" type="password" name="senha" placeholder="Sua Senha" required>
-                    </div></br></br>
-                    <input type="submit" class="btn btn-success" value="Entrar">
-                    <a href="cadastrar.html" class="btn btn-primary"><i class="fa fa-user-plus"
-                        style="width: auto;margin: 0 .75em 0 0;"></i> Cadastrar</a>
-                  </form>
-                </center>
-              </div>
-              <div class="card-footer ">
-                <hr>
-                <div class="stats">
-
+<script src="./assets/main.js"></script>
+<body>
+    <header class="">
+        <nav
+            class="navbar navbar-expand-lg navbar-fixed-top navbar-light bg-light navbar-dark bg-dark nav justify-content-center">
+            <div class="container">
+                <div class="logo">
+                    <a class="navbar-brand" href="./index.html">
+                        <img src="./assets/img/logo.png" width="225" height="120"></img>
+                    </a>
                 </div>
-              </div>
+                <button class="navbar-toggler" type="button" data-toggle="collapse"
+                    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item active text-center">
+                            <a class="nav-link " href="index.html">&nbsp Inicio</a>
+                        </li>
+                        <li class="nav-item text-center">
+                            <a class="nav-link" href="cadastro.html">&nbsp; Cadastre-se </a>
+                        </li>
+                        <li class="nav-item text-center">
+                            <a class="nav-link" href="login.html" meta-target="_blank">&nbsp; Entrar </a>
+                        </li>
+                        <li class="nav-item text-center">
+                            <a class="nav-link" href="#comoparticipar">&nbsp; Como Participar </a>
+                        </li>
+                        <li class="nav-item text-center">
+                            <a class="nav-link" href="#sobre">&nbsp; Sobre</a>
+                        </li>
+                        <li class="nav-item text-center">
+                            <a class="nav-link" href="#contato">&nbsp; Contato </a>
+                        </li>
+                    </ul>
+                </div>
             </div>
-          </div>
+        </nav>
+    </header>
+    <br><br>
+    <div class="container">
+        <br><br>
+        <div class="row">
+            <div class="col-sm-6 text-center">
+                <h1>Viage, divirta-se, faça novos amigos e tenha uma experiência incrível!</h1>
+
+                <br><br>
+                <p>Somos uma Startup que conecta viajantes comuns com guias locais para realizar viajens incrivéis em
+                    conjuntos.</p>
+                <br><br>
+                <a href="#comoparticipar">
+                    <button type="button" class="btn btn-primary">
+                        Saiba Mais
+                    </button>
+                </a>
+            </div>
+            <div class="col-sm-6 text-center">
+                <img id="banner-side" class="img-fluid" src="./assets/img/default-local.png" alt="">
+            </div>
         </div>
-        <footer class="footer footer-black  footer-white ">
-          <div class="container-fluid">
-            <div class="row">
-              <nav class="footer-nav">
-                <ul>
-                  <li>
-                    <a href="#" target="_blank">#</a>
-                  </li>
-                </ul>
-              </nav>
+        <br><br>
+        <hr>
+        <section id="comoparticipar">
+            <br><br>
+            <div class="">
+                <div class="row text-center">
+                    <div class="col-sm-12">
+                        <h2>Como Participar</h2>
+                    </div>
+                </div>
+                <br><br>
+                <div class="row text-center">
+                    <div class="col-sm-4">
+                        <h4>Planejamento</h4>
+                        <p>Encontre os melhores lugares e preço no Caravan, faça seu planejamento arrume as malas parta
+                            para mais uma aventura.</p>
+                    </div>
+                    <div class="col-sm-4">
+                        <h4>Participe de uma caravana</h4>
+                        <p>Ao visitar os locais turísticos, encontre pessoas com o mesmo gosto e curta lugares incríveis
+                            conhecendo pessoas de vários lugares.</p>
+                    </div>
+                    <div class="col-sm-4">
+                        <h4>Seja um guia local</h4>
+                        <p>Mora em um lugar bastante visitado por turístas? Cadastre-se e monte Caravanas e ganhe
+                            dinheiro apresentando sua cidade!</p>
+                    </div>
+                </div>
             </div>
-          </div>
-        </footer>
-      </div>
+        </section>
+        <br><br>
+        <hr>
+        <section id="sobre">
+            <br><br>
+            <div class="">
+                <div class="row text-center">
+                    <div class="col-sm-12">
+                        <h2>Sobre o Caravan</h2>
+                    </div>
+                </div>
+                <br><br>
+                <div class="row text-center">
+                    <div class="col-sm-6">
+                        <iframe width="90%" height="100%" src="https://www.youtube.com/embed/cTAMGmCgMQU"
+                            frameborder="0"
+                            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen></iframe>
+                    </div>
+                    <div class="col-sm">
+                        <br><br>
+                    </div>
+                    <div class="col-sm-5">
+                        <h3>Embarque nessa!</h3>
+                        <p>Criada por um grupo de alunos da Puc Minas, o Caravan surgiu com a ideia de conectar pessoas,
+                            viajantes e amigos nativos,
+                            para uma experiência única</p>
+                        <p>... na qual o viajante pode participar de Caravanas, grupos de pessoas com o mesmo gosto
+                            turístico,
+                            e desfrutar do melhor de cada local guiado por um amigo nativo. </p>
+                        <a href="cadastro.html">
+                            <button type="button" class="btn btn-primary">
+                                Cadastrar
+                            </button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <br><br>
+        <br> <br><br>
     </div>
-    <script>
-      $(document).ready(function () {
-        // Javascript method's body can be found in assets/assets-for-demo/js/demo.js
-        demo.initChartsPages();
-      });
+    <foooter class="bg-dark" id="contato">
+        <div class="text-center bg-dark">
+            <br><br><br>
+            <div class="col-sm">
+            </div>
+            <div class="col-sm">
+                <font color="white">Trabalho feito por Luis Gustavo Vaz, Warley Leandro, Thiago Silva & Gabriel Morais
+                </font>
+            </div>
+            <br><br><br>
+        </div>
+    </foooter>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome.min.css"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
     </script>
-    <script src="./assets/js/auth.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+    </script>
 </body>
+
 </html>

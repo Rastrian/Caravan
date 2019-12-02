@@ -17,21 +17,14 @@
     <link href="./assets/css/paper-dashboard.css?v=2.0.0" rel="stylesheet" />
     <link href="./assets/demo/demo.css" rel="stylesheet" />
     <link href="./assets/css/custom.css" rel="stylesheet" />
+    <link rel="icon" type="image/png" href="./assets/img/bird.png" />
 </head>
-<!--   Core JS Files   -->
+<script src="./assets/main.js"></script>
 <script src="./assets/js/core/jquery.min.js"></script>
 <script src="./assets/js/core/popper.min.js"></script>
 <script src="./assets/js/core/bootstrap.min.js"></script>
 <script src="./assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
-<!--  Google Maps Plugin    -->
-<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
-<!-- Chart JS -->
-<script src="./assets/js/plugins/chartjs.min.js"></script>
-<!--  Notifications Plugin    -->
-<script src="./assets/js/plugins/bootstrap-notify.js"></script>
-<!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
 <script src="./assets/js/paper-dashboard.min.js?v=2.0.0" type="text/javascript"></script>
-<!-- Paper Dashboard DEMO methods, don't include it in your project! -->
 <script src="./assets/demo/demo.js"></script>
 <script src="./assets/js/core/axios.js"></script>
 <script src="./assets/js/cookieman.js"></script>
@@ -78,7 +71,6 @@
             </div>
         </div>
         <div class="main-panel">
-            <!-- Navbar -->
             <nav class="navbar navbar-expand-lg navbar-absolute fixed-top navbar-transparent">
                 <div class="container-fluid">
                     <div class="navbar-wrapper">
@@ -100,6 +92,116 @@
                 </div>
             </nav>
             <div class="content">
+                <div id="menuCriarLocalTuristico"></div>
+                <div id="success" style="display:none">
+                    <div class="alert alert-success alert-with-icon alert-dismissible fade show"
+                        data-notify="container">
+                        <button type="button" aria-hidden="true" class="close" data-dismiss="alert" aria-label="Close">
+                            <i class="nc-icon nc-simple-remove"></i>
+                        </button>
+                        <span data-notify="icon" class="nc-icon nc-alert-circle-i"></span>
+                        <span data-notify="message">Seu perfil acaba de ser atualizado :D</span>
+                    </div>
+                </div>
+                <div id="error" style="display:none">
+                    <div class="alert alert-danger alert-with-icon alert-dismissible fade show" data-notify="container">
+                        <button type="button" aria-hidden="true" class="close" data-dismiss="alert" aria-label="Close">
+                            <i class="nc-icon nc-simple-remove"></i>
+                        </button>
+                        <span data-notify="icon" class="nc-icon nc-alert-circle-i"></span>
+                        <span data-notify="message">Erro interno.</span>
+                    </div>
+                </div>
+                <div id="senhaError" style="display:none">
+                    <div class="alert alert-warning alert-with-icon alert-dismissible fade show"
+                        data-notify="container">
+                        <button type="button" aria-hidden="true" class="close" data-dismiss="alert" aria-label="Close">
+                            <i class="nc-icon nc-simple-remove"></i>
+                        </button>
+                        <span data-notify="icon" class="nc-icon nc-alert-circle-i"></span>
+                        <span data-notify="message">Confirmação de senha invalida</span>
+                    </div>
+                </div>
+                <div id="nomeError" style="display:none">
+                    <div class="alert alert-warning alert-with-icon alert-dismissible fade show"
+                        data-notify="container">
+                        <button type="button" aria-hidden="true" class="close" data-dismiss="alert" aria-label="Close">
+                            <i class="nc-icon nc-simple-remove"></i>
+                        </button>
+                        <span data-notify="icon" class="nc-icon nc-alert-circle-i"></span>
+                        <span data-notify="message">Nome invalido.</span>
+                    </div>
+                </div>
+                <div id="emailError" style="display:none">
+                    <div class="alert alert-warning alert-with-icon alert-dismissible fade show"
+                        data-notify="container">
+                        <button type="button" aria-hidden="true" class="close" data-dismiss="alert" aria-label="Close">
+                            <i class="nc-icon nc-simple-remove"></i>
+                        </button>
+                        <span data-notify="icon" class="nc-icon nc-alert-circle-i"></span>
+                        <span data-notify="message">E-mail invalido.</span>
+                    </div>
+                </div>
+                <div id="telefoneError" style="display:none">
+                    <div class="alert alert-warning alert-with-icon alert-dismissible fade show"
+                        data-notify="container">
+                        <button type="button" aria-hidden="true" class="close" data-dismiss="alert" aria-label="Close">
+                            <i class="nc-icon nc-simple-remove"></i>
+                        </button>
+                        <span data-notify="icon" class="nc-icon nc-alert-circle-i"></span>
+                        <span data-notify="message">Telefone invalido.</span>
+                    </div>
+                </div>
+                <div id="enderecoError" style="display:none">
+                    <div class="alert alert-warning alert-with-icon alert-dismissible fade show"
+                        data-notify="container">
+                        <button type="button" aria-hidden="true" class="close" data-dismiss="alert" aria-label="Close">
+                            <i class="nc-icon nc-simple-remove"></i>
+                        </button>
+                        <span data-notify="icon" class="nc-icon nc-alert-circle-i"></span>
+                        <span data-notify="message">Endereço invalido.</span>
+                    </div>
+                </div>
+                <div id="cidadeError" style="display:none">
+                    <div class="alert alert-warning alert-with-icon alert-dismissible fade show"
+                        data-notify="container">
+                        <button type="button" aria-hidden="true" class="close" data-dismiss="alert" aria-label="Close">
+                            <i class="nc-icon nc-simple-remove"></i>
+                        </button>
+                        <span data-notify="icon" class="nc-icon nc-alert-circle-i"></span>
+                        <span data-notify="message">Cidade invalida.</span>
+                    </div>
+                </div>
+                <div id="paisError" style="display:none">
+                    <div class="alert alert-warning alert-with-icon alert-dismissible fade show"
+                        data-notify="container">
+                        <button type="button" aria-hidden="true" class="close" data-dismiss="alert" aria-label="Close">
+                            <i class="nc-icon nc-simple-remove"></i>
+                        </button>
+                        <span data-notify="icon" class="nc-icon nc-alert-circle-i"></span>
+                        <span data-notify="message">Pais invalido.</span>
+                    </div>
+                </div>
+                <div id="estadoError" style="display:none">
+                    <div class="alert alert-warning alert-with-icon alert-dismissible fade show"
+                        data-notify="container">
+                        <button type="button" aria-hidden="true" class="close" data-dismiss="alert" aria-label="Close">
+                            <i class="nc-icon nc-simple-remove"></i>
+                        </button>
+                        <span data-notify="icon" class="nc-icon nc-alert-circle-i"></span>
+                        <span data-notify="message">Estado invalido.</span>
+                    </div>
+                </div>
+                <div id="cepError" style="display:none">
+                    <div class="alert alert-warning alert-with-icon alert-dismissible fade show"
+                        data-notify="container">
+                        <button type="button" aria-hidden="true" class="close" data-dismiss="alert" aria-label="Close">
+                            <i class="nc-icon nc-simple-remove"></i>
+                        </button>
+                        <span data-notify="icon" class="nc-icon nc-alert-circle-i"></span>
+                        <span data-notify="message">CEP invalido.</span>
+                    </div>
+                </div>
                 <div class="row">
                     <div class="col-md-3">
                         <div class="card card-user">
@@ -116,6 +218,7 @@
                                         <div id="cargo">Cargo (Turista/Admin/Amigo Nativo)</div>
                                     </p>
                                 </div>
+                                <div id="botaoAmigoNativo"></div>
                             </div>
                         </div>
                     </div>
@@ -135,7 +238,7 @@
                                         </div>
                                         <div class="col-md-6 pr-1">
                                             <div class="form-group">
-                                                <label>Nome:</label>
+                                                <label>Nome</label>
                                                 <div id="nome"></div>
                                             </div>
                                         </div>
@@ -144,15 +247,19 @@
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <label>Telefone</label>
-                                                <input type="phone" class="form-control" placeholder="(33) 3333333333"
-                                                    value="(33) 3333333333">
+                                                <div id="telefone"></div>
                                             </div>
                                         </div>
-                                        <div class="col-md-9">
+                                        <div class="col-md-5">
                                             <div class="form-group">
                                                 <label>Endereço</label>
-                                                <input type="text" class="form-control" placeholder="Rua X"
-                                                    value="Rua das Flores, 888">
+                                                <div id="endereco"></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Estado</label>
+                                                <div id="estado"></div>
                                             </div>
                                         </div>
                                     </div>
@@ -160,21 +267,37 @@
                                         <div class="col-md-4 pr-1">
                                             <div class="form-group">
                                                 <label>Cidade</label>
-                                                <input type="text" class="form-control" placeholder="Cidade"
-                                                    value="Belo Horizonte">
+                                                <div id="cidade"></div>
                                             </div>
                                         </div>
                                         <div class="col-md-4 px-1">
                                             <div class="form-group">
                                                 <label>País</label>
-                                                <input type="text" class="form-control" placeholder="País"
-                                                    value="Brasil">
+                                                <div id="pais"></div>
                                             </div>
                                         </div>
                                         <div class="col-md-4 pl-1">
                                             <div class="form-group">
                                                 <label>Código Postal (CEP)</label>
-                                                <input type="number" class="form-control" placeholder="CEP">
+                                                <div id="cep"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12 pr-1">
+                                            <div class="form-group">
+                                                <label>Insira sua senha atual</label>
+                                                <input id="senha" name="senha" type="password" class="form-control"
+                                                    id="senha" size="200" maxlength="8" placeholder="Insira sua Senha"
+                                                >
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 px-1" style="display:none">
+                                            <div class="form-group">
+                                                <label>Insira sua nova senha (opcional)</label>
+                                                <input id="novasenha" name="novasenha" type="password"
+                                                    class="form-control" id="senha" size="200" maxlength="8"
+                                                    placeholder="Insira sua Senha">
                                             </div>
                                         </div>
                                     </div>
@@ -193,7 +316,6 @@
         </div>
         <script>
             $(document).ready(function () {
-                // Javascript method's body can be found in assets/assets-for-demo/js/demo.js
                 demo.initChartsPages();
             });
         </script>
