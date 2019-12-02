@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ptBR">
+
+<head>
+    <meta charset="utf-8" />
+    <link rel="apple-touch-icon" sizes="76x76" href="./assets/img/apple-icon.png">
+    <link rel="icon" type="image/png" href="./assets/img/favicon.png">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>
+        Caravan
+    </title>
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no'
+        name='viewport' />
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
+    <link href="./assets/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="./assets/css/paper-dashboard.css?v=2.0.0" rel="stylesheet" />
+    <link href="./assets/demo/demo.css" rel="stylesheet" />
+    <link href="./assets/css/custom.css" rel="stylesheet" />
+    <link rel="icon" type="image/png" href="./assets/img/bird.png" />
+</head>
+<script src="./assets/main.js"></script>
+<script src="./assets/js/core/jquery.min.js"></script>
+<script src="./assets/js/core/popper.min.js"></script>
+<script src="./assets/js/core/bootstrap.min.js"></script>
+<script src="./assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+<script src="./assets/js/paper-dashboard.min.js?v=2.0.0" type="text/javascript"></script>
+<script src="./assets/demo/demo.js"></script>
+<script src="./assets/js/core/axios.js"></script>
+<script src="./assets/js/cookieman.js"></script>
+<script src="./assets/js/page.js"></script>
+<script src="./assets/js/navbar.js"></script>
+<script src="./assets/js/caravanas.js"></script>
+<body onload="listCaravanasByLocal()">
+    <div class="wrapper ">
+        <div class="sidebar" data-color="white" data-active-color="danger">
+            <div class="logo">
+                <a href="#" class="simple-text logo-normal">
+                    <div class="logo-image-big">
+                        <img src="./assets/img/logo.png">
+                    </div>
+                </a>
+            </div>
+            <div class="sidebar-wrapper">
+                <ul class="nav">
+                    <li class="active ">
+                        <a href="./painel.html">
+                            <i class="nc-icon nc-bank"></i>
+                            <p>Inicio</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="painel-minhas-caravanas.html">
+                            <i class="nc-icon nc-spaceship"></i>
+                            <p>Minhas Caravanas</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="./painel-perfil.html">
+                            <i class="nc-icon nc-single-02"></i>
+                            <p>Meu Perfil</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="./index.html">
+                            <i class="nc-icon nc-share-66"></i>
+                            <p>Deslogar</p>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="main-panel">
+            <!-- Navbar -->
+            <nav class="navbar navbar-expand-lg navbar-absolute fixed-top navbar-transparent">
+                <div class="container-fluid">
+                    <div class="navbar-wrapper">
+                        <div class="navbar-toggle">
+                            <button type="button" class="navbar-toggler">
+                                <span class="navbar-toggler-bar bar1"></span>
+                                <span class="navbar-toggler-bar bar2"></span>
+                                <span class="navbar-toggler-bar bar3"></span>
+                            </button>
+                        </div>
+                        <a class="navbar-brand" href="#pablo">Seleção de Locais Turisticos</a>
+                    </div>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation"
+                        aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-bar navbar-kebab"></span>
+                        <span class="navbar-toggler-bar navbar-kebab"></span>
+                        <span class="navbar-toggler-bar navbar-kebab"></span>
+                    </button>
+                </div>
+            </nav>
+            <div class="content">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card ">
+                            <div class="card-header ">
+                                <h5 class="card-title">Selecione a caravana desejada:</h5>
+                            </div>
+                            <div class="card-body ">
+                                <div id="lista"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            $(document).ready(function () {
+                // Javascript method's body can be found in assets/assets-for-demo/js/demo.js
+                demo.initChartsPages();
+            });
+        </script>
+</body>
+
+</html>

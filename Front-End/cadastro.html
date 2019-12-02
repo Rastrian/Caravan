@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html lang="pt-Br">
+<html lang="pt">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Caravan - Cadastro</title>
+    <title>Caravan - Login</title>
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
     <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet'
@@ -15,15 +16,20 @@
     <link
         href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,700|Monsterrat:400,700|Merriweather:400,300italic,700'
         rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="./assets/css/style.css">
+    <link href="./assets/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="icon" type="image/png" href="./assets/img/bird.png" />
 </head>
+<script src="./assets/main.js"></script>
 <body>
     <header class="">
-        <nav class="navbar navbar-expand-lg navbar-fixed-top navbar-light bg-light navbar-dark bg-dark nav justify-content-center">
+        <nav
+            class="navbar navbar-expand-lg navbar-fixed-top navbar-light bg-light navbar-dark bg-dark nav justify-content-center">
             <div class="container">
-                <a class="navbar-brand" href="index.html">CARAVAN</a>
+                <div class="logo">
+                    <a class="navbar-brand" href="./index.html">
+                        <img src="./assets/img/logo.png" width="225" height="120"></img>
+                    </a>
+                </div>
                 <button class="navbar-toggler" type="button" data-toggle="collapse"
                     data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                     aria-label="Toggle navigation">
@@ -31,11 +37,23 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mr-auto">
+                        <li class="nav-item text-center">
+                            <a class="nav-link " href="index.html">&nbsp Inicio</a>
+                        </li>
                         <li class="nav-item active text-center">
-                            <a class="nav-link " href="index.html">&nbsp Home <span class="sr-only">(current)</span></a>
+                            <a class="nav-link" href="cadastro.html">&nbsp; Cadastre-se </a>
                         </li>
                         <li class="nav-item text-center">
-                            <a class="nav-link" href="login.html">&nbsp Entrar </a>
+                            <a class="nav-link" href="login.html" meta-target="_blank">&nbsp; Entrar </a>
+                        </li>
+                        <li class="nav-item text-center">
+                            <a class="nav-link" href="index.html#comoparticipar">&nbsp; Como Participar </a>
+                        </li>
+                        <li class="nav-item text-center">
+                            <a class="nav-link" href="index.html#sobre">&nbsp; Sobre</a>
+                        </li>
+                        <li class="nav-item text-center">
+                            <a class="nav-link" href="index.html#contato">&nbsp; Contato </a>
                         </li>
                     </ul>
                 </div>
@@ -43,46 +61,268 @@
         </nav>
     </header>
     <br><br>
-    <section id="cadastro">
+    <section id="login">
         <div class="container">
             <div class="row">
-                <div class="col-sm-12">
-                    <h3> Juntos podemos ir além!<br> Pronto para conhecer lugares incríveis?</h3>
-                    <br>
+                <div class="col-12">
+                    <center>
+                        <div id="msg"></div>
+                        <div id="success" style="display:none">
+                            <div class="alert alert-success alert-with-icon alert-dismissible fade show"
+                                data-notify="container">
+                                <button type="button" aria-hidden="true" class="close" data-dismiss="alert"
+                                    aria-label="Close">
+                                    <i class="nc-icon nc-simple-remove"></i>
+                                </button>
+                                <span data-notify="icon" class="nc-icon nc-alert-circle-i"></span>
+                                <span data-notify="message">Seu cadastro foi realizado !</br>Em segundos você será
+                                    redirecionado(a) ao login.</span>
+                            </div>
+                        </div>
+                        <div id="error" style="display:none">
+                            <div class="alert alert-danger alert-with-icon alert-dismissible fade show"
+                                data-notify="container">
+                                <button type="button" aria-hidden="true" class="close" data-dismiss="alert"
+                                    aria-label="Close">
+                                    <i class="nc-icon nc-simple-remove"></i>
+                                </button>
+                                <span data-notify="icon" class="nc-icon nc-alert-circle-i"></span>
+                                <span data-notify="message">Erro interno.</span>
+                            </div>
+                        </div>
+                        <div id="sameemailError" style="display:none">
+                            <div class="alert alert-danger alert-with-icon alert-dismissible fade show"
+                                data-notify="container">
+                                <button type="button" aria-hidden="true" class="close" data-dismiss="alert"
+                                    aria-label="Close">
+                                    <i class="nc-icon nc-simple-remove"></i>
+                                </button>
+                                <span data-notify="icon" class="nc-icon nc-alert-circle-i"></span>
+                                <span data-notify="message">Este e-mail já está sendo utilizado por outro
+                                    usuario.</span>
+                            </div>
+                        </div>
+                        <div id="repitasenhaError" style="display:none">
+                            <div class="alert alert-warning alert-with-icon alert-dismissible fade show"
+                                data-notify="container">
+                                <button type="button" aria-hidden="true" class="close" data-dismiss="alert"
+                                    aria-label="Close">
+                                    <i class="nc-icon nc-simple-remove"></i>
+                                </button>
+                                <span data-notify="icon" class="nc-icon nc-alert-circle-i"></span>
+                                <span data-notify="message">Confirmação de senha invalida</span>
+                            </div>
+                        </div>
+                        <div id="nomeError" style="display:none">
+                            <div class="alert alert-warning alert-with-icon alert-dismissible fade show"
+                                data-notify="container">
+                                <button type="button" aria-hidden="true" class="close" data-dismiss="alert"
+                                    aria-label="Close">
+                                    <i class="nc-icon nc-simple-remove"></i>
+                                </button>
+                                <span data-notify="icon" class="nc-icon nc-alert-circle-i"></span>
+                                <span data-notify="message">Nome invalido.</span>
+                            </div>
+                        </div>
+                        <div id="emailError" style="display:none">
+                            <div class="alert alert-warning alert-with-icon alert-dismissible fade show"
+                                data-notify="container">
+                                <button type="button" aria-hidden="true" class="close" data-dismiss="alert"
+                                    aria-label="Close">
+                                    <i class="nc-icon nc-simple-remove"></i>
+                                </button>
+                                <span data-notify="icon" class="nc-icon nc-alert-circle-i"></span>
+                                <span data-notify="message">E-mail invalido.</span>
+                            </div>
+                        </div>
+                        <div id="telefoneError" style="display:none">
+                            <div class="alert alert-warning alert-with-icon alert-dismissible fade show"
+                                data-notify="container">
+                                <button type="button" aria-hidden="true" class="close" data-dismiss="alert"
+                                    aria-label="Close">
+                                    <i class="nc-icon nc-simple-remove"></i>
+                                </button>
+                                <span data-notify="icon" class="nc-icon nc-alert-circle-i"></span>
+                                <span data-notify="message">Telefone invalido.</span>
+                            </div>
+                        </div>
+                        <div id="enderecoError" style="display:none">
+                            <div class="alert alert-warning alert-with-icon alert-dismissible fade show"
+                                data-notify="container">
+                                <button type="button" aria-hidden="true" class="close" data-dismiss="alert"
+                                    aria-label="Close">
+                                    <i class="nc-icon nc-simple-remove"></i>
+                                </button>
+                                <span data-notify="icon" class="nc-icon nc-alert-circle-i"></span>
+                                <span data-notify="message">Endereço invalido.</span>
+                            </div>
+                        </div>
+                        <div id="cidadeError" style="display:none">
+                            <div class="alert alert-warning alert-with-icon alert-dismissible fade show"
+                                data-notify="container">
+                                <button type="button" aria-hidden="true" class="close" data-dismiss="alert"
+                                    aria-label="Close">
+                                    <i class="nc-icon nc-simple-remove"></i>
+                                </button>
+                                <span data-notify="icon" class="nc-icon nc-alert-circle-i"></span>
+                                <span data-notify="message">Cidade invalida.</span>
+                            </div>
+                        </div>
+                        <div id="paisError" style="display:none">
+                            <div class="alert alert-warning alert-with-icon alert-dismissible fade show"
+                                data-notify="container">
+                                <button type="button" aria-hidden="true" class="close" data-dismiss="alert"
+                                    aria-label="Close">
+                                    <i class="nc-icon nc-simple-remove"></i>
+                                </button>
+                                <span data-notify="icon" class="nc-icon nc-alert-circle-i"></span>
+                                <span data-notify="message">Pais invalido.</span>
+                            </div>
+                        </div>
+                        <div id="estadoError" style="display:none">
+                            <div class="alert alert-warning alert-with-icon alert-dismissible fade show"
+                                data-notify="container">
+                                <button type="button" aria-hidden="true" class="close" data-dismiss="alert"
+                                    aria-label="Close">
+                                    <i class="nc-icon nc-simple-remove"></i>
+                                </button>
+                                <span data-notify="icon" class="nc-icon nc-alert-circle-i"></span>
+                                <span data-notify="message">Estado invalido.</span>
+                            </div>
+                        </div>
+                        <div id="cepError" style="display:none">
+                            <div class="alert alert-warning alert-with-icon alert-dismissible fade show"
+                                data-notify="container">
+                                <button type="button" aria-hidden="true" class="close" data-dismiss="alert"
+                                    aria-label="Close">
+                                    <i class="nc-icon nc-simple-remove"></i>
+                                </button>
+                                <span data-notify="icon" class="nc-icon nc-alert-circle-i"></span>
+                                <span data-notify="message">CEP invalido.</span>
+                            </div>
+                        </div>
+                    </center>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-sm">
+                <div class="col-sm-4">
+                    <img class="img-fluid" src="./assets/img/cao.png" alt="">
                 </div>
                 <div class="col-sm-6">
-                    <form action="">
-                        <div class="form-group">
-                            <label for="nome">Nome:</label>
-                            <input type="text" class="form-control" id="nome" size="200"
-                                placeholder="Digite seu nome completo" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="email">E-mail:</label>
-                            <input type="text" class="form-control" id="email" size="200"
-                                placeholder="Digite o seu email" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="senha">Senha :</label>
-                            <input type="password" class="form-control" id="senha" size="200" maxlength="8"
-                                placeholder="Crie uma senha" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="endereco">Endereço:</label>
-                            <input type="text" class="form-control" id="endereco" size="200"
-                                placeholder="Digite seu endereço completo" required>
-                        </div>
-                        <br>
-                        <div class="text-center">
-                            <button type="button" class="btn btn-dark">Cadastrar</button>
-                        </div>
+                    <h3> Que bom te ver novamente!<br> Pronto para mais uma aventura ?</h3>
+                    <br>
+                    <form autocomplete="off" method="POST" name="cadastro">
+                        <div class="autocomplete">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>E-mail:</label>
+                                        <input id="email" type="email" class="form-control" name="email"
+                                            placeholder="Seu E-mail" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Nome:</label>
+                                        <input id="nome" type="text" class="form-control" name="nome"
+                                            placeholder="Seu Nome" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Senha:</label>
+                                        <input id="senha" type="password" class="form-control" name="senha"
+                                            placeholder="Sua Senha" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Repita Senha:</label>
+                                        <input id="repitasenha" type="password" class="form-control" name="repitasenha"
+                                            placeholder="Repita sua senha" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Telefone</label>
+                                        <input id="telefone" name="telefone" type="tel" class="form-control"
+                                            placeholder="Seu Telefone">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Endereço</label>
+                                        <input id="endereco" name="endereco" type="text" class="form-control"
+                                            placeholder="Rua, Numero">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Estado</label>
+                                        <select class="form-control" id="estado" name="estado">
+                                            <option value="">Selecione</option>
+                                            <option value="AC">Acre</option>
+                                            <option value="AL">Alagoas</option>
+                                            <option value="AP">Amapá</option>
+                                            <option value="AM">Amazonas</option>
+                                            <option value="BA">Bahia</option>
+                                            <option value="CE">Ceará</option>
+                                            <option value="DF">Distrito Federal</option>
+                                            <option value="ES">Espirito Santo</option>
+                                            <option value="GO">Goiás</option>
+                                            <option value="MA">Maranhão</option>
+                                            <option value="MS">Mato Grosso do Sul</option>
+                                            <option value="MT">Mato Grosso</option>
+                                            <option value="MG">Minas Gerais</option>
+                                            <option value="PA">Pará</option>
+                                            <option value="PB">Paraíba</option>
+                                            <option value="PR">Paraná</option>
+                                            <option value="PE">Pernambuco</option>
+                                            <option value="PI">Piauí</option>
+                                            <option value="RJ">Rio de Janeiro</option>
+                                            <option value="RN">Rio Grande do Norte</option>
+                                            <option value="RS">Rio Grande do Sul</option>
+                                            <option value="RO">Rondônia</option>
+                                            <option value="RR">Roraima</option>
+                                            <option value="SC">Santa Catarina</option>
+                                            <option value="SP">São Paulo</option>
+                                            <option value="SE">Sergipe</option>
+                                            <option value="TO">Tocantins</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4 pr-1">
+                                    <div class="form-group">
+                                        <label>Cidade</label>
+                                        <input id="cidade" name="cidade" type="text" class="form-control"
+                                            placeholder="Cidade">
+                                    </div>
+                                </div>
+                                <div class="col-md-4 px-1">
+                                    <div class="form-group">
+                                        <label>País</label>
+                                        <input id="pais" name="pais" type="text" class="form-control"
+                                            placeholder="País">
+                                    </div>
+                                </div>
+                                <div class="col-md-4 pl-1">
+                                    <div class="form-group">
+                                        <label>Código Postal (CEP)</label>
+                                        <input id="cep" name="cep" type="number" class="form-control" placeholder="CEP">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="update ml-auto mr-auto">
+                                    <input type="submit" class="btn btn-success" value="Cadastrar">
+                                </div>
+                            </div>
                     </form>
-                </div>
-                <div class="col-sm">
+                    <br>
                 </div>
             </div>
         </div>
@@ -97,5 +337,8 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
     </script>
+    <script src="./assets/js/core/jquery.min.js"></script>
+    <script src="./assets/js/auth.js"></script>
 </body>
+
 </html>

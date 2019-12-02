@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="ptBR">
+
+<head>
+    <meta charset="utf-8" />
+    <link rel="apple-touch-icon" sizes="76x76" href="./assets/img/apple-icon.png">
+    <link rel="icon" type="image/png" href="./assets/img/favicon.png">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>
+        Caravan
+    </title>
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no'
+        name='viewport' />
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
+    <link href="./assets/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="./assets/css/paper-dashboard.css?v=2.0.0" rel="stylesheet" />
+    <link href="./assets/demo/demo.css" rel="stylesheet" />
+    <link href="./assets/css/custom.css" rel="stylesheet" />
+    <link rel="icon" type="image/png" href="./assets/img/bird.png" />
+</head>
+<script src="./assets/main.js"></script>
+<script src="./assets/js/core/jquery.min.js"></script>
+<script src="./assets/js/core/popper.min.js"></script>
+<script src="./assets/js/core/bootstrap.min.js"></script>
+<script src="./assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+<script src="./assets/js/paper-dashboard.min.js?v=2.0.0" type="text/javascript"></script>
+<script src="./assets/demo/demo.js"></script>
+<script src="./assets/js/core/axios.js"></script>
+<script src="./assets/js/cookieman.js"></script>
+<script src="./assets/js/page.js"></script>
+<script src="./assets/js/users.js"></script>
+
+<body onload="loadProfilePage();">
+    <div class="wrapper ">
+        <div class="sidebar" data-color="white" data-active-color="danger">
+            <div class="logo">
+                <a href="#" class="simple-text logo-normal">
+                    <div class="logo-image-big">
+                        <img src="./assets/img/logo.png">
+                    </div>
+                </a>
+            </div>
+            <div class="sidebar-wrapper">
+                <ul class="nav">
+                    <li class="active ">
+                        <a href="./painel.html">
+                            <i class="nc-icon nc-bank"></i>
+                            <p>Inicio</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="painel-minhas-caravanas.html">
+                            <i class="nc-icon nc-spaceship"></i>
+                            <p>Minhas Caravanas</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="./painel-perfil.html">
+                            <i class="nc-icon nc-single-02"></i>
+                            <p>Meu Perfil</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="./index.html">
+                            <i class="nc-icon nc-share-66"></i>
+                            <p>Deslogar</p>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="main-panel">
+            <nav class="navbar navbar-expand-lg navbar-absolute fixed-top navbar-transparent">
+                <div class="container-fluid">
+                    <div class="navbar-wrapper">
+                        <div class="navbar-toggle">
+                            <button type="button" class="navbar-toggler">
+                                <span class="navbar-toggler-bar bar1"></span>
+                                <span class="navbar-toggler-bar bar2"></span>
+                                <span class="navbar-toggler-bar bar3"></span>
+                            </button>
+                        </div>
+                        <a class="navbar-brand" href="#pablo">Meu Perfil</a>
+                    </div>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation"
+                        aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-bar navbar-kebab"></span>
+                        <span class="navbar-toggler-bar navbar-kebab"></span>
+                        <span class="navbar-toggler-bar navbar-kebab"></span>
+                    </button>
+                </div>
+            </nav>
+            <div class="content">
+                <div id="menuCriarLocalTuristico"></div>
+                <div id="success" style="display:none">
+                    <div class="alert alert-success alert-with-icon alert-dismissible fade show"
+                        data-notify="container">
+                        <button type="button" aria-hidden="true" class="close" data-dismiss="alert" aria-label="Close">
+                            <i class="nc-icon nc-simple-remove"></i>
+                        </button>
+                        <span data-notify="icon" class="nc-icon nc-alert-circle-i"></span>
+                        <span data-notify="message">Seu perfil acaba de ser atualizado :D</span>
+                    </div>
+                </div>
+                <div id="error" style="display:none">
+                    <div class="alert alert-danger alert-with-icon alert-dismissible fade show" data-notify="container">
+                        <button type="button" aria-hidden="true" class="close" data-dismiss="alert" aria-label="Close">
+                            <i class="nc-icon nc-simple-remove"></i>
+                        </button>
+                        <span data-notify="icon" class="nc-icon nc-alert-circle-i"></span>
+                        <span data-notify="message">Erro interno.</span>
+                    </div>
+                </div>
+                <div id="senhaError" style="display:none">
+                    <div class="alert alert-warning alert-with-icon alert-dismissible fade show"
+                        data-notify="container">
+                        <button type="button" aria-hidden="true" class="close" data-dismiss="alert" aria-label="Close">
+                            <i class="nc-icon nc-simple-remove"></i>
+                        </button>
+                        <span data-notify="icon" class="nc-icon nc-alert-circle-i"></span>
+                        <span data-notify="message">Confirmação de senha invalida</span>
+                    </div>
+                </div>
+                <div id="nomeError" style="display:none">
+                    <div class="alert alert-warning alert-with-icon alert-dismissible fade show"
+                        data-notify="container">
+                        <button type="button" aria-hidden="true" class="close" data-dismiss="alert" aria-label="Close">
+                            <i class="nc-icon nc-simple-remove"></i>
+                        </button>
+                        <span data-notify="icon" class="nc-icon nc-alert-circle-i"></span>
+                        <span data-notify="message">Nome invalido.</span>
+                    </div>
+                </div>
+                <div id="emailError" style="display:none">
+                    <div class="alert alert-warning alert-with-icon alert-dismissible fade show"
+                        data-notify="container">
+                        <button type="button" aria-hidden="true" class="close" data-dismiss="alert" aria-label="Close">
+                            <i class="nc-icon nc-simple-remove"></i>
+                        </button>
+                        <span data-notify="icon" class="nc-icon nc-alert-circle-i"></span>
+                        <span data-notify="message">E-mail invalido.</span>
+                    </div>
+                </div>
+                <div id="telefoneError" style="display:none">
+                    <div class="alert alert-warning alert-with-icon alert-dismissible fade show"
+                        data-notify="container">
+                        <button type="button" aria-hidden="true" class="close" data-dismiss="alert" aria-label="Close">
+                            <i class="nc-icon nc-simple-remove"></i>
+                        </button>
+                        <span data-notify="icon" class="nc-icon nc-alert-circle-i"></span>
+                        <span data-notify="message">Telefone invalido.</span>
+                    </div>
+                </div>
+                <div id="enderecoError" style="display:none">
+                    <div class="alert alert-warning alert-with-icon alert-dismissible fade show"
+                        data-notify="container">
+                        <button type="button" aria-hidden="true" class="close" data-dismiss="alert" aria-label="Close">
+                            <i class="nc-icon nc-simple-remove"></i>
+                        </button>
+                        <span data-notify="icon" class="nc-icon nc-alert-circle-i"></span>
+                        <span data-notify="message">Endereço invalido.</span>
+                    </div>
+                </div>
+                <div id="cidadeError" style="display:none">
+                    <div class="alert alert-warning alert-with-icon alert-dismissible fade show"
+                        data-notify="container">
+                        <button type="button" aria-hidden="true" class="close" data-dismiss="alert" aria-label="Close">
+                            <i class="nc-icon nc-simple-remove"></i>
+                        </button>
+                        <span data-notify="icon" class="nc-icon nc-alert-circle-i"></span>
+                        <span data-notify="message">Cidade invalida.</span>
+                    </div>
+                </div>
+                <div id="paisError" style="display:none">
+                    <div class="alert alert-warning alert-with-icon alert-dismissible fade show"
+                        data-notify="container">
+                        <button type="button" aria-hidden="true" class="close" data-dismiss="alert" aria-label="Close">
+                            <i class="nc-icon nc-simple-remove"></i>
+                        </button>
+                        <span data-notify="icon" class="nc-icon nc-alert-circle-i"></span>
+                        <span data-notify="message">Pais invalido.</span>
+                    </div>
+                </div>
+                <div id="estadoError" style="display:none">
+                    <div class="alert alert-warning alert-with-icon alert-dismissible fade show"
+                        data-notify="container">
+                        <button type="button" aria-hidden="true" class="close" data-dismiss="alert" aria-label="Close">
+                            <i class="nc-icon nc-simple-remove"></i>
+                        </button>
+                        <span data-notify="icon" class="nc-icon nc-alert-circle-i"></span>
+                        <span data-notify="message">Estado invalido.</span>
+                    </div>
+                </div>
+                <div id="cepError" style="display:none">
+                    <div class="alert alert-warning alert-with-icon alert-dismissible fade show"
+                        data-notify="container">
+                        <button type="button" aria-hidden="true" class="close" data-dismiss="alert" aria-label="Close">
+                            <i class="nc-icon nc-simple-remove"></i>
+                        </button>
+                        <span data-notify="icon" class="nc-icon nc-alert-circle-i"></span>
+                        <span data-notify="message">CEP invalido.</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="card card-user">
+                            <div class="image">
+                                <img src="./assets/img/cover.jpg" alt="...">
+                            </div>
+                            <div class="card-body">
+                                <div class="author">
+                                    <img class="avatar border-gray" src="./assets/img/default-user.png" alt="...">
+                                    <h5 class="title">
+                                        <div id="user">Usuario</div>
+                                    </h5>
+                                    <p class="description">
+                                        <div id="cargo">Cargo (Turista/Admin/Amigo Nativo)</div>
+                                    </p>
+                                </div>
+                                <div id="botaoAmigoNativo"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="card card-user">
+                            <div class="card-header">
+                                <h5 class="card-title">Editar Perfil</h5>
+                            </div>
+                            <div class="card-body">
+                                <form>
+                                    <div class="row">
+                                        <div class="col-md-6 pr-1">
+                                            <div class="form-group">
+                                                <label>E-mail</label>
+                                                <div id="email"></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 pr-1">
+                                            <div class="form-group">
+                                                <label>Nome</label>
+                                                <div id="nome"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label>Telefone</label>
+                                                <div id="telefone"></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label>Endereço</label>
+                                                <div id="endereco"></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Estado</label>
+                                                <div id="estado"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-4 pr-1">
+                                            <div class="form-group">
+                                                <label>Cidade</label>
+                                                <div id="cidade"></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 px-1">
+                                            <div class="form-group">
+                                                <label>País</label>
+                                                <div id="pais"></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 pl-1">
+                                            <div class="form-group">
+                                                <label>Código Postal (CEP)</label>
+                                                <div id="cep"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12 pr-1">
+                                            <div class="form-group">
+                                                <label>Insira sua senha atual</label>
+                                                <input id="senha" name="senha" type="password" class="form-control"
+                                                    id="senha" size="200" maxlength="8" placeholder="Insira sua Senha"
+                                                >
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 px-1" style="display:none">
+                                            <div class="form-group">
+                                                <label>Insira sua nova senha (opcional)</label>
+                                                <input id="novasenha" name="novasenha" type="password"
+                                                    class="form-control" id="senha" size="200" maxlength="8"
+                                                    placeholder="Insira sua Senha">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="update ml-auto mr-auto">
+                                            <button type="submit" class="btn btn-primary btn-round">Atualizar
+                                                Perfil</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            $(document).ready(function () {
+                demo.initChartsPages();
+            });
+        </script>
+        <script src="./assets/js/navbar.js"></script>
+</body>
+
+</html>

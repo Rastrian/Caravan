@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,15 +16,20 @@
     <link
         href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,700|Monsterrat:400,700|Merriweather:400,300italic,700'
         rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="./assets/css/style.css">
+    <link href="./assets/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="icon" type="image/png" href="./assets/img/bird.png" />
 </head>
+<script src="./assets/main.js"></script>
 <body>
     <header class="">
-        <nav class="navbar navbar-expand-lg navbar-fixed-top navbar-light bg-light navbar-dark bg-dark nav justify-content-center">
+        <nav
+            class="navbar navbar-expand-lg navbar-fixed-top navbar-light bg-light navbar-dark bg-dark nav justify-content-center">
             <div class="container">
-                <a class="navbar-brand" href="index.html">CARAVAN</a>
+                <div class="logo">
+                    <a class="navbar-brand" href="./index.html">
+                    <img src="./assets/img/logo.png" width="225" height="120"></img>
+                    </a>
+                </div>
                 <button class="navbar-toggler" type="button" data-toggle="collapse"
                     data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                     aria-label="Toggle navigation">
@@ -31,15 +37,23 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mr-auto">
+                        <li class="nav-item text-center">
+                            <a class="nav-link " href="index.html">&nbsp Inicio</a>
+                        </li>
+                        <li class="nav-item text-center">
+                            <a class="nav-link" href="cadastro.html">&nbsp; Cadastre-se </a>
+                        </li>
                         <li class="nav-item active text-center">
-                            <a class="nav-link " href="index.html">&nbsp Home <span class="sr-only">(current)</span></a>
+                            <a class="nav-link" href="login.html" meta-target="_blank">&nbsp; Entrar </a>
                         </li>
                         <li class="nav-item text-center">
-                            <a class="nav-link" href="#sobre">&nbsp Problema com login? </a>
+                            <a class="nav-link" href="index.html#comoparticipar">&nbsp; Como Participar </a>
                         </li>
-
                         <li class="nav-item text-center">
-                            <a class="nav-link" href="cadastro.html">&nbsp Cadastre-se </a>
+                            <a class="nav-link" href="index.html#sobre">&nbsp; Sobre</a>
+                        </li>
+                        <li class="nav-item text-center">
+                            <a class="nav-link" href="index.html#contato">&nbsp; Contato </a>
                         </li>
                     </ul>
                 </div>
@@ -50,8 +64,79 @@
     <section id="login">
         <div class="container">
             <div class="row">
-                <div class="col-sm-7">
-                    <img class="img-fluid" src="img/familia.png" alt="">
+                <div class="col-12">
+                    <center>
+                      <div id="success" style="display:none">
+                        <div class="alert alert-success alert-with-icon alert-dismissible fade show"
+                          data-notify="container">
+                          <button type="button" aria-hidden="true" class="close" data-dismiss="alert"
+                            aria-label="Close">
+                            <i class="nc-icon nc-simple-remove"></i>
+                          </button>
+                          <span data-notify="icon" class="nc-icon nc-alert-circle-i"></span>
+                          <span data-notify="message">Seu login foi realizado.</br>Em segundos você será
+                            redirecionado(a) ao painel.</span>
+                        </div>
+                      </div>
+                      <div id="error" style="display:none">
+                        <div class="alert alert-danger alert-with-icon alert-dismissible fade show"
+                          data-notify="container">
+                          <button type="button" aria-hidden="true" class="close" data-dismiss="alert"
+                            aria-label="Close">
+                            <i class="nc-icon nc-simple-remove"></i>
+                          </button>
+                          <span data-notify="icon" class="nc-icon nc-alert-circle-i"></span>
+                          <span data-notify="message">Erro interno.</span>
+                        </div>
+                      </div>
+                      <div id="invalidpassword" style="display:none">
+                        <div class="alert alert-danger alert-with-icon alert-dismissible fade show"
+                          data-notify="container">
+                          <button type="button" aria-hidden="true" class="close" data-dismiss="alert"
+                            aria-label="Close">
+                            <i class="nc-icon nc-simple-remove"></i>
+                          </button>
+                          <span data-notify="icon" class="nc-icon nc-alert-circle-i"></span>
+                          <span data-notify="message">Senha invalida.</span>
+                        </div>
+                      </div>
+                      <div id="sameemailError" style="display:none">
+                        <div class="alert alert-danger alert-with-icon alert-dismissible fade show"
+                          data-notify="container">
+                          <button type="button" aria-hidden="true" class="close" data-dismiss="alert"
+                            aria-label="Close">
+                            <i class="nc-icon nc-simple-remove"></i>
+                          </button>
+                          <span data-notify="icon" class="nc-icon nc-alert-circle-i"></span>
+                          <span data-notify="message">E-mail não encontrado no sistema.</span>
+                        </div>
+                      </div>
+                      <div id="emailError" style="display:none">
+                        <div class="alert alert-warning alert-with-icon alert-dismissible fade show"
+                          data-notify="container">
+                          <button type="button" aria-hidden="true" class="close" data-dismiss="alert"
+                            aria-label="Close">
+                            <i class="nc-icon nc-simple-remove"></i>
+                          </button>
+                          <span data-notify="icon" class="nc-icon nc-alert-circle-i"></span>
+                          <span data-notify="message">E-mail invalido.</span>
+                        </div>
+                      </div>
+                      <div id="senhaError" style="display:none">
+                        <div class="alert alert-warning alert-with-icon alert-dismissible fade show"
+                          data-notify="container">
+                          <button type="button" aria-hidden="true" class="close" data-dismiss="alert"
+                            aria-label="Close">
+                            <i class="nc-icon nc-simple-remove"></i>
+                          </button>
+                          <span data-notify="icon" class="nc-icon nc-alert-circle-i"></span>
+                          <span data-notify="message">Senha invalida.</span>
+                        </div>
+                      </div>
+                    </center>
+                </div>
+                <div class="col-sm-6">
+                    <img class="img-fluid" src="./assets/img/default-caravana.png" alt="">
                 </div>
                 <div class="col-sm-5">
                     <h3> Que bom te ver novamente!<br> Pronto para mais uma aventura ?</h3>
@@ -59,19 +144,16 @@
                     <form action="">
                         <div class="form-group">
                             <label for="email">E-mail:</label>
-                            <input type="text" class="form-control" id="email" size="200"
-                                placeholder="Digite o seu email" required>
+                            <input id="email" name="email" type="text" class="form-control" id="email" size="200"
+                                placeholder="Insira seu E-mail" required>
                         </div>
                         <div class="form-group">
                             <label for="senha">Senha :</label>
-                            <input type="password" class="form-control" id="senha" size="200" maxlength="8"
-                                placeholder="Crie uma senha" required>
+                            <input id="senha" name="senha" type="password" class="form-control" id="senha" size="200" maxlength="8"
+                                placeholder="Insira sua Senha" required>
                             <br> <br>
                             <div class="text-center">
-                                <a href="locais.html">
-                                    <button type="button" class="btn btn-dark">&nbsp; &nbsp; Entrar &nbsp;
-                                        &nbsp;</button>
-                                </a>
+                                <input type="submit" class="btn btn-success" value="Entrar">
                             </div>
                     </form>
                     <br>
@@ -90,5 +172,9 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
     </script>
+    <script src="./assets/js/core/jquery.min.js"></script>
+    <script src="./assets/js/cookieman.js"></script>
+    <script src="./assets/js/auth.js"></script>
 </body>
+
 </html>
