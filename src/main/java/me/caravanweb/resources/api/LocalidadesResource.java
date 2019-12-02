@@ -1,7 +1,10 @@
 package me.caravanweb.resources.api;
 
+import me.caravanweb.profiles.Caravanas;
 import me.caravanweb.profiles.LocaisTuristicos;
+import me.caravanweb.services.CaravanasService;
 import me.caravanweb.services.LocalidadesService;
+import me.caravanweb.services.UsuarioService;
 
 import java.net.URI;
 import java.util.ArrayList;
@@ -24,8 +27,9 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 @CrossOrigin
 @RequestMapping(value = "/api/localidades")
 public class LocalidadesResource {
-	@Autowired
-	private LocalidadesService service;
+	@Autowired private LocalidadesService service;
+	@Autowired private CaravanasService servicec;
+	@Autowired private UsuarioService serviceu;
 	
 	@GetMapping
 	public ResponseEntity<List<LocaisTuristicos>> findAll() { 
@@ -64,8 +68,13 @@ public class LocalidadesResource {
     	LocaisTuristicos local = service.findById(id);
     	String body = "";
 		boolean status = service.delete(local);
+		ArrayList<Caravanas> caravanasOfLocal = servicec.findByLocalId(id);
+		for (Caravanas c : caravanasOfLocal) {
+			serviceu.cleanCaravanaUsers(c.getId());
+			servicec.delete(c);
+		}
 		if (status) {
-			body = "Deletado.";
+			body = "Deletado.";	
 		}
 		return ResponseEntity.ok().body(body);    
 	}

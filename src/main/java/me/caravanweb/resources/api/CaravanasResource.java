@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
@@ -50,6 +49,12 @@ public class CaravanasResource {
 	@PostMapping(value = "/register", consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseStatus(HttpStatus.CREATED)
 	public @ResponseBody ResponseEntity<String> create(@RequestBody Caravanas c){
+		if (c.getId() != null) {
+			Caravanas c_new = service.findById(c.getId());
+			if (c_new != null) {
+	    		service.delete(c);
+			}
+		}
 		String body =  service.add(c);
 		return ResponseEntity.ok().body(body);
 	}

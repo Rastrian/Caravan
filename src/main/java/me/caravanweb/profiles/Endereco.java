@@ -2,6 +2,7 @@ package me.caravanweb.profiles;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,42 +17,40 @@ public class Endereco implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Id
 	private Integer id;
-	private String endereco = "undefined";
-	private Long telefone = null;
-	private Long cep = null;
-	private String cidade = "undefined";
+	@Column(nullable=false) 
+	private String endereco;
+	@Column(nullable=false) 
+	private Long telefone;
+	@Column(nullable=false)
+	private String cidade;
+	@Column(nullable=false)
+	private String estado;
+	@Column(nullable=false)
+	private String pais;
+	@Column(nullable=false) 
+	private Long cep;
 
 	public Endereco() {
 	}
 	
 	@JsonIgnore
-	public Endereco(String endereco, Long telefone, Long cep, String cidade) {
+	public Endereco(String endereco, Long telefone, Long cep, String cidade, String estado, String pais) {
 		super();
-		this.endereco = endereco;
-		this.telefone = telefone;
-		this.cep = cep;
-		this.cidade = cidade;
+		setEndereco(endereco);
+		setTelefone(telefone);
+		setCEP(cep);
+		setCidade(cidade);
+		setEstado(estado);
+		setPais(pais);
+	}
+	
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public Integer getId() {
 		return id;
 	}
-
-	public Long getCep() {
-		return cep;
-	}
-
-	public void setCep(Long cep) {
-		this.cep = cep;
-	}
-
-	public Endereco(String endereco, long telefone, long cep, String cidade) {
-		this.endereco = endereco;
-		setTelefone(telefone);
-		setCEP(cep);
-		this.cidade = cidade;
-	}
-
 
 	public String getEndereco() {
 		return endereco;
@@ -61,12 +60,28 @@ public class Endereco implements Serializable {
 		return cidade;
 	}
 	
-	public long getTelefone() {
+	public Long getTelefone() {
 		return telefone;
 	}
 	
-	public long getCEP() {
+	public Long getCEP() {
 		return cep;
+	}
+	
+	public String getPais() {
+		return pais;
+	}
+	
+	public String getEstado() {
+		return estado;
+	}
+	
+	public void setPais(String pais) {
+		this.pais = pais;
+	}
+	
+	public void setEstado(String estado) {
+		this.estado = estado;
 	}
 	
 	public void setEndereco(String newEndereco) {
@@ -78,19 +93,11 @@ public class Endereco implements Serializable {
 	}
 	
 	public void setTelefone(Long newTelefone) {
-		if (newTelefone >= 10000000 && newTelefone <= 100000000) {
-			telefone = newTelefone;
-		} else {
-			telefone = null;
-		}
+		telefone = newTelefone;
 	}
 	
 	public void setCEP(Long newCEP) {
-		if (newCEP >= 10000000 && newCEP <= 100000000) {
-			cep = newCEP;
-		} else {
-			cep = null;
-		}
+		cep = newCEP;
 	}
 	
 	@Override
