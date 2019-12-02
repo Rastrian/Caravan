@@ -68,13 +68,13 @@ public class LocalidadesResource {
     	LocaisTuristicos local = service.findById(id);
     	String body = "";
 		boolean status = service.delete(local);
+		ArrayList<Caravanas> caravanasOfLocal = servicec.findByLocalId(id);
+		for (Caravanas c : caravanasOfLocal) {
+			serviceu.cleanCaravanaUsers(c.getId());
+			servicec.delete(c);
+		}
 		if (status) {
-			ArrayList<Caravanas> caravanasOfLocal = servicec.findByLocalId(id);
-			for (Caravanas c : caravanasOfLocal) {
-				serviceu.cleanCaravanaUsers(c.getId());
-				servicec.delete(c);
-			}
-			body = "Deletado.";
+			body = "Deletado.";	
 		}
 		return ResponseEntity.ok().body(body);    
 	}
