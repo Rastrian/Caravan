@@ -49,6 +49,12 @@ public class CaravanasResource {
 	@PostMapping(value = "/register", consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseStatus(HttpStatus.CREATED)
 	public @ResponseBody ResponseEntity<String> create(@RequestBody Caravanas c){
+		if (c.getId() != null) {
+			Caravanas c_new = service.findById(c.getId());
+			if (c_new != null) {
+	    		service.delete(c);
+			}
+		}
 		String body =  service.add(c);
 		return ResponseEntity.ok().body(body);
 	}
